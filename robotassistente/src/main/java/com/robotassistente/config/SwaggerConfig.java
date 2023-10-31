@@ -1,4 +1,4 @@
-package com.centromessaggistica.config;
+package com.robotassistente.config;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.service.Contact;

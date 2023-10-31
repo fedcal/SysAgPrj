@@ -1,4 +1,4 @@
-package com.robotmedico.controller;
+package com.robotassistente.controller;
 
 import lombok.Data;
 

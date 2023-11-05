@@ -1,4 +1,4 @@
-package com.robotassistente.esito.costants;
+package com.robotmedico.esito.costants;
 
 public enum SeveritaMessaggioEnum {
     INFO, WARNING, ERROR, PROPAGATED

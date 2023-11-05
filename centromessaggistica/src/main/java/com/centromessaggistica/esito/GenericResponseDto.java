@@ -1,4 +1,4 @@
-package com.centromessaggistica.esito;
+package com.robotmedico.esito;
 
 import lombok.Data;
 
@@ -6,5 +6,4 @@ import lombok.Data;
 public class GenericResponseDto<T> {
     private Esito esito;
     private T payload;
-
 }

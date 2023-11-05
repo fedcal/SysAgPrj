@@ -10,9 +10,8 @@ public class EsitoRuntimeException extends RuntimeException{
         super();
     }
 
-    public EsitoRuntimeException(String operationId, HttpStatus returnStatus) {
+    public EsitoRuntimeException(HttpStatus returnStatus) {
         super();
-        this.operationId = operationId;
         this.returnStatus = returnStatus;
 
     }

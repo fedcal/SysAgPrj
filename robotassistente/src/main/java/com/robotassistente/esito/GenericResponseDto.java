@@ -1,9 +1,9 @@
-package com.robotassistente.esito;
+package com.robotmedico.esito;
 
 import lombok.Data;
 
 @Data
-public class GenericResponseDto<T>{
+public class GenericResponseDto<T> {
     private Esito esito;
     private T payload;
 }

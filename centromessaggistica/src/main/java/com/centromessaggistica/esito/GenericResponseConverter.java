@@ -1,13 +1,12 @@
-package com.centromessaggistica.esito;
+package com.robotmedico.esito;
 
-import com.centromessaggistica.esito.costants.SeveritaMessaggioEnum;
-import com.centromessaggistica.exception.EsitoRuntimeException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.robotmedico.esito.costants.SeveritaMessaggioEnum;
+import com.robotmedico.exception.EsitoRuntimeException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenericResponseConverter {
     private final ObjectMapper objectMapper;
-    private final EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+
+    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
     public <T> GenericResponseDto<T> convertGenericResponse(Object response, Class<T> payloadClass) {
         try {
@@ -29,10 +29,9 @@ public class GenericResponseConverter {
         } catch (IOException e) {
             Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR).codMsg("ERR999").build();
             esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
-            throw new EsitoRuntimeException("generic", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     public <T> GenericResponseDto<List<T>> convertGenericResponseList(Object response, Class<T> payloadClass) {
         try {
@@ -42,9 +41,11 @@ public class GenericResponseConverter {
         } catch (IOException e) {
             Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR).codMsg("ERR999").build();
             esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
-            throw new EsitoRuntimeException("generic", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     public GenericResponseDto<Void> convertGenericResponse(InputStream inputStream) {
         try {
@@ -54,7 +55,7 @@ public class GenericResponseConverter {
         } catch (IOException e) {
             Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR).codMsg("ERR999").build();
             esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
-            throw new EsitoRuntimeException("generic", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

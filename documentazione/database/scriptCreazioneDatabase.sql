@@ -36,4 +36,55 @@ create table if not exists RepartoInfermiere(idRelazione int primary key, idInfe
 foreign key(idInfermiere) references Infermiere(idInfermiere), foreign key (idReparto) references Reparto(idReparto));
 
 -- PAZIENTE 
+create table if not exists Paziente (idPaziente int primary key, idReparto int, nome varchar(30), cognome varchar(30), dataNascita date,
+luogoNascita varchar(50),  provinciaNascita varchar(50), contattoRiferimento int, tipoAccount int, foreign key (idReparto) 
+references Reparto(idReparto), foreign key (contattoRiferimento) references ContattoRiferimento(idContatto), foreign key (tipoAccount) 
+references Profilo(idProfilo) );
 
+-- CARTELLA CLINICA
+create table if not exists CartellaClinica(idCartellaClinica int primary key, gruppoSanguigno varchar(3), idPaziente int, foreign key (idPAziente) 
+references Paziente(idPaziente));
+
+-- DIAGNOSI
+create table if not exists Diagnosi(idDiagnosi int primary key, idCartellaClinica int, tipoDiagnosi varchar(30), descrizione varchar(100), foreign key 
+(idCartellaClinica) references CartellaClinica(idCartellaClinica));
+
+-- ALLERGIA
+create table if not exists Allergia( idAllergia int primary key, idCartellaClinica int, tipoAllergia varchar(50), descrizione varchar(100), foreign key 
+(idCartellaClinica) references CartellaClinica(idCartellaClinica));
+
+-- REFERTO VISITA MEDICA
+create table if not exists RefertoVisitaMedica(idReferto int primary key, tipologia varchar(30), descrizione varchar(100), dataReferto date);
+
+-- REFERTO OPERAZIONE
+create table if not exists RefertoOperazione (idReferto int primary key, tipologia varchar(30), descrizione varchar(100), dataReferto date);
+
+-- MEDICINALE
+create table if not exists Medicinale (idMedicinale int primary key, nome varchar(30), descrizione varchar(100), dosaggio varchar(30));
+
+-- VISITA MEDICA
+create table if not exists VisitaMedica (idVisitaMedica int primary key, nome varchar(30), tipologia varchar(30), descrizione varchar(100));
+
+-- OPERAZIONE MEDICA
+create table if not exists OperazioneMedica (idOperazioneMedica int primary key, nome varchar(30), tipologia varchar(30), descrizione varchar(100));
+
+-- MEDICINALE CARTELLA
+create table if not exists MedicinaleCartella(idRelazione int primary key, idMedicinale int, idCartellaClinica int, foreign key (idMedicinale)
+references Medicinale(idMedicinale), foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica));
+
+-- VISITA MEDICA CARTELLA
+create table if not exists VisitaMedicaCartella (idRelazione int primary key, idVisitaMedica int, idCartella int, idReferto int, 
+foreign key (idVisitaMedica) references VisitaMedica(idVisitaMedica), 
+foreign key (idCartella) references CartellaClinica(idCartellaClinica),
+foreign key (idReferto) references RefertoVisitaMedica(idReferto));
+
+-- OPERAZIONE CARTELLA
+create table if not exists OperazioneCartella (idRelazione int primary key, idOperazione int, idCartella int, idReferto int,
+foreign key (idOperazione) references OperazioneMedica(idOperazioneMedica),
+foreign key (idCartella) references CartellaClinica(idCartellaClinica),
+foreign key (idReferto) references RefertoOperazione(idReferto)); 
+
+-- OPERAZIONE DOTTORE
+create table if not exists OperazioneDottore(idRelazione int primary key, idMedico int, idOperazione int, 
+foreign key (idMedico) references Medico(idMedico),
+foreign key (idOperazione) references OperazioneMedica(idOperazioneMedica));

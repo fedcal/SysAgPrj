@@ -8,7 +8,7 @@ cognome VARCHAR(100), numeroCellulare VARCHAR(20));
 -- Operazione Account
 CREATE TABLE IF NOT EXISTS OperazioneAccount(idOperazione INT PRIMARY KEY, nomeOperazione VARCHAR(30), descrizione VARCHAR(30));
 
--- Account
+-- PROFILO
 CREATE TABLE IF NOT EXISTS Profilo(idProfilo INT PRIMARY KEY, tipo VARCHAR(30), descrizione VARCHAR(100));
 
 -- OPERAZIONE CONSENTITA
@@ -85,6 +85,51 @@ foreign key (idCartella) references CartellaClinica(idCartellaClinica),
 foreign key (idReferto) references RefertoOperazione(idReferto)); 
 
 -- OPERAZIONE DOTTORE
-create table if not exists OperazioneDottore(idRelazione int primary key, idMedico int, idOperazione int, 
+create table if not exists OperazioneDottore(idRelazione int primary key, idMedico int, idOperazione int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
 foreign key (idMedico) references Medico(idMedico),
 foreign key (idOperazione) references OperazioneMedica(idOperazioneMedica));
+
+-- VISITA SOTTOMINISTRAZIONE INFERMIERE INFERMIERE
+create table if not exists VisitaSottoministrazioneInfermiere (idRelazione int primary key, idInfermiere int, idVisita int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key(idInfermiere) references Infermiere(idInfermiere),
+foreign key(idVisita) references VisitaMedica(idVisitaMedica));
+
+-- VISITA PRESCRIZIONE 
+create table if not exists VisitaPrescrizione (idRelazione int primary key, idMedico int, idVisita int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key(idMedico) references Medico(idMedico),
+foreign key(idVisita) references VisitaMedica(idVisitaMedica));
+
+-- MEDICINALE PRESCRIZIONE
+create table if not exists MedicinalePrescrizione (idRelazione int primary key, idMedico int, idMedicinale int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key(idMedico) references Medico(idMedico),
+foreign key(idMedicinale) references Medicinale(idMedicinale));
+
+-- MEDICINALE SOTTOMINNISTRAZIONE
+create table if not exists MedicinaleSottoministrazione (idRelazione int primary key, idInfermiere int, idMedicinale int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key(idInfermiere) references Infermiere(idInfermiere),
+foreign key(idMedicinale) references Medicinale(idMedicinale));
+
+-- SPECIALISTA
+create table if not exists Specialista(idSpecialista int primary key, nome varchar(30), cognome varchar(30), specializzazione varchar(50),
+tipoAccount int, foreign key(tipoAccount) references Profilo(idProfilo));
+
+-- VISITA SOTTOMINISTRAZIONE SPECIALISTA
+create table if not exists VisitaSottoministrazioneSpecialista(idRelazione int primary key, idSpecialista int, idCartellaClinica int, idVisita int,
+foreign key (idSpecialista) references Specialista(idSpecialista),
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key (idVisita) references VisitaMedica(idVisitaMedica));
+
+-- VISITA SOTTOMINISTRAZIONE MEDICO
+create table if not exists VisitaSottoministrazioneMedico(idRelazione int primary key, idMedico int, idCartellaClinica int, idVisita int,
+foreign key (idMedico) references Medico(idMedico),
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key (idVisita) references VisitaMedica(idVisitaMedica));
+
+
+
+

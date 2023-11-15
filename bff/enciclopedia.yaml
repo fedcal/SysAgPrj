@@ -1,0 +1,32 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8081
+    description: Generated server url
+paths:
+  /farmaci/lista:
+    get:
+      tags:
+        - medicinali-controller
+      summary: Recupero lista farmaci
+      description: API recupero lista comproprietari
+      operationId: getListaFarmaci
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  nomeFarmaco:
+                    type: string
+components:
+  schemas:
+    FarmaciDto:
+      type: object
+      properties:
+        nomeFarmaco:
+          type: string

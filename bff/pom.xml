@@ -94,7 +94,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<!--<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
 				<version>6.1.0</version>
@@ -110,12 +110,75 @@
 							<generatorName>spring</generatorName>
 							<apiPackage>com.enciclopedia.api</apiPackage>
 							<modelPackage>com.enciclopedia.model</modelPackage>
+							<invokerPackage>com.enciclopedia.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
 							<supportingFilesToGenerate>
 								ApiUtil.java
 							</supportingFilesToGenerate>
 							<configOptions>
 								<delegatePattern>true</delegatePattern>
 							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.41</version>
+				<executions>
+					<execution>
+						<id>generate-client-ms-omologazioneciclomotori</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/enciclopedia.yaml</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.enciclopedia.model</modelPackage>
+							<apiPackage>com.enciclopedia.api</apiPackage>
+							<invokerPackage>com.enciclopedia.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-client-ms-ciclomotori</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/enciclopedia.yaml</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.enciclopedia.model</modelPackage>
+							<apiPackage>com.enciclopedia.api</apiPackage>
+							<invokerPackage>com.enciclopedia.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
 						</configuration>
 					</execution>
 				</executions>

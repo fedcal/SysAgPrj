@@ -1,41 +1,28 @@
 package com.enciclopedia.entity;
 
-
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table(name = "Medicinale", schema = "VE")
+@Table( name = "Medicinale")
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+@RequiredArgsConstructor
 public class Medicinale {
     @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "idMedicinale", columnDefinition = "int")
-    @Schema(name = "Identificativo del medicinale")
+    @Column(name="idMedicinale")
     private Integer idMedicinale;
-
-    @Column(name = "nome", columnDefinition = "varchar(50)")
-    @Schema(name = "Nome del medicinale")
-    private String nomeMedicinale;
-
-    @Column(name = "descrizione", columnDefinition = "varchar(500)")
-    @Schema(name = "Descrizione del medicinale")
-    private String descrizioneMedicinale;
-
-    @Column(name = "controIndicazione", columnDefinition = "varchar(500)")
-    @Schema(name = "Identificativo del medicinale")
-    private String controIndicazione;
-
-    @Column(name = "tipoUso", columnDefinition = "varchar(20)")
-    @Schema(name = "Identificativo del medicinale")
-    private String tipoUso;
-
+    @Column(name="nome")
+    private String nome;
+    @Column(name="descrizione")
+    private String descrizione;
+    @Column(name="dosaggio")
+    private String dosaggio;
 }

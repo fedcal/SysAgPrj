@@ -130,6 +130,12 @@ foreign key (idMedico) references Medico(idMedico),
 foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
 foreign key (idVisita) references VisitaMedica(idVisitaMedica));
 
+-- OPERAZIONE SPECIALISTA
+create table if not exists OperazioneSpecialista(idRelazione int primary key, idSpecialista int, idOperazione int, idCartellaClinica int,
+foreign key (idCartellaClinica) references CartellaClinica(idCartellaClinica),
+foreign key (idSpecialista) references Specialista(idSpecialista),
+foreign key (idOperazione) references OperazioneMedica(idOperazioneMedica));
+
 
 
 

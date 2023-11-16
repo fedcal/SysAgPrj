@@ -25,12 +25,12 @@ public class ExternalApiClientConfig {
      * The Rest template.
      */
     private final RestTemplate restTemplate;
-    /*@Primary
+    @Primary
     @Bean
-    public it.dtt.bff.ciclomotori.msciclomotori.invoker.ApiClient msCiclomotoriApiClient() {
-        it.dtt.bff.ciclomotori.msciclomotori.invoker.ApiClient apiClient = new it.dtt.bff.ciclomotori.msciclomotori.invoker.ApiClient(restTemplate);
-        apiClient.setBasePath("http://localhost:8082");
+    public com.enciclopedia.invoker.ApiClient msCiclomotoriApiClient() {
+        com.enciclopedia.invoker.ApiClient apiClient = new com.enciclopedia.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8085");
         return apiClient;
-    }*/
+    }
 
 }

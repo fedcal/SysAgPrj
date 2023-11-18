@@ -1,18 +1,20 @@
 package com.enciclopedia.controller;
 
+import com.enciclopedia.dto.MedicinaleDto;
+import com.enciclopedia.dto.params.MedicinaleParams;
 import com.enciclopedia.entity.Medicinale;
 import com.enciclopedia.service.MedicinaleService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping( "/enciclopedia/medicinali")
+@RequestMapping( "/enciclopedia/medicinale")
 @Validated
 @RequiredArgsConstructor
 public class MedicinaleController {
@@ -20,8 +22,42 @@ public class MedicinaleController {
     private MedicinaleService service;
 
     @GetMapping("/all")
-    public List<Medicinale> getAllMedicinali(){
-        return service.findAllMedicinali();
+    public ResponseEntity<List<MedicinaleDto>> getAllMedicinali(){
+        return ResponseEntity.ok(service.findAllMedicinali());
+    }
+    @GetMapping("/info")
+    public ResponseEntity<MedicinaleDto> getInfoMedicinale(@RequestParam String nomeMedicinale){
+        return ResponseEntity.ok(service.findByNome(nomeMedicinale));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMedicinaleId(@PathParam("id") Integer idMedicinale){
+        boolean medicinaleEliminato = service.deleteMedicinale(idMedicinale);
+        if (medicinaleEliminato){
+            return ResponseEntity.ok("Medicinale eliminato");
+        }else {
+            return ResponseEntity.status(404).body("Medicinale non eliminato");
+        }
+    }
+    @DeleteMapping("/{nomeMedicinale}")
+    public ResponseEntity<String> deleteMedicinaleNome(@PathParam("nomeMedicinale") String nomeMedicinale){
+        boolean medicinaleEliminato = service.deleteMedicinaleByNome(nomeMedicinale);
+        if (medicinaleEliminato){
+            return ResponseEntity.ok("Medicinale eliminato");
+        }else {
+            return ResponseEntity.status(404).body("Medicinale non eliminato");
+        }
+    }
+
+    @PostMapping("/nuovo")
+    public ResponseEntity<Medicinale> addMedicinale(@RequestParam MedicinaleParams params){
+        return ResponseEntity.ok(service.addMedicinale(params));
+    }
+
+    @PostMapping("/modifica-info/{id}")
+    public ResponseEntity<Medicinale> modificaMedicinale(@PathParam("id") Integer idMedicinale,
+                                                         @RequestParam MedicinaleParams params){
+        return  ResponseEntity.ok(service.modificaMedicinalle(idMedicinale,params));
     }
 
 }

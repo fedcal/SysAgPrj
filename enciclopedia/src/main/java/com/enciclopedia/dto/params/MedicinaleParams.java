@@ -1,10 +1,9 @@
-package com.enciclopedia.dto;
+package com.enciclopedia.dto.params;
 
 import lombok.Data;
 
 @Data
-public class MedicinaleDto {
-    private Integer idMedicinale;
+public class MedicinaleParams {
     private String nome;
     private String descrizione;
     private String dosaggio;

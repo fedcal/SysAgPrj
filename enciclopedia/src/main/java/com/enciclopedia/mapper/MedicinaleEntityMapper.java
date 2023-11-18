@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface MedicinaleEntityMapper {
     MedicinaleEntityMapper INSTANCE = Mappers.getMapper( MedicinaleEntityMapper.class );
     Medicinale toEntity(MedicinaleDto entity);

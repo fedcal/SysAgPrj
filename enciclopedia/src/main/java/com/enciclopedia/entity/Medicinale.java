@@ -1,9 +1,6 @@
 package com.enciclopedia.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,11 +15,15 @@ import lombok.ToString;
 public class Medicinale {
     @Id
     @Column(name="idMedicinale")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Integer idMedicinale;
+
     @Column(name="nome")
     private String nome;
+
     @Column(name="descrizione")
     private String descrizione;
+
     @Column(name="dosaggio")
     private String dosaggio;
 }

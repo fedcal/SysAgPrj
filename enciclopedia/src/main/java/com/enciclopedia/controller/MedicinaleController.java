@@ -39,24 +39,15 @@ public class MedicinaleController {
             return ResponseEntity.status(404).body("Medicinale non eliminato");
         }
     }
-    @DeleteMapping("/{nomeMedicinale}")
-    public ResponseEntity<String> deleteMedicinaleNome(@PathParam("nomeMedicinale") String nomeMedicinale){
-        boolean medicinaleEliminato = service.deleteMedicinaleByNome(nomeMedicinale);
-        if (medicinaleEliminato){
-            return ResponseEntity.ok("Medicinale eliminato");
-        }else {
-            return ResponseEntity.status(404).body("Medicinale non eliminato");
-        }
-    }
 
     @PostMapping("/nuovo")
-    public ResponseEntity<Medicinale> addMedicinale(@RequestParam MedicinaleParams params){
+    public ResponseEntity<Medicinale> addMedicinale( MedicinaleParams params){
         return ResponseEntity.ok(service.addMedicinale(params));
     }
 
     @PostMapping("/modifica-info/{id}")
     public ResponseEntity<Medicinale> modificaMedicinale(@PathParam("id") Integer idMedicinale,
-                                                         @RequestParam MedicinaleParams params){
+                                                         MedicinaleParams params){
         return  ResponseEntity.ok(service.modificaMedicinalle(idMedicinale,params));
     }
 

@@ -66,7 +66,7 @@ public class MedicinaleService {
     }
 
     public Medicinale modificaMedicinalle(Integer idMedicinale, MedicinaleParams params) {
-        Optional<Medicinale> medicinale = repository.findByNome(params.getNome());
+        Optional<Medicinale> medicinale = repository.findById(idMedicinale);
         if(medicinale.isPresent()){
             return serviceConverter.modificaMedicinale(medicinale.get(),params);
         }else {

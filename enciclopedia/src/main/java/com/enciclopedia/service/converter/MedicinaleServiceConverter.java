@@ -51,10 +51,12 @@ public class MedicinaleServiceConverter {
         if(params.getNome()!=null){
             medicinale.setNome(params.getNome());
             modifica = true;
-        } else if (params.getDescrizione()!=null) {
+        }
+        if (params.getDescrizione()!=null) {
             medicinale.setDescrizione(params.getDescrizione());
             modifica = true;
-        }else if (params.getDosaggio()!=null) {
+        }
+        if (params.getDosaggio()!=null) {
             medicinale.setDosaggio(params.getDosaggio());
             modifica = true;
         }

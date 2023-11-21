@@ -3,15 +3,21 @@ package com.enciclopedia.esito;
 import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
 import com.enciclopedia.esito.costants.SeveritaMessaggioEnum;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Getter
+@Setter
 public class EsitoMessaggiRequestContextHolder {
     /**
      * The Messaggi.
      */
     private final List<Messaggio> messaggi = new ArrayList<>();
+
+    private  EsitoOperazioneEnum codRet;    //l’esito dell’operazione; EsitoOperazioneEnum
+    private  String operationId;
 
 
     /**
@@ -26,6 +32,8 @@ public class EsitoMessaggiRequestContextHolder {
         Esito esito = new Esito();
         esito.setCodRet(messaggi.stream().anyMatch(m -> SeveritaMessaggioEnum.WARNING.equals(m.getSeverita())) ? EsitoOperazioneEnum.WARNING : EsitoOperazioneEnum.OK);
         esito.setMessaggi(messaggi);
+        esito.setCodRet(codRet);
+        esito.setOperationId(operationId);
 
         GenericResponseDto<T> responseDto = new GenericResponseDto<>();
         responseDto.setEsito(esito);

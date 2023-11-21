@@ -6,24 +6,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "medicinale")
-@Table(name = "medicinale")
+import java.util.Set;
+
+@Entity(name = "sintomo")
+@Table(name = "sintomo")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Medicinale {
+public class Sintomo {
     @Id
-    @Column(name="id_medicinale")
+    @Column(name="id_sintomo")
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    private Integer idMedicinale;
+    private Integer idSintomo;
 
     @Column(name="nome")
     private String nome;
 
     @Column(name="descrizione")
     private String descrizione;
-
-    @Column(name="dosaggio")
-    private String dosaggio;
 }

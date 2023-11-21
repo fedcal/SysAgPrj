@@ -52,9 +52,9 @@ public class MedicinaleService {
 
     }
 
-    public Medicinale addMedicinale(MedicinaleParams params) {
+    public MedicinaleDto addMedicinale(MedicinaleParams params) {
         if(repository.findByNome(params.getNome()).isPresent()){
-            return new Medicinale();
+            return null;
         }else {
             MedicinaleDto toSave = new MedicinaleDto();
             toSave.setIdMedicinale(repository.findAll().size() + 1);
@@ -65,7 +65,7 @@ public class MedicinaleService {
         }
     }
 
-    public Medicinale modificaMedicinalle(Integer idMedicinale, MedicinaleParams params) {
+    public MedicinaleDto modificaMedicinalle(Integer idMedicinale, MedicinaleParams params) {
         Optional<Medicinale> medicinale = repository.findById(idMedicinale);
         if(medicinale.isPresent()){
             return serviceConverter.modificaMedicinale(medicinale.get(),params);

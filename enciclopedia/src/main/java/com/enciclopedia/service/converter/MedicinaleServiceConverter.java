@@ -3,10 +3,9 @@ package com.enciclopedia.service.converter;
 import com.enciclopedia.dto.MedicinaleDto;
 import com.enciclopedia.dto.params.MedicinaleParams;
 import com.enciclopedia.entity.Medicinale;
-import com.enciclopedia.mapper.MedicinaleDtoMapper;
-import com.enciclopedia.mapper.MedicinaleEntityMapper;
+import com.enciclopedia.mapper.medicinale.MedicinaleDtoMapper;
+import com.enciclopedia.mapper.medicinale.MedicinaleEntityMapper;
 import com.enciclopedia.repository.MedicinaleRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class MedicinaleServiceConverter {
     @Autowired
     private  MedicinaleRepository repository;
@@ -42,11 +40,11 @@ public class MedicinaleServiceConverter {
         }
     }
 
-    public Medicinale addMedicinale(MedicinaleDto params) {
-        return repository.save(MedicinaleEntityMapper.INSTANCE.toEntity(params));
+    public MedicinaleDto addMedicinale(MedicinaleDto params) {
+        return MedicinaleDtoMapper.INSTANCE.toDto(repository.save(MedicinaleEntityMapper.INSTANCE.toEntity(params)));
     }
 
-    public Medicinale modificaMedicinale(Medicinale medicinale, MedicinaleParams params) {
+    public MedicinaleDto modificaMedicinale(Medicinale medicinale, MedicinaleParams params) {
         boolean modifica = false;
         if(params.getNome()!=null){
             medicinale.setNome(params.getNome());
@@ -62,9 +60,9 @@ public class MedicinaleServiceConverter {
         }
         if (modifica){
             repository.deleteById(medicinale.getIdMedicinale());
-            return repository.save(medicinale);
+            return MedicinaleDtoMapper.INSTANCE.toDto(repository.save(medicinale));
         }else{
-            return new Medicinale();
+            return new MedicinaleDto();
         }
     }
 }

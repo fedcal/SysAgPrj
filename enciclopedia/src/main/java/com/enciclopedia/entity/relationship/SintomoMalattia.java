@@ -22,13 +22,13 @@ public class SintomoMalattia {
     @Embedded
     private SintomoMalattiaKey id;
     @ManyToOne
-    @MapsId("studentId")
-    @JoinColumn(name = "student_id")
+    @MapsId("malattia")
+    @JoinColumn(name = "id_malattia")
     private Malattia malattia;
 
     @ManyToOne
-    @MapsId("courseId")
-    @JoinColumn(name = "course_id")
+    @MapsId("sintomo")
+    @JoinColumn(name = "id_sintomo")
     private Sintomo sintomo;
 
 }

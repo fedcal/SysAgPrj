@@ -37,8 +37,8 @@ public class MedicinaleController {
         esitoMessaggiRequestContextHolder.setOperationId("getAllMedicinali");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.findAllMedicinali()));
     }
-    @GetMapping("/info")
-    public ResponseEntity<GenericResponseDto<MedicinaleDto>> getInfoMedicinale(@RequestParam String nomeMedicinale){
+    @GetMapping("/info/{nomeMedicinale}")
+    public ResponseEntity<GenericResponseDto<MedicinaleDto>> getInfoMedicinale(@PathParam("nomeMedicinale") String nomeMedicinale){
         MedicinaleDto response = service.findByNome(nomeMedicinale);
         if(response == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);

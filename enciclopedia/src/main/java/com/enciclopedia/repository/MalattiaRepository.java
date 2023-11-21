@@ -13,8 +13,5 @@ import java.util.Optional;
 public interface MalattiaRepository extends JpaRepository<Malattia, Integer> {
     Optional<Malattia> findByNome(String nome);
     @Transactional
-    @Query(value = "UPDATE Malattia m SET m.nome = :nuovoNome WHERE m.id = :id ",nativeQuery = true)
-    void changeNomeMalattia(@Param("nuovoNome") String nuovoNome,@Param("id") Integer idMalattia);
-    @Query("UPDATE malattia m SET m.descrizione = :nuovaDescrizione WHERE m.id = :id ")
-    void changeDescrizioneMalattia(@Param("nuovaDescrizione") String nuovaDescrizione,@Param("id") Integer idMalattia);
+    void deleteByNome(String nomeMalattia);
 }

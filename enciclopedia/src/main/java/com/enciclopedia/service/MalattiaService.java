@@ -81,4 +81,14 @@ public class MalattiaService {
             return null;
         }
     }
+
+    public String deleteMalattia(MalattiaInfoParams params) {
+        if(params.getIdMalattia()!=null){
+            repository.deleteById(params.getIdMalattia());
+            return "Malattia eliminata";
+        }else {
+            repository.deleteByNome(params.getNomeMalattia());
+            return "Malattia Eliminata";
+        }
+    }
 }

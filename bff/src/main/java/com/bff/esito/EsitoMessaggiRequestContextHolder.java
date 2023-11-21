@@ -4,15 +4,19 @@ import com.bff.esito.costants.EsitoOperazioneEnum;
 import com.bff.esito.costants.SeveritaMessaggioEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 @Getter
+@Setter
 public class EsitoMessaggiRequestContextHolder {
     /**
      * The Messaggi.
      */
     private final List<Messaggio> messaggi = new ArrayList<>();
+    private  EsitoOperazioneEnum codRet;    //l’esito dell’operazione; EsitoOperazioneEnum
+    private  String operationId;
 
 
     /**

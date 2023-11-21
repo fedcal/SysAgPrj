@@ -5,6 +5,7 @@ import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
 import com.bff.exception.EsitoRuntimeException;
+import com.enciclopedia.invoker.ApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,10 @@ public class ExternalApiClientConfig {
         com.enciclopedia.invoker.ApiClient apiClient = new com.enciclopedia.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8085");
         return apiClient;
+    }
+    @Bean
+    public ApiClient apiClient() {
+        return new ApiClient();
     }
 
 }

@@ -46,8 +46,15 @@ public class MalattiaController {
     @PutMapping("/change-info")
     public ResponseEntity<GenericResponseDto<MalattiaDto>> changeInfoMalattia(MalattiaChangeInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        esitoMessaggiRequestContextHolder.setOperationId("addMalattia");
+        esitoMessaggiRequestContextHolder.setOperationId("changeInfoMalattia");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.changeInfoMalattia(params)));
 
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<GenericResponseDto<String>> deleteMalattia(MalattiaInfoParams params){
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("deleteMalattia");
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.deleteMalattia(params)));
     }
 }

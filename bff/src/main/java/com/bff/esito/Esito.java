@@ -14,4 +14,5 @@ public class Esito {
      * The Messaggi.
      */
     private List<Messaggio> messaggi;    //l’array dove si trovano tutti i messaggi da visualizzare all’utente
+    private String operationId;    //codice univoco che identifica l’operazione
 }

@@ -2,7 +2,6 @@ package com.enciclopedia.mapper.malattia;
 
 import com.enciclopedia.dto.MalattiaDto;
 import com.enciclopedia.entity.Malattia;
-import com.enciclopedia.mapper.medicinale.MedicinaleDtoMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

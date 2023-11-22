@@ -2,9 +2,8 @@ package com.enciclopedia.controller;
 
 import com.enciclopedia.constants.WebContstants;
 import com.enciclopedia.dto.MedicinaleDto;
-import com.enciclopedia.dto.params.MedicinaleParams;
-import com.enciclopedia.entity.Medicinale;
-import com.enciclopedia.esito.Esito;
+import com.enciclopedia.dto.params.medicinale.MedicinaleInfoParams;
+import com.enciclopedia.dto.params.medicinale.MedicinaleParams;
 import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
 import com.enciclopedia.esito.GenericResponseDto;
 import com.enciclopedia.esito.Messaggio;
@@ -13,7 +12,6 @@ import com.enciclopedia.esito.costants.SeveritaMessaggioEnum;
 import com.enciclopedia.exception.EsitoRuntimeException;
 import com.enciclopedia.service.MedicinaleService;
 import jakarta.websocket.server.PathParam;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,25 +35,17 @@ public class MedicinaleController {
         esitoMessaggiRequestContextHolder.setOperationId("getAllMedicinali");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.findAllMedicinali()));
     }
-    @GetMapping("/info/{nomeMedicinale}")
-    public ResponseEntity<GenericResponseDto<MedicinaleDto>> getInfoMedicinale(@PathParam("nomeMedicinale") String nomeMedicinale){
-        MedicinaleDto response = service.findByNome(nomeMedicinale);
-        if(response == null){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-            esitoMessaggiRequestContextHolder.setOperationId("getInfoMedicinale");
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR).codMsg("Nessun dato trovato").build());
-            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
-        }else {
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.setOperationId("getInfoMedicinale");
-        }
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(response));
+    @GetMapping("/info")
+    public ResponseEntity<GenericResponseDto<MedicinaleDto>> getInfoMedicinale(MedicinaleInfoParams params){
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("getInfoMedicinale");
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.findInfoMedicinale(params)));
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<GenericResponseDto<String>> deleteMedicinaleId(@PathParam("id") Integer idMedicinale){
-        boolean medicinaleEliminato = service.deleteMedicinale(idMedicinale);
+    @DeleteMapping("/delete")
+    public ResponseEntity<GenericResponseDto<String>> deleteMedicinaleId(MedicinaleInfoParams params){
+        boolean medicinaleEliminato = service.deleteMedicinale(params);
         if (medicinaleEliminato){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             esitoMessaggiRequestContextHolder.setOperationId("deleteMedicinaleId");

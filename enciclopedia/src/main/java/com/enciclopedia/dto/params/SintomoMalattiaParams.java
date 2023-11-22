@@ -3,7 +3,7 @@ package com.enciclopedia.dto.params;
 import lombok.Data;
 
 @Data
-public class MalattiaInfoParams {
+public class SintomoMalattiaParams {
+    private Integer idSintomo;
     private Integer idMalattia;
-    private String nomeMalattia;
 }

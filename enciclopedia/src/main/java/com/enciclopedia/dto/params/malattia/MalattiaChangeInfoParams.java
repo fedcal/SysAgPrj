@@ -1,4 +1,4 @@
-package com.enciclopedia.dto.params;
+package com.enciclopedia.dto.params.malattia;
 
 import lombok.Data;
 

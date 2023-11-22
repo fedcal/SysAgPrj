@@ -2,13 +2,9 @@ package com.enciclopedia.service.converter;
 
 import com.enciclopedia.dto.MalattiaDto;
 import com.enciclopedia.entity.Malattia;
-import com.enciclopedia.entity.Medicinale;
 import com.enciclopedia.mapper.malattia.MalattiaDtoMapper;
 import com.enciclopedia.mapper.malattia.MalattiaEntityMapper;
-import com.enciclopedia.mapper.medicinale.MedicinaleDtoMapper;
-import com.enciclopedia.mapper.medicinale.MedicinaleEntityMapper;
 import com.enciclopedia.repository.MalattiaRepository;
-import com.enciclopedia.repository.MedicinaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

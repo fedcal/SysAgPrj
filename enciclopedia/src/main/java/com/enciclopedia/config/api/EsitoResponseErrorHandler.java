@@ -1,5 +1,6 @@
 package com.enciclopedia.config.api;
 
+
 import com.enciclopedia.esito.Esito;
 import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
 import com.enciclopedia.esito.GenericResponseConverter;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
+
+
 
 @Component
 @RequiredArgsConstructor

@@ -2,9 +2,9 @@ package com.enciclopedia.controller;
 
 import com.enciclopedia.constants.WebContstants;
 import com.enciclopedia.dto.MalattiaDto;
-import com.enciclopedia.dto.params.MalattiaChangeInfoParams;
-import com.enciclopedia.dto.params.MalattiaInfoParams;
-import com.enciclopedia.dto.params.MalattiaParams;
+import com.enciclopedia.dto.params.malattia.MalattiaChangeInfoParams;
+import com.enciclopedia.dto.params.malattia.MalattiaInfoParams;
+import com.enciclopedia.dto.params.malattia.MalattiaParams;
 import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
 import com.enciclopedia.esito.GenericResponseDto;
 import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
@@ -35,7 +35,7 @@ public class MalattiaController {
     public ResponseEntity<GenericResponseDto<MalattiaDto>> getMalattiaInfo(MalattiaInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getMalattiaInfo");
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.findMalattiaByName(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.findMalattiaInfo(params)));
     }
     @PostMapping("/add")
     public ResponseEntity<GenericResponseDto<MalattiaDto>> addMalattia(MalattiaParams params){

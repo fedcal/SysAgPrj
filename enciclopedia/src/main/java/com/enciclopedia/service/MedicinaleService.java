@@ -1,11 +1,17 @@
 package com.enciclopedia.service;
 
 import com.enciclopedia.dto.MedicinaleDto;
-import com.enciclopedia.dto.params.MedicinaleParams;
+import com.enciclopedia.dto.params.medicinale.MedicinaleInfoParams;
+import com.enciclopedia.dto.params.medicinale.MedicinaleParams;
 import com.enciclopedia.entity.Medicinale;
+import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
+import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
+import com.enciclopedia.exception.EsitoRuntimeException;
+import com.enciclopedia.mapper.medicinale.MedicinaleDtoMapper;
 import com.enciclopedia.repository.MedicinaleRepository;
 import com.enciclopedia.service.converter.MedicinaleServiceConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,43 +24,59 @@ public class MedicinaleService {
     private MedicinaleServiceConverter serviceConverter;
     @Autowired
     private MedicinaleRepository repository;
+    @Autowired
+    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
     public List<MedicinaleDto> findAllMedicinali(){
         return  serviceConverter.findAll();
     }
-
-    public MedicinaleDto findByNome(String nomeMedicinale) {
-        Optional<MedicinaleDto> medicinaleDto = serviceConverter.findByNome(nomeMedicinale);
+    public MedicinaleDto findInfoMedicinale(MedicinaleInfoParams params) {
+        Optional<Medicinale> medicinaleDto;
+        checkParamsMedicinale(params);
+        if(params.getNomeMedicinale()!=null)
+            medicinaleDto = repository.findByNome(params.getNomeMedicinale());
+        else
+            medicinaleDto = repository.findById(params.getIdMedicinale());
         if (medicinaleDto.isPresent()){
-            return medicinaleDto.get();
+            return MedicinaleDtoMapper.INSTANCE.toDto(medicinaleDto.get());
         }else{
-            return null;
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Il medicinale da te indicato non è presente");
+            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
     }
 
-    public boolean deleteMedicinale(Integer idMedicinale) {
-        if (repository.existsById(idMedicinale)) {
-            repository.deleteById(idMedicinale);
-            return true;
-        }else {
-            return false;
+    private void checkParamsMedicinale(MedicinaleInfoParams params) {
+        if (params.getIdMedicinale()==null || params.getNomeMedicinale()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Inserire un parametro valido.");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 
-    public boolean deleteMedicinaleByNome(String nomeMedicinale) {
-        Optional<MedicinaleDto> medicinaleDto = serviceConverter.findByNome(nomeMedicinale);
-        if (medicinaleDto.isPresent()){
-            repository.deleteById(medicinaleDto.get().getIdMedicinale());
-            return true;
-        }else{
-            return false;
+    public boolean deleteMedicinale(MedicinaleInfoParams params) {
+        checkParamsMedicinale(params);
+        try {
+            if (params.getIdMedicinale()!=null && repository.existsById(params.getIdMedicinale())) {
+                repository.deleteById(params.getIdMedicinale());
+                return true;
+            }else {
+                repository.deleteByNome(params.getNomeMedicinale());
+                return true;
+            }
+        }catch (IllegalArgumentException e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Inserire un parametro valido.");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
 
     }
 
     public MedicinaleDto addMedicinale(MedicinaleParams params) {
         if(repository.findByNome(params.getNome()).isPresent()){
-            return null;
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Elemento già presente");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }else {
             MedicinaleDto toSave = new MedicinaleDto();
             toSave.setIdMedicinale(repository.findAll().size() + 1);

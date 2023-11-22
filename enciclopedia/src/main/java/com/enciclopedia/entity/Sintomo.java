@@ -1,5 +1,6 @@
 package com.enciclopedia.entity;
 
+import com.enciclopedia.entity.relationship.SintomoMalattia;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,4 +26,5 @@ public class Sintomo {
 
     @Column(name="descrizione")
     private String descrizione;
+
 }

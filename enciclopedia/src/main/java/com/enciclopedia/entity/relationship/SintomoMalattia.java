@@ -17,18 +17,24 @@ import lombok.ToString;
 public class SintomoMalattia {
     @Id
     @Column(name="id_relazione")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idRelazione;
-    @Embedded
-    private SintomoMalattiaKey id;
+
+    @Column(name = "id_malattia")
+    private Integer idMalattia;
+
+    @Column(name = "id_sintomo")
+    private Integer idSintomo;
+
     @ManyToOne
-    @MapsId("malattia")
+    @MapsId("idMalattia")
     @JoinColumn(name = "id_malattia")
     private Malattia malattia;
 
     @ManyToOne
-    @MapsId("sintomo")
+    @MapsId("idSintomo")
     @JoinColumn(name = "id_sintomo")
     private Sintomo sintomo;
+
 
 }

@@ -1,12 +1,11 @@
 package com.enciclopedia.service.converter;
 
 import com.enciclopedia.dto.MedicinaleDto;
-import com.enciclopedia.dto.params.MedicinaleParams;
+import com.enciclopedia.dto.params.medicinale.MedicinaleParams;
 import com.enciclopedia.entity.Medicinale;
 import com.enciclopedia.mapper.medicinale.MedicinaleDtoMapper;
 import com.enciclopedia.mapper.medicinale.MedicinaleEntityMapper;
 import com.enciclopedia.repository.MedicinaleRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

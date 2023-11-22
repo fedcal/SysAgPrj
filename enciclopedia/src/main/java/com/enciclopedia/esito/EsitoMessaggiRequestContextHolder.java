@@ -4,7 +4,6 @@ import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
 import com.enciclopedia.esito.costants.SeveritaMessaggioEnum;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

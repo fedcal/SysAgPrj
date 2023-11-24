@@ -151,14 +151,14 @@ CREATE TABLE IF NOT EXISTS sintomo(id_sintomo INT PRIMARY KEY AUTO_INCREMENT, no
 CREATE TABLE IF NOT EXISTS malattia(id_malattia INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(50), descrizione VARCHAR(5000));
 
 -- SINTOMO MALATTIA
-CREATE TABLE IF NOT EXISTS sintomo_malattia(id_realazione INT PRIMARY KEY AUTO_INCREMENT, id_malattia INT, id_sintomo INT,
-FOREIGN KEY (id_malattia) REFERENCES malattia(id_malattia) ON DELETE CASCADE, 
-FOREIGN KEY (id_sintomo)  REFERENCES sintomo(id_sintomo) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS sintomo_malattia(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_malattia INT, id_sintomo INT,
+FOREIGN KEY (id_malattia) REFERENCES malattia(id_malattia), 
+FOREIGN KEY (id_sintomo)  REFERENCES sintomo(id_sintomo));
 
 -- MALATTIA CARTELLA
-CREATE TABLE IF NOT EXISTS malattia_cartella(id_realazione INT PRIMARY KEY AUTO_INCREMENT, id_malattia INT, id_cartella INT,
-FOREIGN KEY (id_malattia) REFERENCES malattia(id_malattia) ON DELETE CASCADE, 
-FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS malattia_cartella(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_malattia INT, id_cartella INT,
+FOREIGN KEY (id_malattia) REFERENCES malattia(id_malattia), 
+FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica));
 
 -- INSERIMENTO VALORI
 
@@ -320,7 +320,7 @@ INSERT INTO sintomo(id_sintomo,nome, descrizione) VALUES
 (58,'Vomito','');
 
 -- MALATTIA SINTOMO
-INSERT INTO sintomo_malattia(id_realazione, id_malattia, id_sintomo) VALUES
+INSERT INTO sintomo_malattia(id_relazione, id_malattia, id_sintomo) VALUES
 (1,1,165),
 (2,1,2),
 (3,1,3),

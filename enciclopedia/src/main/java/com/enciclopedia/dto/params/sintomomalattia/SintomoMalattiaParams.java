@@ -1,4 +1,4 @@
-package com.enciclopedia.dto.params;
+package com.enciclopedia.dto.params.sintomomalattia;
 
 import lombok.Data;
 

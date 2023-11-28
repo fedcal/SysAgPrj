@@ -1,7 +1,5 @@
-package com.enciclopedia.dto;
+package com.bff.dto.enciclopedia;
 
-import com.enciclopedia.entity.Malattia;
-import com.enciclopedia.entity.Sintomo;
 import lombok.Data;
 
 @Data

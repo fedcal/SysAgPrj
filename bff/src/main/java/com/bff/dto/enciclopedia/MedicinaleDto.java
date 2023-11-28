@@ -1,4 +1,4 @@
-package com.bff.dto;
+package com.bff.dto.enciclopedia;
 
 import lombok.Data;
 

@@ -1,24 +1,18 @@
 package com.bff.config.api;
 
-import com.bff.esito.Esito;
-import com.bff.esito.EsitoMessaggiRequestContextHolder;
-import com.bff.esito.GenericResponseConverter;
-import com.bff.esito.GenericResponseDto;
-import com.bff.exception.EsitoRuntimeException;
-import com.enciclopedia.invoker.ApiClient;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.DefaultResponseErrorHandler;
+
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-@Component
+@Configuration
 @RequiredArgsConstructor
 public class ExternalApiClientConfig {
 
@@ -28,14 +22,10 @@ public class ExternalApiClientConfig {
     private final RestTemplate restTemplate;
     @Primary
     @Bean
-    public com.enciclopedia.invoker.ApiClient msCiclomotoriApiClient() {
-        com.enciclopedia.invoker.ApiClient apiClient = new com.enciclopedia.invoker.ApiClient(restTemplate);
+    public com.bff.enciclopedia.invoker.ApiClient msCiclomotoriApiClient() {
+        com.bff.enciclopedia.invoker.ApiClient apiClient = new com.bff.enciclopedia.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8085");
         return apiClient;
-    }
-    @Bean
-    public ApiClient apiClient() {
-        return new ApiClient();
     }
 
 }

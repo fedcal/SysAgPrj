@@ -10,6 +10,7 @@ import com.enciclopedia.esito.GenericResponseDto;
 import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
 import com.enciclopedia.service.MalattiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class MalattiaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MalattiaDto>>> getAllMalattie(){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getAllMalattie");

@@ -17,11 +17,11 @@ FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE,
 FOREIGN KEY (operazione) REFERENCES operazione_account(id_operazione) ON DELETE CASCADE);
 
 -- MEDICO
-CREATE TABLE IF NOT EXISTS medico(id_medico INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), specializzazione VARCHAR(100), tipo_account INT,
+CREATE TABLE IF NOT EXISTS medico(id_medico INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), turno VARCHAR(500), tipo_account INT,
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE);
 
 -- INFERIMIERE
-CREATE TABLE IF NOT EXISTS infermiere(id_infermiere INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), tipo_account INT, 
+CREATE TABLE IF NOT EXISTS infermiere(id_infermiere INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), turno VARCHAR(500), tipo_account INT, 
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE);
 
 -- REPARTO
@@ -123,7 +123,7 @@ FOREIGN KEY(id_infermiere) REFERENCES infermiere(id_infermiere) ON DELETE CASCAD
 FOREIGN KEY(id_medicinale) REFERENCES medicinale(id_medicinale) ON DELETE CASCADE);
 
 -- SPECIALISTA
-CREATE TABLE IF NOT EXISTS specialista(id_specialista INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), specializzazione VARCHAR(50), tipo_account INT, 
+CREATE TABLE IF NOT EXISTS specialista(id_specialista INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), specializzazione VARCHAR(50),turno VARCHAR(500), tipo_account INT, 
 FOREIGN KEY(tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE);
 
 -- VISITA SOTTOMINISTRAZIONE SPECIALISTA

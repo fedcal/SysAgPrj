@@ -1,5 +1,3 @@
--- MALATTIE
-
 INSERT INTO malattia(id_malattia,nome,descrizione) VALUES 
 (1,'Acalasia','L''acalasia è un disturbo della motilità dell''esofago. Questa condizione è caratterizzata 
 da un''alterata peristalsi esofagea e dal mancato rilasciamento dello sfintere esofageo inferiore 

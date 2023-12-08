@@ -1,4 +1,4 @@
--- SINTOMI
+
 INSERT INTO sintomo(id_sintomo, nome, descrizione) VALUES 
 (1,'Abbassamento della voce',''),
 (2,'Abulia',''),

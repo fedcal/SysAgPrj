@@ -371,6 +371,4 @@ di una epatite sono generalmente aspecifici; spesso sfumati o addirittura assent
 e violenta (epatite fulminante, la cui prognosi infausta può essere rovesciata soltanto ricorrendo al trapianto d''organo).
 Talora è possibile riconoscere sintomi generali di tipo similinfluenzale (febbricola, malessere ecc). Sintomi più specifici
 possono insorgere negli stadi avanzati e includere: dolori addominali localizzati nella regione superiore destra dell''addome
-ed accentuati dalla palpazione, colorazione gialla della cute e delle sclere oculari (ittero).')
-
-;
+ed accentuati dalla palpazione, colorazione gialla della cute e delle sclere oculari (ittero).');

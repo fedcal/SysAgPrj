@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS contatto_riferimento(id_contatto INT PRIMARY KEY AUTO
 cognome VARCHAR(100), numero_cellulare VARCHAR(20));
 
 -- OPERAZIONE ACCOUNT
-CREATE TABLE IF NOT EXISTS operazione_account(id_operazione INT PRIMARY KEY AUTO_INCREMENT, nome_operazione VARCHAR(30), descrizione VARCHAR(30));
+CREATE TABLE IF NOT EXISTS operazione_account(id_operazione INT PRIMARY KEY AUTO_INCREMENT, nome_operazione VARCHAR(30), descrizione VARCHAR(500));
 
 -- PROFILO
 CREATE TABLE IF NOT EXISTS profilo(id_profilo INT PRIMARY KEY AUTO_INCREMENT, tipo VARCHAR(30), descrizione VARCHAR(100));
@@ -38,7 +38,7 @@ FOREIGN KEY(id_infermiere) REFERENCES infermiere(id_infermiere),
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE);
 
 -- PAZIENTE 
-CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita date,
+CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita DATE,
 luogoNascita VARCHAR(50),  provinciaNascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE,
 FOREIGN KEY (contatto_riferimento) REFERENCES contatto_riferimento(id_contatto) ON DELETE CASCADE,
@@ -49,22 +49,17 @@ CREATE TABLE IF NOT EXISTS cartella_clinica(id_cartella_clinica INT PRIMARY KEY 
 FOREIGN KEY (id_paziente) REFERENCES paziente(id_paziente) ON DELETE CASCADE);
 
 -- DIAGNOSI
-CREATE TABLE IF NOT EXISTS diagnosi(id_diagnosi INT PRIMARY KEY AUTO_INCREMENT, id_cartella_clinica INT, tipodiagnosi VARCHAR(30), descrizione VARCHAR(100),
+CREATE TABLE IF NOT EXISTS diagnosi(id_diagnosi INT PRIMARY KEY AUTO_INCREMENT, id_cartella_clinica INT, tipo_diagnosi VARCHAR(30), descrizione VARCHAR(100),
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE);
 
--- ALLERGIA
-CREATE TABLE IF NOT EXISTS allergia(id_allergia INT PRIMARY KEY AUTO_INCREMENT, tipo_allergia VARCHAR(50), descrizione VARCHAR(100));
-
--- ALLERGIA CARTELLA
-CREATE TABLE IF NOT EXISTS allergia_cartella(id_realazione INT PRIMARY KEY AUTO_INCREMENT, id_allergia INT, id_cartella INT,
-FOREIGN KEY (id_allergia) REFERENCES allergia(id_allergia) ON DELETE CASCADE, 
-FOREIGN KEY (id_cartella)  REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE);
-
 -- REFERTO VISITA MEDICA
-CREATE TABLE IF NOT EXISTS referto_visita_medica(id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto date);
+CREATE TABLE IF NOT EXISTS referto_visita_medica(id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
 
 -- REFERTO OPERAZIONE
-CREATE TABLE IF NOT EXISTS referto_operazione (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto date);
+CREATE TABLE IF NOT EXISTS referto_operazione (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
+
+-- REFERTO OPERAZIONE SPECIALISTA
+CREATE TABLE IF NOT EXISTS referto_operazione_specialista (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
 
 -- MEDICINALE
 CREATE TABLE IF NOT EXISTS medicinale (id_medicinale INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), descrizione VARCHAR(100), dosaggio VARCHAR(30));
@@ -139,10 +134,11 @@ FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinic
 FOREIGN KEY (id_visita) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE);
 
 -- OPERAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS Operazionespecialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT,
+CREATE TABLE IF NOT EXISTS Operazionespecialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (id_specialista) REFERENCES specialista(id_specialista) ON DELETE CASCADE,
-FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE);
+FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
+FOREIGN KEY (id_referto_operazione_specialistaid_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
 
 -- SINTOMO
 CREATE TABLE IF NOT EXISTS sintomo(id_sintomo INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100), descrizione VARCHAR(5000));

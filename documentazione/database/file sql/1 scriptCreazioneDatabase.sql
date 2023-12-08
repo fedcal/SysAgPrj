@@ -129,11 +129,11 @@ FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinic
 FOREIGN KEY (id_visita) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE);
 
 -- OPERAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS Operazionespecialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
+CREATE TABLE IF NOT EXISTS operazione_specialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (id_specialista) REFERENCES specialista(id_specialista) ON DELETE CASCADE,
 FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
-FOREIGN KEY (id_referto_operazione_specialistaid_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
+FOREIGN KEY (id_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
 
 -- SINTOMO
 CREATE TABLE IF NOT EXISTS sintomo(id_sintomo INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100), descrizione VARCHAR(5000));

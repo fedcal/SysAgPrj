@@ -82,16 +82,11 @@ FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DE
 FOREIGN KEY (id_referto) REFERENCES referto_visita_medica(id_referto) ON DELETE CASCADE);
 
 -- OPERAZIONE CARTELLA
-CREATE TABLE IF NOT EXISTS operazione_cartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_operazione INT, id_cartella INT, id_referto INT,
+CREATE TABLE IF NOT EXISTS operazione_cartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_operazione INT, id_cartella INT, id_referto INT, id_medico INT,
 FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
 FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_referto) REFERENCES referto_operazione(id_referto) ON DELETE CASCADE); 
-
--- OPERAZIONE DOTTORE
-CREATE TABLE IF NOT EXISTS operazione_dottore(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_medico INT, id_operazione INT, id_cartella_clinica INT,
-FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE CASCADE,
-FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE);
+FOREIGN KEY (id_referto) REFERENCES referto_operazione(id_referto) ON DELETE CASCADE,
+FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE CASCADE); 
 
 -- VISITA SOTTOMINISTRAZIONE INFERMIERE
 CREATE TABLE IF NOT EXISTS visita_sottoministrazione_infermiere (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_infermiere INT, id_visita INT, id_cartella_clinica INT,

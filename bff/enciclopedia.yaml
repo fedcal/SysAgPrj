@@ -1,0 +1,627 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8085
+    description: Generated server url
+paths:
+  /enciclopedia/sintomo/change:
+    put:
+      tags:
+        - sintomo-controller
+      operationId: changeSintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoChangeParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /enciclopedia/sintomo/add:
+    put:
+      tags:
+        - sintomo-controller
+      operationId: addSintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /enciclopedia/sintomo-malattia/modify:
+    put:
+      tags:
+        - sintomo-malattia-controller
+      operationId: modifySintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoMalattiaChangeParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /enciclopedia/malattia/change-info:
+    put:
+      tags:
+        - malattia-controller
+      operationId: changeInfoMalattia
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MalattiaChangeInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /enciclopedia/sintomo-malattia/add:
+    post:
+      tags:
+        - sintomo-malattia-controller
+      operationId: addSintomo_1
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoMalattiaParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /enciclopedia/medicinale/nuovo:
+    post:
+      tags:
+        - medicinale-controller
+      operationId: addMedicinale
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MedicinaleParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /enciclopedia/medicinale/modifica-info/{id}:
+    post:
+      tags:
+        - medicinale-controller
+      operationId: modificaMedicinale
+      parameters:
+        - name: idMedicinale
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MedicinaleParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /enciclopedia/malattia/add:
+    post:
+      tags:
+        - malattia-controller
+      operationId: addMalattia
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MalattiaParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /enciclopedia/sintomo/info:
+    get:
+      tags:
+        - sintomo-controller
+      operationId: getInfoSintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /enciclopedia/sintomo/all:
+    get:
+      tags:
+        - sintomo-controller
+      operationId: getAll
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoDto'
+  /enciclopedia/sintomo-malattia/info:
+    get:
+      tags:
+        - sintomo-malattia-controller
+      operationId: infoSintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoMalattiaParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /enciclopedia/sintomo-malattia/all:
+    get:
+      tags:
+        - sintomo-malattia-controller
+      operationId: getAllSintomoMalattia
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoMalattiaDto'
+  /enciclopedia/medicinale/info:
+    get:
+      tags:
+        - medicinale-controller
+      operationId: getInfoMedicinale
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MedicinaleInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /enciclopedia/medicinale/all:
+    get:
+      tags:
+        - medicinale-controller
+      operationId: getAllMedicinali
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicinaleDto'
+  /enciclopedia/malattia/info:
+    get:
+      tags:
+        - malattia-controller
+      operationId: getMalattiaInfo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MalattiaInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /enciclopedia/malattia/all:
+    get:
+      tags:
+        - malattia-controller
+      operationId: getAllMalattie
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMalattiaDto'
+  /enciclopedia/sintomo/delete:
+    delete:
+      tags:
+        - sintomo-controller
+      operationId: deleteSintomo
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /enciclopedia/sintomo-malattia/delete:
+    delete:
+      tags:
+        - sintomo-malattia-controller
+      operationId: deleteSintomo_1
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SintomoMalattiaParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /enciclopedia/medicinale/delete:
+    delete:
+      tags:
+        - medicinale-controller
+      operationId: deleteMedicinaleId
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MedicinaleInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /enciclopedia/malattia/delete:
+    delete:
+      tags:
+        - malattia-controller
+      operationId: deleteMalattia
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MalattiaInfoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+components:
+  schemas:
+    SintomoChangeParams:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        nomeSintomo:
+          type: string
+        descrizioneNuova:
+          type: string
+        nomeSintomoNuovo:
+          type: string
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoSintomoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SintomoDto'
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    SintomoDto:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    SintomoParams:
+      type: object
+      properties:
+        nomeSintomo:
+          type: string
+        descrizioneSintomo:
+          type: string
+    SintomoMalattiaChangeParams:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        idMalattia:
+          type: integer
+          format: int32
+        idSintomo:
+          type: integer
+          format: int32
+        newIdMalattia:
+          type: integer
+          format: int32
+        newIdSitnomo:
+          type: integer
+          format: int32
+    GenericResponseDtoSintomoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SintomoMalattiaDto'
+    Malattia:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    Sintomo:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    SintomoMalattiaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        idMalattia:
+          type: integer
+          format: int32
+        idSintomo:
+          type: integer
+          format: int32
+        sintomo:
+          $ref: '#/components/schemas/Sintomo'
+        malattia:
+          $ref: '#/components/schemas/Malattia'
+    MalattiaChangeInfoParams:
+      type: object
+      properties:
+        nome:
+          type: string
+        id:
+          type: integer
+          format: int32
+        nuovoNome:
+          type: string
+        nuovaDescrizione:
+          type: string
+    GenericResponseDtoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MalattiaDto'
+    MalattiaDto:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    SintomoMalattiaParams:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        idMalattia:
+          type: integer
+          format: int32
+    MedicinaleParams:
+      type: object
+      properties:
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dosaggio:
+          type: string
+    GenericResponseDtoMedicinaleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinaleDto'
+    MedicinaleDto:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dosaggio:
+          type: string
+    MalattiaParams:
+      type: object
+      properties:
+        nome:
+          type: string
+        descrizione:
+          type: string
+    SintomoInfoParams:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        nomeSintomo:
+          type: string
+    GenericResponseDtoListSintomoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/SintomoDto'
+    GenericResponseDtoListSintomoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/SintomoMalattiaDto'
+    MedicinaleInfoParams:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nomeMedicinale:
+          type: string
+    GenericResponseDtoListMedicinaleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleDto'
+    MalattiaInfoParams:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nomeMalattia:
+          type: string
+    GenericResponseDtoListMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaDto'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string

@@ -1,6 +1,7 @@
 package com.msinfo.entity.reparto;
 
 import com.msinfo.entity.medici.Medico;
+import com.msinfo.entity.pazienti.Paziente;
 import com.msinfo.entity.relantionentities.RepartoMedico;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Reparto {
 
     @Column(name = "nome_reparto")
     private String nomeReparto;
+
     @Column(name = "descrizione")
     private String descrizione;
 
@@ -30,5 +32,8 @@ public class Reparto {
 
     @OneToMany(mappedBy = "reparto")
     private Set<RepartoMedico> repartoMedicoSet;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="reparto")
+    private Set<Paziente> repartoPazienteSet;
 
 }

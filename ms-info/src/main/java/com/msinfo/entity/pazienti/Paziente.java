@@ -23,22 +23,22 @@ public class Paziente {
     @Column(name = "data_nascita")
     private String dataNascita;
 
-    @Column(name = "luogo_nascita")
+    @Column(name = "luogoNascita")
     private String luogoNascita;
 
-    @Column(name = "provincia_nascita")
+    @Column(name = "provinciaNascita")
     private String provinciaNascita;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contatto_riferimento", referencedColumnName = "id_contatto")
     private ContattoRiferimento contattoRiferimento;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_reparto", referencedColumnName = "id_reparto")
     private Reparto reparto;
 
-    @ManyToOne
-    @JoinColumn(name="tipo_account", referencedColumnName = "id_profilo")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
 }

@@ -12,6 +12,5 @@ public class RepartoDto {
     private String nomeReparto;
     private String descrizione;
     private String alaReparto;
-    private Medico capoReparto;
-    private Set<RepartoMedico> repartoMedicoSet;
+    private MedicoDto capoReparto;
 }

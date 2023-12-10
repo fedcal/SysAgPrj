@@ -24,8 +24,8 @@ public class Specialista {
     @Column(name = "turno")
     private String turno;
 
-    @ManyToOne
-    @JoinColumn(name="id_profilo")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
 }

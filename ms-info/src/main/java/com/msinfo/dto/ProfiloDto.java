@@ -14,9 +14,4 @@ public class ProfiloDto {
     private Integer idProfilo;
     private String tipo;
     private String descrizione;
-    private Set<OperazioneConsentita> operazioneConsentitaSet;
-    private Set<Medico> medici;
-    private Set<Infermiere> infermieri;
-    private Set<Specialista> specialisti;
-    private Set<Paziente> pazienti;
 }

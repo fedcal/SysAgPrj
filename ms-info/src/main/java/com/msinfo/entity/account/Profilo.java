@@ -25,18 +25,18 @@ public class Profilo {
     @Column(name = "descrizione")
     private String descrizione;
 
-    @OneToMany(mappedBy = "profilo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "profilo")
     private Set<OperazioneConsentita> operazioneConsentitaSet;
 
-    @OneToMany(mappedBy="profilo")
-    private Set<Medico> medici;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
+    private Set<Medico> medico;
 
-    @OneToMany(mappedBy="profilo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Infermiere> infermieri;
 
-    @OneToMany(mappedBy="profilo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Specialista> specialisti;
 
-    @OneToMany(mappedBy="profilo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Paziente> pazienti;
 }

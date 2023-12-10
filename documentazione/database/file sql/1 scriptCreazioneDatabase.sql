@@ -39,7 +39,7 @@ FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE);
 
 -- PAZIENTE 
 CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita DATE,
-luogoNascita VARCHAR(50),  provinciaNascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
+luogo_nascita VARCHAR(50),  provincia_nascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE,
 FOREIGN KEY (contatto_riferimento) REFERENCES contatto_riferimento(id_contatto) ON DELETE CASCADE,
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo));

@@ -10,6 +10,6 @@ import java.util.List;
 @Mapper
 public interface ProfiloDtoMapper {
     ProfiloDtoMapper INSTANCE = Mappers.getMapper(ProfiloDtoMapper.class);
-    ProfiloDto toDto(Profilo dto);
-    List<ProfiloDto> toDto(List<Profilo> dto);
+    ProfiloDto toDto(Profilo entity);
+    List<ProfiloDto> toDto(List<Profilo> entity);
 }

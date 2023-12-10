@@ -11,6 +11,6 @@ import java.util.List;
 public interface SintomoMalattiaDtoMapper {
     SintomoMalattiaDtoMapper INSTANCE = Mappers.getMapper(SintomoMalattiaDtoMapper.class);
 
-    SintomoMalattiaDto toDto(SintomoMalattia entity);
-    List<SintomoMalattiaDto> toDto(List<SintomoMalattia> entity);
+    SintomoMalattiaDto toDto(SintomoMalattia dto);
+    List<SintomoMalattiaDto> toDto(List<SintomoMalattia> dto);
 }

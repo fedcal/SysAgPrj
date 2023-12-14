@@ -3,17 +3,11 @@ package com.enciclopedia.entity.relationship;
 import com.enciclopedia.entity.Malattia;
 import com.enciclopedia.entity.Sintomo;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name = "sintomo_malattia")
 @Table(name = "sintomo_malattia")
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 public class SintomoMalattia {
     @Id
     @Column(name="id_relazione")

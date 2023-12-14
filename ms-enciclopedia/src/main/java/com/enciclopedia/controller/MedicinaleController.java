@@ -12,6 +12,7 @@ import com.enciclopedia.esito.costants.SeveritaMessaggioEnum;
 import com.enciclopedia.exception.EsitoRuntimeException;
 import com.enciclopedia.service.MedicinaleService;
 import jakarta.websocket.server.PathParam;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class MedicinaleController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<GenericResponseDto<String>> deleteMedicinaleId(MedicinaleInfoParams params){
+    public ResponseEntity<GenericResponseDto<String>> deleteMedicinaleId(@ParameterObject MedicinaleInfoParams params){
         boolean medicinaleEliminato = service.deleteMedicinale(params);
         if (medicinaleEliminato){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
@@ -59,7 +60,7 @@ public class MedicinaleController {
     }
 
     @PostMapping("/nuovo")
-    public ResponseEntity<GenericResponseDto<MedicinaleDto>> addMedicinale( MedicinaleParams params){
+    public ResponseEntity<GenericResponseDto<MedicinaleDto>> addMedicinale(@ParameterObject MedicinaleParams params){
         MedicinaleDto response = service.addMedicinale(params);
         if(response == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -75,8 +76,8 @@ public class MedicinaleController {
     }
 
     @PostMapping("/modifica-info/{id}")
-    public ResponseEntity<GenericResponseDto<MedicinaleDto>> modificaMedicinale(@PathParam("id") Integer idMedicinale,
-                                                         MedicinaleParams params){
+    public ResponseEntity<GenericResponseDto<MedicinaleDto>> modificaMedicinale(@ParameterObject @PathParam("id") Integer idMedicinale,
+                                                                                @ParameterObject MedicinaleParams params){
         MedicinaleDto response = service.modificaMedicinalle(idMedicinale,params);
         if(response == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);

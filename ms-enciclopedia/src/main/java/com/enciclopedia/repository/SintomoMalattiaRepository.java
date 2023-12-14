@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface SintomoMalattiaRepository extends JpaRepository<SintomoMalattia,Integer> {
-    @Query("Select sm from sintomo_malattia sm where sm.idSintomo = :idSintomo")
+    @Query("select sm from sintomo_malattia sm where sm.idSintomo = :idSintomo")
     List<SintomoMalattia> findBySintomo(@Param("idSintomo") Integer idSintomo);
 }

@@ -9,6 +9,7 @@ import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
 import com.enciclopedia.esito.GenericResponseDto;
 import com.enciclopedia.esito.costants.EsitoOperazioneEnum;
 import com.enciclopedia.service.SintomoService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,27 +32,27 @@ public class SintomoController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.getAll()));
     }
     @PutMapping("/add")
-    public ResponseEntity<GenericResponseDto<SintomoDto>> addSintomo(SintomoParams params){
+    public ResponseEntity<GenericResponseDto<SintomoDto>> addSintomo(@ParameterObject SintomoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.addSintomo(params)));
     }
 
     @GetMapping("/info")
-    public ResponseEntity<GenericResponseDto<SintomoDto>> getInfoSintomo(SintomoInfoParams params){
+    public ResponseEntity<GenericResponseDto<SintomoDto>> getInfoSintomo(@ParameterObject SintomoInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getInfoSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.getInfo(params)));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<GenericResponseDto<String>> deleteSintomo(SintomoInfoParams params){
+    public ResponseEntity<GenericResponseDto<String>> deleteSintomo(@ParameterObject SintomoInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("deleteSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.deleteSintomo(params)));
     }
     @PutMapping("/change")
-    public ResponseEntity<GenericResponseDto<SintomoDto>> changeSintomo(SintomoChangeParams params){
+    public ResponseEntity<GenericResponseDto<SintomoDto>> changeSintomo(@ParameterObject SintomoChangeParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("changeSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.changeSintomo(params)));

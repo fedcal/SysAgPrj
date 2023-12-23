@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 public interface ContattoRiferimentoDtoMapper {
-    ContattoRiferimentoEntityMapper INTERFACE = Mappers.getMapper(ContattoRiferimentoEntityMapper.class);
+    ContattoRiferimentoDtoMapper INTERFACE = Mappers.getMapper(ContattoRiferimentoDtoMapper.class);
 
     ContattoRiferimentoDto toDto(ContattoRiferimento entity);
     List<ContattoRiferimentoDto> toDto(List<ContattoRiferimento> entity);

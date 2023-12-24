@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = WebConstants.REST_CONTEX_STRING+"/reparto")
+@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/reparto")
 public class RepartoController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -34,7 +34,7 @@ public class RepartoController {
             @ApiResponse(responseCode = "404", description = "Informazioni non trovate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/all",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/all",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<RepartoDto>>> getAllReparto(){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.findAll()));
     }
@@ -46,7 +46,7 @@ public class RepartoController {
             @ApiResponse(responseCode = "404", description = "Informazioni non trovate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/info",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/info",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<RepartoDto>> getInfoReparto(@ParameterObject RicercaRepartoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.findReparto(params)));
     }
@@ -58,7 +58,7 @@ public class RepartoController {
             @ApiResponse(responseCode = "400", description = "Errore nell'eliminazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @DeleteMapping(value = "/delete",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value ="/delete",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> deleteReparto(@ParameterObject RicercaRepartoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.deleteReparto(params)));
     }
@@ -70,8 +70,10 @@ public class RepartoController {
             @ApiResponse(responseCode = "400", description = "Errore nella modifica"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value = "/modifica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<RepartoDto>> modificaRepartoInfo(@ParameterObject ModificaRepartoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.modificaReparto(params)));
     }
+
+    //TODO Aggiungere /add
 }

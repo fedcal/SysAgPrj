@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = WebConstants.REST_CONTEX_STRING+"/profilo")
+@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/profilo")
 public class ProfiloController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -34,7 +34,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "404", description = "Ricerca non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<ProfiloDto>>> getAll(){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.getAll()));
     }
@@ -46,7 +46,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "404", description = "Ricerca non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/getInfo/{id}")
+    @GetMapping(value ="/getProfilo/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ProfiloDto>> getInfo(@ParameterObject @PathVariable Integer id){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.getInfo(id)));
     }
@@ -57,7 +57,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "404", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value = "/add")
+    @PostMapping(value ="/add",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ProfiloDto>> addProfilo(@ParameterObject @PathVariable ProfiloAggiuntaParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.aggiuntaProfilo(params)));
     }
@@ -70,7 +70,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "404", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value = "/add")
+    @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ProfiloDto>> modify(@ParameterObject @PathVariable ProfiloAggiornamentoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.modifcaProfilo(params)));
     }

@@ -1,11 +1,16 @@
 package com.msinfo.dto.params.profilo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class ProfiloAggiornamentoParams {
+    @Schema(description = "Id del profilo da aggiornare")
     private Integer idProfilo;
 
+    @Schema(description = "Nuovo tipo di profilo")
     private String nuovoTipo;
-    private String nuovoDescrizione;
+
+    @Schema(description = "Nuova descrizione del profilo")
+    private String nuovaDescrizione;
 }

@@ -91,7 +91,13 @@ public class ProfiloService {
     }
 
     public ProfiloDto modifcaProfilo(ProfiloAggiornamentoParams params) {
-        ProfiloDto profilo = checkProfiloExists(null,params.getIdProfilo());
-
+        ProfiloDto profiloModificato = checkProfiloExists(null,params.getIdProfilo());
+        if(params.getNuovoTipo()!=null){
+            profiloModificato.setTipo(params.getNuovoTipo());
+        }
+        if(params.getNuovaDescrizione()!=null){
+            profiloModificato.setDescrizione(params.getNuovaDescrizione());
+        }
+        return ProfiloDtoMapper.INSTANCE.toDto(profiloRepository.save(ProfiloEntityMapper.INSTANCE.toEntity(profiloModificato)));
     }
 }

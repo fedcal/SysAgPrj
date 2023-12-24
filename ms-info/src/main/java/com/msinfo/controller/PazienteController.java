@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = WebConstants.REST_CONTEX_STRING+"/paziente")
+@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/paziente")
 public class PazienteController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -35,7 +35,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/findAll",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAll(){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.findAll()));
     }
@@ -47,7 +47,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "404", description = "Ricerca non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/search",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/searchPazienti",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<PazienteDto>>> search(@ParameterObject PazienteSearchParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.searchPaziente(params)));
     }
@@ -59,7 +59,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "400", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value ="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> deletePaziente(@ParameterObject @PathVariable Integer id){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.deleteById(id)));
     }
@@ -72,7 +72,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "400", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping("/add")
+    @PostMapping(value ="/aggiungi",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<PazienteDto>> addPaziente(@ParameterObject AddPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.addPaziente(params)));
     }
@@ -84,7 +84,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "400", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping("/modify")
+    @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<PazienteDto>> modifyPaziente(@ParameterObject ModificaPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.modificaPaziente(params)));
     }

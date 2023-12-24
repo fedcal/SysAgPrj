@@ -1,0 +1,1016 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8085
+    description: Generated server url
+paths:
+  /ms-enciclopedia/sintomo/modify:
+    put:
+      tags:
+        - sintomo-controller
+      summary: Modificare le informazioni di un sintomo
+      description: Restituisce il sintomo modificato
+      operationId: changeSintomo
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: nomeSintomo
+          in: query
+          description: Nome sintomo
+          required: false
+          schema:
+            type: string
+            description: Nome sintomo
+        - name: descrizioneNuova
+          in: query
+          description: Nuova descrizione
+          required: false
+          schema:
+            type: string
+            description: Nuova descrizione
+        - name: nomeSintomoNuovo
+          in: query
+          description: Nuovo nome
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome
+      responses:
+        '200':
+          description: Informazioni modificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '400':
+          description: Informazioni non modificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /ms-enciclopedia/sintomo/add:
+    put:
+      tags:
+        - sintomo-controller
+      summary: Aggiungere un nuovo sintomo
+      description: Restituisce il sintomo aggiunto
+      operationId: addSintomo
+      parameters:
+        - name: nomeSintomo
+          in: query
+          description: Nome sintomo
+          required: false
+          schema:
+            type: string
+            description: Nome sintomo
+        - name: descrizioneSintomo
+          in: query
+          description: Descrizione sintomo
+          required: false
+          schema:
+            type: string
+            description: Descrizione sintomo
+      responses:
+        '200':
+          description: Sintomo aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '400':
+          description: Sintomo non aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /ms-enciclopedia/sintomo-malattia/modify:
+    put:
+      tags:
+        - sintomo-malattia-controller
+      summary: Modificare una relazione
+      description: Restituisce la relazione modificata
+      operationId: modifySintomo
+      parameters:
+        - name: idRelazione
+          in: query
+          description: Id relazione
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id relazione
+        - name: idMalattia
+          in: query
+          description: Id Malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id Malattia
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: newIdMalattia
+          in: query
+          description: Nuovo id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Nuovo id malattia
+        - name: newIdSitnomo
+          in: query
+          description: Nuovo id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Nuovo id sintomo
+      responses:
+        '200':
+          description: Relazione modificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '400':
+          description: Relazione non modificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /ms-enciclopedia/malattia/change-info:
+    put:
+      tags:
+        - malattia-controller
+      summary: Modificare le informazioni di una malattia
+      description: Restituisce le informazioni modificate
+      operationId: changeInfoMalattia
+      parameters:
+        - name: nome
+          in: query
+          description: Nome malattia
+          required: false
+          schema:
+            type: string
+            description: Nome malattia
+        - name: id
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+        - name: nuovoNome
+          in: query
+          description: Nome nuovo della malattia
+          required: false
+          schema:
+            type: string
+            description: Nome nuovo della malattia
+        - name: nuovaDescrizione
+          in: query
+          description: Descrizione nuova della malattia
+          required: false
+          schema:
+            type: string
+            description: Descrizione nuova della malattia
+      responses:
+        '200':
+          description: Informazioni modificate correttamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '400':
+          description: Informazioni non modificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /ms-enciclopedia/sintomo-malattia/add:
+    post:
+      tags:
+        - sintomo-malattia-controller
+      summary: Aggiungere una relazione tra un sintromo e una malattia
+      description: Restituisce la relazzione aggiunta
+      operationId: addSintomo_1
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+      responses:
+        '200':
+          description: Relazione aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '400':
+          description: Relazione non aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /ms-enciclopedia/medicinale/modify/{id}:
+    post:
+      tags:
+        - medicinale-controller
+      summary: Modificare le informazioni di un medicinale
+      description: Restituisce il medicinale modificato
+      operationId: modificaMedicinale
+      parameters:
+        - name: id
+          in: path
+          description: Id medicinale
+          required: true
+          schema:
+            type: string
+            description: Id medicinale
+        - name: nome
+          in: query
+          description: Nome medicinale
+          required: false
+          schema:
+            type: string
+            description: Nome medicinale
+        - name: descrizione
+          in: query
+          description: Descrizione medicinale
+          required: false
+          schema:
+            type: string
+            description: Descrizione medicinale
+        - name: dosaggio
+          in: query
+          description: Dosaggio medicinale
+          required: false
+          schema:
+            type: string
+            description: Dosaggio medicinale
+      responses:
+        '200':
+          description: Informazioni modificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '400':
+          description: Informazioni non modificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /ms-enciclopedia/medicinale/add:
+    post:
+      tags:
+        - medicinale-controller
+      summary: Aggiungere le informazioni di un nuovo medicinale
+      description: Restituisce il medicinale aggiunto
+      operationId: addMedicinale
+      parameters:
+        - name: nome
+          in: query
+          description: Nome medicinale
+          required: false
+          schema:
+            type: string
+            description: Nome medicinale
+        - name: descrizione
+          in: query
+          description: Descrizione medicinale
+          required: false
+          schema:
+            type: string
+            description: Descrizione medicinale
+        - name: dosaggio
+          in: query
+          description: Dosaggio medicinale
+          required: false
+          schema:
+            type: string
+            description: Dosaggio medicinale
+      responses:
+        '200':
+          description: Informazioni aggiunte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '400':
+          description: Informazioni non aggiunte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /ms-enciclopedia/malattia/add:
+    post:
+      tags:
+        - malattia-controller
+      summary: Aggiungere le informazioni di una nuova malattia
+      description: Restituisce la malattia aggiunta
+      operationId: addMalattia
+      parameters:
+        - name: nome
+          in: query
+          description: Nome malattia
+          required: false
+          schema:
+            type: string
+            description: Nome malattia
+        - name: descrizione
+          in: query
+          description: Descrizione malattia
+          required: false
+          schema:
+            type: string
+            description: Descrizione malattia
+      responses:
+        '200':
+          description: Informazioni aggiunte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '400':
+          description: Informazioni non aggiunte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /ms-enciclopedia/sintomo/info:
+    get:
+      tags:
+        - sintomo-controller
+      summary: Ottenere le informazioni di un sintomo
+      description: Restituisce le infomazioni del sintomo selezionato
+      operationId: getInfoSintomo
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: nomeSintomo
+          in: query
+          description: Nome sintomo
+          required: false
+          schema:
+            type: string
+            description: Nome sintomo
+      responses:
+        '200':
+          description: Informazioni trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoDto'
+  /ms-enciclopedia/sintomo/all:
+    get:
+      tags:
+        - sintomo-controller
+      summary: Ottenere le informazioni di tutti i sintomi
+      description: Restituisce la lista di tutti i sintomi
+      operationId: getAll
+      responses:
+        '200':
+          description: Ottenute tutte le informazioni
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoDto'
+        '400':
+          description: Informazioni non ottenute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoDto'
+  /ms-enciclopedia/sintomo-malattia/info:
+    get:
+      tags:
+        - sintomo-malattia-controller
+      summary: Ottenere una relazione tra sinotmi e malattie
+      description: Restituisce la relazioni
+      operationId: infoSintomo
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+      responses:
+        '200':
+          description: Relazioni ottenute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '404':
+          description: Relazioni non ottenute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+  /ms-enciclopedia/sintomo-malattia/all:
+    get:
+      tags:
+        - sintomo-malattia-controller
+      summary: Ottenere tutte le relazioni tra sinotmi e malattie
+      description: Restituisce tutte le relazioni in una lista
+      operationId: getAllSintomoMalattia
+      responses:
+        '200':
+          description: Relazioni ottenute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoMalattiaDto'
+        '404':
+          description: Relazioni non ottenute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSintomoMalattiaDto'
+  /ms-enciclopedia/medicinale/info:
+    get:
+      tags:
+        - medicinale-controller
+      summary: Ottenere le informazioni del medicinale
+      description: Restituisce le informazioni del medicinale
+      operationId: getInfoMedicinale
+      parameters:
+        - name: params
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MedicinaleInfoParams'
+      responses:
+        '200':
+          description: Informazioni del medicinale
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '404':
+          description: Informazioni non presenti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleDto'
+  /ms-enciclopedia/medicinale/all:
+    get:
+      tags:
+        - medicinale-controller
+      summary: Ottenere la lista dei medicinali
+      description: Restituisce la lista dei medicinali con le relative informazioni
+      operationId: getAllMedicinali
+      responses:
+        '200':
+          description: Informazioni trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicinaleDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicinaleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicinaleDto'
+  /ms-enciclopedia/malattia/info:
+    get:
+      tags:
+        - malattia-controller
+      summary: Recuperare le informazioni della malattia selezionata
+      description: Restituisce le informazioni della malattia selezionata
+      operationId: getMalattiaInfo
+      parameters:
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+        - name: nomeMalattia
+          in: query
+          description: Nome malattia
+          required: false
+          schema:
+            type: string
+            description: Nome malattia
+      responses:
+        '200':
+          description: Recupero informazioni andato a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaDto'
+  /ms-enciclopedia/malattia/all:
+    get:
+      tags:
+        - malattia-controller
+      summary: Recuperare le informazioni di tutte le malattie
+      description: Restituisce le informazioni di tutte le malattie
+      operationId: getAllMalattie
+      responses:
+        '200':
+          description: Recupero informazioni andato a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMalattiaDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMalattiaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMalattiaDto'
+  /ms-enciclopedia/sintomo/delete:
+    delete:
+      tags:
+        - sintomo-controller
+      summary: Eliminare un sintomo
+      description: Restituisce il riusltato dell'operazione
+      operationId: deleteSintomo
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: nomeSintomo
+          in: query
+          description: Nome sintomo
+          required: false
+          schema:
+            type: string
+            description: Nome sintomo
+      responses:
+        '200':
+          description: Sintomo eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Sintomo non eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-enciclopedia/sintomo-malattia/delete:
+    delete:
+      tags:
+        - sintomo-malattia-controller
+      summary: Eliminare una relazione
+      description: Restituisce il riusltato dell'operazione
+      operationId: deleteSintomo_1
+      parameters:
+        - name: idSintomo
+          in: query
+          description: Id sintomo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id sintomo
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+      responses:
+        '200':
+          description: Relazione eliminata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Relazione non eliminata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-enciclopedia/medicinale/delete:
+    delete:
+      tags:
+        - medicinale-controller
+      summary: Eliminare un medicinale
+      description: Restituisce l'esito dell'operazione
+      operationId: deleteMedicinaleId
+      parameters:
+        - name: idMedicinale
+          in: query
+          description: Id medicinale
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id medicinale
+        - name: nomeMedicinale
+          in: query
+          description: Nome medicinale
+          required: false
+          schema:
+            type: string
+            description: Nome medicinale
+      responses:
+        '200':
+          description: Medicinale eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore, medicinale non eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-enciclopedia/malattia/delete:
+    delete:
+      tags:
+        - malattia-controller
+      summary: Elimina una malattia
+      description: Restituisce l'esito della cancellazione
+      operationId: deleteMalattia
+      parameters:
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Id malattia
+        - name: nomeMalattia
+          in: query
+          description: Nome malattia
+          required: false
+          schema:
+            type: string
+            description: Nome malattia
+      responses:
+        '200':
+          description: Restituisce l'esito dell'operazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+components:
+  schemas:
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoSintomoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SintomoDto'
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    SintomoDto:
+      type: object
+      properties:
+        idSintomo:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    GenericResponseDtoSintomoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SintomoMalattiaDto'
+    MalattiaDto:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    SintomoMalattiaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        idMalattia:
+          type: integer
+          format: int32
+        idSintomo:
+          type: integer
+          format: int32
+        sintomo:
+          $ref: '#/components/schemas/SintomoDto'
+        malattia:
+          $ref: '#/components/schemas/MalattiaDto'
+    GenericResponseDtoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MalattiaDto'
+    GenericResponseDtoMedicinaleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinaleDto'
+    MedicinaleDto:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dosaggio:
+          type: string
+    GenericResponseDtoListSintomoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/SintomoDto'
+    GenericResponseDtoListSintomoMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/SintomoMalattiaDto'
+    MedicinaleInfoParams:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          description: Id medicinale
+          format: int32
+        nomeMedicinale:
+          type: string
+          description: Nome medicinale
+    GenericResponseDtoListMedicinaleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleDto'
+    GenericResponseDtoListMalattiaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaDto'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string

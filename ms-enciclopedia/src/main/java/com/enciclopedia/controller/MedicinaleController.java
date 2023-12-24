@@ -120,7 +120,7 @@ public class MedicinaleController {
     @PostMapping(value = "/modify/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicinaleDto>> modificaMedicinale(@ParameterObject @Schema(description = "Id medicinale")
                                                                                 @PathParam("id") Integer idMedicinale,
-                                                                                @ParameterObject MedicinaleParams params){
+                                                                                @RequestBody @ParameterObject MedicinaleParams params){
         MedicinaleDto response = service.modificaMedicinalle(idMedicinale,params);
         if(response == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);

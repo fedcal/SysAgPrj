@@ -282,7 +282,8 @@ paths:
           description: Id medicinale
           required: true
           schema:
-            type: string
+            type: integer
+            format: int32
             description: Id medicinale
         - name: nome
           in: query
@@ -558,11 +559,21 @@ paths:
       description: Restituisce le informazioni del medicinale
       operationId: getInfoMedicinale
       parameters:
-        - name: params
+        - name: idMedicinale
           in: query
-          required: true
+          description: Id medicinale
+          required: false
           schema:
-            $ref: '#/components/schemas/MedicinaleInfoParams'
+            type: integer
+            format: int32
+            description: Id malattia
+        - name: nomeMedicinale
+          in: query
+          description: Nome medicinale
+          required: false
+          schema:
+            type: string
+            description: Nome malattia
       responses:
         '200':
           description: Informazioni del medicinale

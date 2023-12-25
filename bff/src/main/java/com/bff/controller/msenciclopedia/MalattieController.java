@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(WebContstants.REST_CONTEX_STRING+"/enciclopedia")
+@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_ENCICLOPEDIA+"/malattie")
 public class MalattieController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class MalattieController {
             @ApiResponse(responseCode = "404", description = "Informazioni non trovate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/malattie/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MalattiaDto>>> getAllMalattie(){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getAllMalattie");
@@ -52,7 +52,7 @@ public class MalattieController {
             @ApiResponse(responseCode = "404", description = "Informazioni non trovate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping("/malattie/info")
+    @GetMapping("/info")
     public ResponseEntity<GenericResponseDto<MalattiaDto>> getMalattiaInfo(@ParameterObject MalattiaInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getMalattiaInfo");
@@ -66,7 +66,7 @@ public class MalattieController {
             @ApiResponse(responseCode = "400", description = "Informazioni non aggiunte"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping("/malattie/add")
+    @PostMapping("/add")
     public ResponseEntity<GenericResponseDto<MalattiaDto>> addMalattia(@ParameterObject MalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addMalattia");
@@ -80,7 +80,7 @@ public class MalattieController {
             @ApiResponse(responseCode = "400", description = "Informazioni non modificate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PutMapping("/malattie/change-info")
+    @PutMapping("/change-info")
     public ResponseEntity<GenericResponseDto<MalattiaDto>> changeInfoMalattia(@ParameterObject MalattiaChangeInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("changeInfoMalattia");
@@ -95,7 +95,7 @@ public class MalattieController {
             @ApiResponse(responseCode = "400", description = "Operazione non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @DeleteMapping("/malattie/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<GenericResponseDto<String>> deleteMalattia(@ParameterObject MalattiaInfoParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("deleteMalattia");

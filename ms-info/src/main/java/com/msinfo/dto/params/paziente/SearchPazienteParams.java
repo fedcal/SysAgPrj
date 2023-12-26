@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class PazienteSearchParams {
+public class SearchPazienteParams {
     @Schema(description = "Id del paziente", example = "1")
     private Integer idPaziente;
 

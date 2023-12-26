@@ -33,28 +33,28 @@ public class SintomoMalattiaService {
 
     public SintomoMalattiaDto addSintomo(SintomoMalattiaParams params) {
         GenericResponseDto<SintomoMalattiaDto> addSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.addSintomo1(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
+                sintomoMalattiaControllerApi.addSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(addSintomo.getEsito().getMessaggi());
         return addSintomo.getPayload();
     }
 
     public SintomoMalattiaDto infoSintomo(SintomoMalattiaParams params) {
         GenericResponseDto<SintomoMalattiaDto> infoSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.infoSintomo(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
+                sintomoMalattiaControllerApi.infoSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(infoSintomo.getEsito().getMessaggi());
         return infoSintomo.getPayload();
     }
 
     public String deleteSintomoRelation(SintomoMalattiaParams params) {
         GenericResponseDto<String> infoSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.deleteSintomo1(params.getIdSintomo(), params.getIdMalattia()),String.class);
+                sintomoMalattiaControllerApi.deleteSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),String.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(infoSintomo.getEsito().getMessaggi());
         return infoSintomo.getPayload();
     }
 
     public SintomoMalattiaDto modifySintomo(SintomoMalattiaChangeParams params) {
         GenericResponseDto<SintomoMalattiaDto> infoSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.modifySintomo(params.getIdRelazione(), params.getIdMalattia(),
+                sintomoMalattiaControllerApi.modifySintomoMalattia(params.getIdRelazione(), params.getIdMalattia(),
                         params.getIdSintomo(), params.getNewIdMalattia(), params.getNewIdSitnomo()),SintomoMalattiaDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(infoSintomo.getEsito().getMessaggi());
         return infoSintomo.getPayload();

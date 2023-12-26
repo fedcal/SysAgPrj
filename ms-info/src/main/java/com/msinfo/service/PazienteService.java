@@ -5,7 +5,7 @@ import com.msinfo.dto.PazienteDto;
 import com.msinfo.dto.RepartoDto;
 import com.msinfo.dto.params.paziente.AddPazienteParams;
 import com.msinfo.dto.params.paziente.ModificaPazienteParams;
-import com.msinfo.dto.params.paziente.PazienteSearchParams;
+import com.msinfo.dto.params.paziente.SearchPazienteParams;
 import com.msinfo.entity.pazienti.ContattoRiferimento;
 import com.msinfo.entity.pazienti.Paziente;
 import com.msinfo.entity.reparto.Reparto;
@@ -59,13 +59,10 @@ public class PazienteService {
         }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                .codMsg("Elenco pazienti").build());
-        esitoMessaggiRequestContextHolder.setOperationId("findAll");
         return PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findAll());
     }
 
-    public List<PazienteDto> searchPaziente(PazienteSearchParams params) {
+    public List<PazienteDto> searchPaziente(SearchPazienteParams params) {
         List<PazienteDto> pazienteDtoList = null;
 
         if(params.getNome()!=null && params.getCognome()!=null){
@@ -112,9 +109,6 @@ public class PazienteService {
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Lista di pazienti").build());
-            esitoMessaggiRequestContextHolder.setOperationId("searchPaziente");
             return pazienteDtoList;
         }
     }
@@ -129,9 +123,6 @@ public class PazienteService {
         }
         try{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Paziente eliminato.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("deleteById");
             pazienteRepository.deleteById(id);
             return "Paziente eliminato";
         }catch (IllegalArgumentException e){

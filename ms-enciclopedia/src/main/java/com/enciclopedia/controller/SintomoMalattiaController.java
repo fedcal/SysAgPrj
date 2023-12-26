@@ -53,7 +53,7 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> addSintomo(@ParameterObject SintomoMalattiaParams params){
+    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> addSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.addSintomo(params)));
@@ -67,7 +67,7 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> infoSintomo(@ParameterObject SintomoMalattiaParams params){
+    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> infoSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("infoSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.infoSintomo(params)));
@@ -81,7 +81,7 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> deleteSintomo(@ParameterObject SintomoMalattiaParams params){
+    public ResponseEntity<GenericResponseDto<String>> deleteSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("deleteSintomodeleteSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.deleteSintomoRelation(params)));
@@ -95,7 +95,7 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PutMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> modifySintomo(@ParameterObject SintomoMalattiaChangeParams params){
+    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> modifySintomoMalattia(@ParameterObject SintomoMalattiaChangeParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("modifySintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.modifySintomo(params)));

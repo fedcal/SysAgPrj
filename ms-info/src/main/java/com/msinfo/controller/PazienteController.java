@@ -4,7 +4,7 @@ import com.msinfo.constants.WebConstants;
 import com.msinfo.dto.PazienteDto;
 import com.msinfo.dto.params.paziente.AddPazienteParams;
 import com.msinfo.dto.params.paziente.ModificaPazienteParams;
-import com.msinfo.dto.params.paziente.PazienteSearchParams;
+import com.msinfo.dto.params.paziente.SearchPazienteParams;
 import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfo.esito.GenericResponseDto;
 import com.msinfo.service.PazienteService;
@@ -35,7 +35,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @RequestMapping(value ="/findAll",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @GetMapping(value ="/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAll(){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.findAll()));
     }
@@ -48,7 +48,7 @@ public class PazienteController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/searchPazienti",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> search(@ParameterObject PazienteSearchParams params){
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> search(@ParameterObject SearchPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.searchPaziente(params)));
     }
 

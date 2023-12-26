@@ -2,6 +2,7 @@ package com.msinfo.controller;
 
 import com.msinfo.constants.WebConstants;
 import com.msinfo.dto.RepartoDto;
+import com.msinfo.dto.params.reparto.AddRepartoParams;
 import com.msinfo.dto.params.reparto.ModificaRepartoParams;
 import com.msinfo.dto.params.reparto.RicercaRepartoParams;
 import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
@@ -76,4 +77,15 @@ public class RepartoController {
     }
 
     //TODO Aggiungere /add
+    @Operation(summary = "Modifica informazioni reparto",
+            description = "Restituisce il reparto modificato")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Modifica andata a buon fine"),
+            @ApiResponse(responseCode = "400", description = "Errore nella modifica"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/add",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<RepartoDto>> addReparto(@ParameterObject AddRepartoParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.aggiuntaReparto(params)));
+    }
 }

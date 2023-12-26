@@ -2,8 +2,8 @@ package com.msinfo.controller;
 
 import com.msinfo.constants.WebConstants;
 import com.msinfo.dto.ProfiloDto;
-import com.msinfo.dto.params.profilo.ProfiloAggiornamentoParams;
-import com.msinfo.dto.params.profilo.ProfiloAggiuntaParams;
+import com.msinfo.dto.params.profilo.ModifyProfiloParams;
+import com.msinfo.dto.params.profilo.AddProfiloParams;
 import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfo.esito.GenericResponseDto;
 import com.msinfo.service.ProfiloService;
@@ -58,7 +58,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value ="/add",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ProfiloDto>> addProfilo(@ParameterObject @PathVariable ProfiloAggiuntaParams params){
+    public ResponseEntity<GenericResponseDto<ProfiloDto>> addProfilo(@ParameterObject AddProfiloParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.aggiuntaProfilo(params)));
     }
 
@@ -71,7 +71,7 @@ public class ProfiloController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ProfiloDto>> modify(@ParameterObject @PathVariable ProfiloAggiornamentoParams params){
+    public ResponseEntity<GenericResponseDto<ProfiloDto>> modify(@ParameterObject ModifyProfiloParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.modifcaProfilo(params)));
     }
 

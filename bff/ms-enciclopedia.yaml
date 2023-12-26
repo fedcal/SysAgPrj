@@ -109,7 +109,7 @@ paths:
         - sintomo-malattia-controller
       summary: Modificare una relazione
       description: Restituisce la relazione modificata
-      operationId: modifySintomo
+      operationId: modifySintomoMalattiaf
       parameters:
         - name: idRelazione
           in: query
@@ -232,7 +232,7 @@ paths:
         - sintomo-malattia-controller
       summary: Aggiungere una relazione tra un sintromo e una malattia
       description: Restituisce la relazzione aggiunta
-      operationId: addSintomo_1
+      operationId: addSintomoMalattia
       parameters:
         - name: idSintomo
           in: query
@@ -488,7 +488,7 @@ paths:
         - sintomo-malattia-controller
       summary: Ottenere una relazione tra sinotmi e malattie
       description: Restituisce la relazioni
-      operationId: infoSintomo
+      operationId: infoSintomoMalattia
       parameters:
         - name: idSintomo
           in: query
@@ -735,7 +735,7 @@ paths:
         - sintomo-malattia-controller
       summary: Eliminare una relazione
       description: Restituisce il riusltato dell'operazione
-      operationId: deleteSintomo_1
+      operationId: deleteSintomoMalattia
       parameters:
         - name: idSintomo
           in: query

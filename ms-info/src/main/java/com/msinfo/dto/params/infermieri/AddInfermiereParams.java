@@ -1,11 +1,10 @@
 package com.msinfo.dto.params.infermieri;
 
-import com.msinfo.dto.ProfiloDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class AddInfermiere {
+public class AddInfermiereParams {
     @Schema(description = "Nome dell'infermiere da inserire")
     private String nome;
 

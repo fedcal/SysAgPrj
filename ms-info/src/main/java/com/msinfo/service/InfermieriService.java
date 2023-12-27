@@ -1,15 +1,21 @@
 package com.msinfo.service;
 
 import com.msinfo.dto.InfermiereDto;
+import com.msinfo.dto.params.infermieri.AddInfermiereParams;
 import com.msinfo.dto.params.infermieri.FindInfermiereParams;
+import com.msinfo.dto.params.infermieri.ModifyInfermiereParams;
+import com.msinfo.entity.account.Profilo;
 import com.msinfo.entity.infermieri.Infermiere;
 import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfo.esito.Messaggio;
 import com.msinfo.esito.constants.EsitoOperazioneEnum;
 import com.msinfo.esito.constants.SeveritaMessaggioEnum;
 import com.msinfo.exception.EsitoRuntimeException;
+import com.msinfo.mapper.account.profilo.ProfiloDtoMapper;
 import com.msinfo.mapper.infermieri.InfermiereDtoMapper;
+import com.msinfo.mapper.infermieri.InfermiereEnityMapper;
 import com.msinfo.repository.InfermiereRepository;
+import com.msinfo.repository.ProfiloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,6 +32,10 @@ public class InfermieriService {
 
     @Autowired
     private InfermiereRepository infermiereRepository;
+
+    @Autowired
+    private ProfiloRepository profiloRepository;
+
     public List<InfermiereDto> findAll() {
         List<InfermiereDto> catchAll = InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findAll());
         if(catchAll.isEmpty()){
@@ -100,5 +110,70 @@ public class InfermieriService {
             esitoMessaggiRequestContextHolder.setOperationId("deleteInfermiere");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public InfermiereDto modifyInfermiere(ModifyInfermiereParams params) {
+
+        Optional<Infermiere> findInfermiere = infermiereRepository.findById(params.getIdInfermiere());
+        
+        if(!findInfermiere.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Infermiere non trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }else{
+
+            if(params.getNuovoNome()!=null){
+                findInfermiere.get().setNome(params.getNuovoNome());
+            }
+
+            if(params.getNuovoCognome()!=null){
+                findInfermiere.get().setCognome(params.getNuovoCognome());
+            }
+
+            if(params.getNuovoTurno()!=null){
+                findInfermiere.get().setTurno(params.getNuovoTurno());
+            }
+
+            if(params.getNuovoProfilo()!=null){
+                Optional<Profilo> profiloFind = profiloRepository.findById(params.getNuovoProfilo());
+                if(!profiloFind.isPresent()){
+                    esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                    esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                            .codMsg("Nuovo profilo non trovato.").build());
+                    esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
+                    throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+                }else{
+                    findInfermiere.get().setProfilo(profiloFind.get());
+                }
+            }
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.save(findInfermiere.get()));
+        }
+    }
+
+    public InfermiereDto addInfermiere(AddInfermiereParams params) {
+        InfermiereDto infermiereDto = new InfermiereDto();
+
+        infermiereDto.setIdInfermiere(infermiereRepository.findAll().size()+1);
+        infermiereDto.setNome(params.getNome());
+        infermiereDto.setCognome(params.getCognome());
+        infermiereDto.setTurno(params.getTurno());
+
+        Optional<Profilo> profilo = profiloRepository.findById(params.getProfilo());
+        if(profilo.isPresent()){
+            infermiereDto.setProfilo(ProfiloDtoMapper.INSTANCE.toDto(profilo.get()));
+        }else{
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Profilo non trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+
+        infermiereRepository.save(InfermiereEnityMapper.INSTANCE.toEntity(infermiereDto));
+
+        return infermiereDto;
     }
 }

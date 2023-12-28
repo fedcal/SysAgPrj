@@ -1,13 +1,13 @@
-package com.msinfo.dto;
+package com.bff.dto.msinfo;
 
 import lombok.Data;
 
-import java.util.Set;
 @Data
-public class MedicoDto {
-    private Integer idMedico;
+public class SpecialistaDto {
+    private Integer idSpecialista;
     private String nome;
     private String cognome;
+    private String specializzazione;
     private String turno;
     private ProfiloDto profilo;
 }

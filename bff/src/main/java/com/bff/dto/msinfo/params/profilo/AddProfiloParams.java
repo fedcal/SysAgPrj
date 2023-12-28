@@ -1,0 +1,13 @@
+package com.bff.dto.msinfo.params.profilo;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
+public class AddProfiloParams {
+    @Schema(description = "Tipo del profilo da aggiungere")
+    private String tipo;
+
+    @Schema(description = "Tipo del profilo da aggiungere")
+    private String descrizione;
+}

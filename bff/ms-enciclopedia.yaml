@@ -109,7 +109,7 @@ paths:
         - sintomo-malattia-controller
       summary: Modificare una relazione
       description: Restituisce la relazione modificata
-      operationId: modifySintomoMalattiaf
+      operationId: modifySintomoMalattia
       parameters:
         - name: idRelazione
           in: query

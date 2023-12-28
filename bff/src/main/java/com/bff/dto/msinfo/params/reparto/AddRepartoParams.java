@@ -1,12 +1,10 @@
-package com.msinfo.dto.params.reparto;
+package com.bff.dto.msinfo.params.reparto;
 
-import com.msinfo.dto.MedicoDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class AddRepartoParams {
-
     @Schema(description = "Nome del reparto da aggiungere")
     private String nomeReparto;
 

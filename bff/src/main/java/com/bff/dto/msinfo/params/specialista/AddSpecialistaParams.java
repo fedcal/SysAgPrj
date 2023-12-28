@@ -1,4 +1,4 @@
-package com.msinfo.dto.params.specialista;
+package com.bff.dto.msinfo.params.specialista;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -1,8 +1,5 @@
-package com.msinfo.dto;
+package com.bff.dto.msinfo;
 
-import lombok.Data;
-
-@Data
 public class OperazioneConsentitaDto {
     private Integer idOperazioneConentita;
     private ProfiloDto profilo;

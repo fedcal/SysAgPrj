@@ -1,0 +1,1660 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8086
+    description: Generated server url
+paths:
+  /info/specialista/modify:
+    put:
+      tags:
+        - specialista-controller
+      summary: Modifica di un medico
+      description: Restituisce il medico modificato
+      operationId: modifySpecialista
+      parameters:
+        - name: idSpecialista
+          in: query
+          description: Id dello specialista da modificare
+          required: false
+          schema:
+            type: string
+            description: Id dello specialista da modificare
+        - name: nuovoNome
+          in: query
+          description: Nuovo nome dello specialista
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome dello specialista
+        - name: nuovoCognome
+          in: query
+          description: Nuovo cognome dello specialista
+          required: false
+          schema:
+            type: string
+            description: Nuovo cognome dello specialista
+        - name: nuovaSpecializzazione
+          in: query
+          description: Nuova specializzazione dello specialista
+          required: false
+          schema:
+            type: string
+            description: Nuova specializzazione dello specialista
+        - name: nuovoTurno
+          in: query
+          description: Nuovo turno dello specialista
+          required: false
+          schema:
+            type: string
+            description: Nuovo turno dello specialista
+        - name: nuovoProfilo
+          in: query
+          description: Nuovo profilo dello specialista
+          required: false
+          schema:
+            type: string
+            description: Nuovo profilo dello specialista
+      responses:
+        '200':
+          description: Medico modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+        '400':
+          description: Medico non modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+  /info/reparto/modify:
+    put:
+      tags:
+        - reparto-controller
+      summary: Modifica informazioni reparto
+      description: Restituisce il reparto modificato
+      operationId: modificaRepartoInfo
+      parameters:
+        - name: idRepartoRicerca
+          in: query
+          description: Id del reparto che bisogna modificare
+          required: false
+          schema:
+            type: string
+            description: Id del reparto che bisogna modificare
+        - name: nomeRepartoRicerca
+          in: query
+          description: Nome del reparto che bisogna modificare
+          required: false
+          schema:
+            type: string
+            description: Nome del reparto che bisogna modificare
+        - name: nomeRepartoNuovo
+          in: query
+          description: Nome del nuovo reparto
+          required: false
+          schema:
+            type: string
+            description: Nome del nuovo reparto
+        - name: descrizioneNuovo
+          in: query
+          description: Nuova descrizione del reparto
+          required: false
+          schema:
+            type: string
+            description: Nuova descrizione del reparto
+        - name: alaRepartoNuovo
+          in: query
+          description: La nuova ala del reparto
+          required: false
+          schema:
+            type: string
+            description: La nuova ala del reparto
+        - name: capoRepartoNuovo.idMedico
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: capoRepartoNuovo.nome
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: capoRepartoNuovo.cognome
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: capoRepartoNuovo.turno
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: capoRepartoNuovo.profilo.idProfilo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: capoRepartoNuovo.profilo.tipo
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: capoRepartoNuovo.profilo.descrizione
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Modifica andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '400':
+          description: Errore nella modifica
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+  /info/profilo/modify:
+    put:
+      tags:
+        - profilo-controller
+      summary: Aggiunta profilo
+      description: Restituisce il profilo mdoficato
+      operationId: modify
+      parameters:
+        - name: idProfilo
+          in: query
+          description: Id del profilo da aggiornare
+          required: false
+          schema:
+            type: string
+            description: Id del profilo da aggiornare
+        - name: nuovoTipo
+          in: query
+          description: Nuovo tipo di profilo
+          required: false
+          schema:
+            type: string
+            description: Nuovo tipo di profilo
+        - name: nuovaDescrizione
+          in: query
+          description: Nuova descrizione del profilo
+          required: false
+          schema:
+            type: string
+            description: Nuova descrizione del profilo
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '404':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+  /info/paziente/modify:
+    put:
+      tags:
+        - paziente-controller
+      summary: Modifica di un paziente
+      description: Restituisce il dto del paziente modificato
+      operationId: modifyPaziente
+      parameters:
+        - name: idPazinente
+          in: query
+          description: Id del paziente da modificare
+          required: false
+          schema:
+            type: string
+            description: Id del paziente da modificare
+        - name: nuovoNome
+          in: query
+          description: Nuovo nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome del paziente
+        - name: nuovoCognome
+          in: query
+          description: Nuovo cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo cognome del paziente
+        - name: nuovaDataNascita
+          in: query
+          description: Nuova data di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuova data di nascita del paziente
+        - name: nuovoLuogoNascita
+          in: query
+          description: Nuovo luogo di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo luogo di nascita del paziente
+        - name: nuovaProvinciaNascita
+          in: query
+          description: Nuova provincia di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuova provincia di nascita del paziente
+        - name: nuovoContattoRiferimentoId
+          in: query
+          description: Nuovo contatto di riferimento del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo contatto di riferimento del paziente
+        - name: nuovoRepartoId
+          in: query
+          description: Nuovo reparto nel quale viene curato il paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo reparto nel quale viene curato il paziente
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '400':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+  /info/medico/modify:
+    put:
+      tags:
+        - medico-controller
+      summary: Modifica di un medico
+      description: Restituisce il medico modificato
+      operationId: modifyMedico
+      parameters:
+        - name: idMedico
+          in: query
+          description: Id del medico da modificare
+          required: false
+          schema:
+            type: string
+            description: Id del medico da modificare
+        - name: nuovoNome
+          in: query
+          description: Nuovo nome
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome
+        - name: nuovoCognome
+          in: query
+          description: Nuovo cognome
+          required: false
+          schema:
+            type: string
+            description: Nuovo cognome
+        - name: nuovoTurno
+          in: query
+          description: Nuovo turno
+          required: false
+          schema:
+            type: string
+            description: Nuovo turno
+        - name: nuovoProfilo
+          in: query
+          description: Nuovo profilo
+          required: false
+          schema:
+            type: string
+            description: Nuovo profilo
+      responses:
+        '200':
+          description: Medico modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+        '400':
+          description: Medico non modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+  /info/infermiere/modify:
+    put:
+      tags:
+        - infermieri-controller
+      summary: Modifica di un infermiere
+      description: Restituisce l'infermiere modificato
+      operationId: modifyInfermiere
+      parameters:
+        - name: idInfermiere
+          in: query
+          description: Id infermiere da modificare
+          required: false
+          schema:
+            type: string
+            description: Id infermiere da modificare
+        - name: nuovoNome
+          in: query
+          description: Nuovo nome
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome
+        - name: nuovoCognome
+          in: query
+          description: Nuovo cognome
+          required: false
+          schema:
+            type: string
+            description: Nuovo cognome
+        - name: nuovoTurno
+          in: query
+          description: Nuovo turno
+          required: false
+          schema:
+            type: string
+            description: Nuovo turno
+        - name: nuovoProfilo
+          in: query
+          description: Nuovo profilo
+          required: false
+          schema:
+            type: string
+            description: Nuovo profilo
+      responses:
+        '200':
+          description: Infermiere modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '400':
+          description: Infermiere non modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+  /info/specialista/add:
+    post:
+      tags:
+        - specialista-controller
+      summary: Aggiungere un medico
+      description: Restituisce il medico aggiunto
+      operationId: addSpecialista
+      parameters:
+        - name: nome
+          in: query
+          description: Nome dello specialista da inserire
+          required: false
+          schema:
+            type: string
+            description: Nome dello specialista da inserire
+        - name: cognome
+          in: query
+          description: Cognome dello specialista da inserire
+          required: false
+          schema:
+            type: string
+            description: Cognome dello specialista da inserire
+        - name: specializzazione
+          in: query
+          description: Specializzazione dello specialista da inserire
+          required: false
+          schema:
+            type: string
+            description: Specializzazione dello specialista da inserire
+        - name: turno
+          in: query
+          description: Turno dello specialista da inserire
+          required: false
+          schema:
+            type: string
+            description: Turno dello specialista da inserire
+        - name: profilo
+          in: query
+          description: Profilo dello specialista da inserire
+          required: false
+          schema:
+            type: string
+            description: Profilo dello specialista da inserire
+      responses:
+        '200':
+          description: Medico aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+        '400':
+          description: Medico non aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoSpecialistaDto'
+  /info/reparto/add:
+    post:
+      tags:
+        - reparto-controller
+      summary: Modifica informazioni reparto
+      description: Restituisce il reparto modificato
+      operationId: addReparto
+      parameters:
+        - name: nomeReparto
+          in: query
+          description: Nome del reparto da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Nome del reparto da aggiungere
+        - name: descrizione
+          in: query
+          description: Descrizione del reparto da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Descrizione del reparto da aggiungere
+        - name: alaReparto
+          in: query
+          description: Ala del reparto da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Ala del reparto da aggiungere
+        - name: capoReparto
+          in: query
+          description: Id relativo al capo reparto del reparto da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Id relativo al capo reparto del reparto da aggiungere
+      responses:
+        '200':
+          description: Modifica andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '400':
+          description: Errore nella modifica
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+  /info/profilo/add:
+    post:
+      tags:
+        - profilo-controller
+      summary: Aggiunta profilo
+      description: Restituisce il profilo inserito
+      operationId: addProfilo
+      parameters:
+        - name: tipo
+          in: query
+          description: Tipo del profilo da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Tipo del profilo da aggiungere
+        - name: descrizione
+          in: query
+          description: Tipo del profilo da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Tipo del profilo da aggiungere
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '404':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+  /info/paziente/aggiungi:
+    post:
+      tags:
+        - paziente-controller
+      summary: Aggiungere un paziente
+      description: Restituisce il dto del paziente aggiunto
+      operationId: addPaziente
+      parameters:
+        - name: nome
+          in: query
+          description: Nome paziente
+          required: false
+          schema:
+            type: string
+            description: Nome paziente
+        - name: cognome
+          in: query
+          description: Cognome paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome paziente
+        - name: dataNascita
+          in: query
+          description: Data di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Data di nascita del paziente
+        - name: luogoNascita
+          in: query
+          description: Luogo di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Luogo di nascita del paziente
+        - name: provinciaNascita
+          in: query
+          description: Provincia di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Provincia di nascita del paziente
+        - name: contattoRiferimentoId
+          in: query
+          description: Contatto di riferimento del paziente
+          required: false
+          schema:
+            type: string
+            description: Contatto di riferimento del paziente
+        - name: repartoId
+          in: query
+          description: Reparto nel quale si trova il paziente
+          required: false
+          schema:
+            type: string
+            description: Reparto nel quale si trova il paziente
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '400':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+  /info/medico/add:
+    post:
+      tags:
+        - medico-controller
+      summary: Aggiungere un medico
+      description: Restituisce il medico aggiunto
+      operationId: addMedico
+      parameters:
+        - name: nome
+          in: query
+          description: Nome del medico da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Nome del medico da aggiungere
+        - name: cognome
+          in: query
+          description: Cognome del medico da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Cognome del medico da aggiungere
+        - name: turno
+          in: query
+          description: Turno del medico da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Turno del medico da aggiungere
+        - name: profilo
+          in: query
+          description: Profilo del medico da aggiungere
+          required: false
+          schema:
+            type: string
+            description: Profilo del medico da aggiungere
+      responses:
+        '200':
+          description: Medico aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+        '400':
+          description: Medico non aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicoDto'
+  /info/infermiere/add:
+    post:
+      tags:
+        - infermieri-controller
+      summary: Aggiunta di un infermiere
+      description: Restituisce l'infermiere aggiunto
+      operationId: addInfermiere
+      parameters:
+        - name: nome
+          in: query
+          description: Nome dell'infermiere da inserire
+          required: false
+          schema:
+            type: string
+            description: Nome dell'infermiere da inserire
+        - name: cognome
+          in: query
+          description: Cognome dell'infermiere da inserire
+          required: false
+          schema:
+            type: string
+            description: Cognome dell'infermiere da inserire
+        - name: turno
+          in: query
+          description: Turno dell'infermiere da inserire
+          required: false
+          schema:
+            type: string
+            description: Turno dell'infermiere da inserire
+        - name: profilo
+          in: query
+          description: Profilo dell'infermiere da inserire
+          required: false
+          schema:
+            type: string
+            description: Profilo dell'infermiere da inserire
+      responses:
+        '200':
+          description: Infermiere aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '404':
+          description: Infermiere non aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+  /info/specialista/find:
+    get:
+      tags:
+        - specialista-controller
+      summary: Filtraggio dei medici
+      description: Restituisce una lista di MediciDto seguendo i filtri
+      operationId: findSpecialista
+      parameters:
+        - name: idSpecialista
+          in: query
+          description: Id dello specialista da trovare
+          required: false
+          schema:
+            type: string
+            description: Id dello specialista da trovare
+        - name: nome
+          in: query
+          description: Nome dello specialista da trovare
+          required: false
+          schema:
+            type: string
+            description: Nome dello specialista da trovare
+        - name: cognome
+          in: query
+          description: Cognome dello specialista da trovare
+          required: false
+          schema:
+            type: string
+            description: Cognome dello specialista da trovare
+      responses:
+        '200':
+          description: Elenco di tutti gli infermieri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+  /info/specialista/findAll:
+    get:
+      tags:
+        - specialista-controller
+      summary: Elenco di tutti i medici
+      description: Restituisce una lista di InfermiereDto che racchiude tutte le informazioni relaitive ai medici
+      operationId: getAllSpecialista
+      responses:
+        '200':
+          description: Elenco di tutti i medici
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListSpecialistaDto'
+  /info/reparto/info:
+    get:
+      tags:
+        - reparto-controller
+      summary: Recuperare le informazioni di un reparto
+      description: Restituisce le informazioni di un reparto
+      operationId: getInfoReparto
+      parameters:
+        - name: idReparto
+          in: query
+          description: Id del reparto
+          required: false
+          schema:
+            type: string
+            description: Id del reparto
+        - name: nomeReparto
+          in: query
+          description: Nome del reparto
+          required: false
+          schema:
+            type: string
+            description: Nome del reparto
+      responses:
+        '200':
+          description: Recupero informazioni andato a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRepartoDto'
+  /info/reparto/all:
+    get:
+      tags:
+        - reparto-controller
+      summary: Recuperare le informazioni di tutti i reparti
+      description: Restituisce le informazioni di tutti i reparti
+      operationId: getAllReparto
+      responses:
+        '200':
+          description: Recupero informazioni andato a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListRepartoDto'
+        '404':
+          description: Informazioni non trovate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListRepartoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListRepartoDto'
+  /info/profilo/getProfilo/{id}:
+    get:
+      tags:
+        - profilo-controller
+      summary: Recupero info profilo disponibile
+      description: Restituisce le info di un profilo
+      operationId: getInfo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Ricerca andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '404':
+          description: Ricerca non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoProfiloDto'
+  /info/profilo/getAll:
+    get:
+      tags:
+        - profilo-controller
+      summary: Recupero lista profili disponibili
+      description: Restituisce una lista di profili disponibili
+      operationId: getAll
+      responses:
+        '200':
+          description: Ricerca andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListProfiloDto'
+        '404':
+          description: Ricerca non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListProfiloDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListProfiloDto'
+  /info/paziente/searchPazienti:
+    get:
+      tags:
+        - paziente-controller
+      summary: Ricerca di un paziente in base ai diversi parametri in input
+      description: Restituisce una lista di PazienteDto che soddisfa i parametri di ricerca
+      operationId: search
+      parameters:
+        - name: idPaziente
+          in: query
+          description: Id del paziente
+          required: false
+          schema:
+            type: string
+            description: Id del paziente
+            example: 1
+          example: 1
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+            example: Federico
+          example: Federico
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
+            example: Calò
+          example: Calò
+        - name: dataNascita
+          in: query
+          description: 'Data di nascita del paziente nel formato: aaaa/mm/dd'
+          required: false
+          schema:
+            type: string
+            description: 'Data di nascita del paziente nel formato: aaaa/mm/dd'
+            example: 1998/05/07
+          example: 1998/05/07
+        - name: nomeReparto
+          in: query
+          description: Nome del reparto del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del reparto del paziente
+            example: Medicina Generale
+          example: Medicina Generale
+        - name: contattoRiferimentoDto.idContatto
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: contattoRiferimentoDto.nome
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contattoRiferimentoDto.cognome
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contattoRiferimentoDto.numeroCellulare
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ricerca andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Ricerca non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /info/paziente/findAll:
+    get:
+      tags:
+        - paziente-controller
+      summary: Elenco di tutti i pazienti
+      description: Restituisce una lista di PazienteDto che racchiude tutti i pazienti
+      operationId: getAll_1
+      responses:
+        '200':
+          description: Elenco di tutti i pazienti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /info/medico/find:
+    get:
+      tags:
+        - medico-controller
+      summary: Filtraggio dei medici
+      description: Restituisce una lista di MediciDto seguendo i filtri
+      operationId: findMedico
+      parameters:
+        - name: idMedico
+          in: query
+          description: Id del medico da trovare
+          required: false
+          schema:
+            type: string
+            description: Id del medico da trovare
+        - name: nome
+          in: query
+          description: Nome del medico da trovare
+          required: false
+          schema:
+            type: string
+            description: Nome del medico da trovare
+        - name: cognome
+          in: query
+          description: Cognome del medico da trovare
+          required: false
+          schema:
+            type: string
+            description: Cognome del medico da trovare
+      responses:
+        '200':
+          description: Elenco di tutti gli infermieri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+  /info/medico/findAll:
+    get:
+      tags:
+        - medico-controller
+      summary: Elenco di tutti i medici
+      description: Restituisce una lista di InfermiereDto che racchiude tutte le informazioni relaitive ai medici
+      operationId: getAllMedico
+      responses:
+        '200':
+          description: Elenco di tutti i medici
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListMedicoDto'
+  /info/infermiere/find:
+    get:
+      tags:
+        - infermieri-controller
+      summary: Filtraggio degli infermieri
+      description: Restituisce una lista di InfermiereDto seguendo i filtri
+      operationId: findInfermiere
+      parameters:
+        - name: idInfermiere
+          in: query
+          description: Id infermiere da eliminare
+          required: false
+          schema:
+            type: string
+            description: Id infermiere da eliminare
+        - name: nomeInfermiere
+          in: query
+          description: Nome infermiere da eliminare
+          required: false
+          schema:
+            type: string
+            description: Nome infermiere da eliminare
+        - name: cognomeInfermiere
+          in: query
+          description: Cognome infermiere da eliminare
+          required: false
+          schema:
+            type: string
+            description: Cognome infermiere da eliminare
+      responses:
+        '200':
+          description: Elenco di tutti gli infermieri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+  /info/infermiere/findAll:
+    get:
+      tags:
+        - infermieri-controller
+      summary: Elenco di tutti gli infermieri
+      description: Restituisce una lista di InfermiereDto che racchiude tutte le informazioni relaitive agli infermieri
+      operationId: getAllInfermiere
+      responses:
+        '200':
+          description: Elenco di tutti gli infermieri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '404':
+          description: Nessun elenco disponibile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+  /info/specialista/delete/{id}:
+    delete:
+      tags:
+        - specialista-controller
+      summary: Eliminare un medico
+      description: Restituisce l'esito dell'operazione
+      operationId: deleteSpecialista
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Medico eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Medico non eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /info/reparto/delete:
+    delete:
+      tags:
+        - reparto-controller
+      summary: Eliminare un reparto
+      description: Restituisce l'esito dell'operazione
+      operationId: deleteReparto
+      parameters:
+        - name: idReparto
+          in: query
+          description: Id del reparto
+          required: false
+          schema:
+            type: string
+            description: Id del reparto
+        - name: nomeReparto
+          in: query
+          description: Nome del reparto
+          required: false
+          schema:
+            type: string
+            description: Nome del reparto
+      responses:
+        '200':
+          description: Eliminizazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore nell'eliminazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /info/paziente/delete/{id}:
+    delete:
+      tags:
+        - paziente-controller
+      summary: Eliminare un paziente
+      description: Restituisce il risultato dell'operazione
+      operationId: deletePaziente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Operazione non andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /info/medico/delete/{id}:
+    delete:
+      tags:
+        - medico-controller
+      summary: Eliminare un medico
+      description: Restituisce l'esito dell'operazione
+      operationId: deleteMedico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Medico eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Medico non eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /info/infermiere/delete/{id}:
+    delete:
+      tags:
+        - infermieri-controller
+      summary: Eliminare un infermiere
+      description: Restituisce il risultato dell'operazione
+      operationId: deleteInfermiere
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Infermiere eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Infermiere non eliminato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+components:
+  schemas:
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoSpecialistaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SpecialistaDto'
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    ProfiloDto:
+      type: object
+      properties:
+        idProfilo:
+          type: integer
+          format: int32
+        tipo:
+          type: string
+        descrizione:
+          type: string
+    SpecialistaDto:
+      type: object
+      properties:
+        idSpecialista:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        specializzazione:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    GenericResponseDtoRepartoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/RepartoDto'
+    MedicoDto:
+      type: object
+      properties:
+        idMedico:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    RepartoDto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizione:
+          type: string
+        alaReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/MedicoDto'
+    GenericResponseDtoProfiloDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/ProfiloDto'
+    ContattoRiferimentoDto:
+      type: object
+      properties:
+        idContatto:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
+    GenericResponseDtoPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/PazienteDto'
+    PazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    GenericResponseDtoMedicoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicoDto'
+    GenericResponseDtoInfermiereDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/InfermiereDto'
+    InfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    GenericResponseDtoListSpecialistaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialistaDto'
+    GenericResponseDtoListRepartoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepartoDto'
+    GenericResponseDtoListProfiloDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfiloDto'
+    GenericResponseDtoListPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PazienteDto'
+    GenericResponseDtoListMedicoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicoDto'
+    GenericResponseDtoListInfermiereDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfermiereDto'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string

@@ -134,6 +134,36 @@
 							</importMappings>
 						</configuration>
 					</execution>
+
+					<execution>
+						<id>generate-client-ms-info</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/ms-info.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.bff.info.model</modelPackage>
+							<apiPackage>com.bff.info.api</apiPackage>
+							<invokerPackage>com.bff.info.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

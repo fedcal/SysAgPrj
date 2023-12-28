@@ -1,13 +1,12 @@
-package com.msinfo.dto.params.medico;
+package com.bff.dto.msinfo.params.infermieri;
 
-import com.msinfo.dto.ProfiloDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class ModifyMedicoParams {
-    @Schema(description = "Id del medico da modificare")
-    private Integer idMedico;
+public class ModifyInfermiereParams {
+    @Schema(description = "Id infermiere da modificare")
+    private Integer idInfermiere;
 
     @Schema(description = "Nuovo nome")
     private String nuovoNome;

@@ -1,4 +1,4 @@
-package com.msinfo.dto.params.medico;
+package com.bff.dto.msinfo.params.medico;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

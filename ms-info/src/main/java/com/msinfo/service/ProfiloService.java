@@ -95,6 +95,13 @@ public class ProfiloService {
     }
 
     public ProfiloDto modifcaProfilo(ModifyProfiloParams params) {
+        if(params.getIdProfilo()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.WARNING)
+                    .codMsg("Inserire id del profilo da modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modifcaProfilo");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
         ProfiloDto profiloModificato = checkProfiloExists(null,params.getIdProfilo());
         if(params.getNuovoTipo()!=null){
             profiloModificato.setTipo(params.getNuovoTipo());

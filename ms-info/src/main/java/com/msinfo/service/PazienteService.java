@@ -63,6 +63,8 @@ public class PazienteService {
     }
 
     public List<PazienteDto> searchPaziente(SearchPazienteParams params) {
+        checkParamsPaziente(params);
+
         List<PazienteDto> pazienteDtoList = null;
 
         if(params.getNome()!=null && params.getCognome()!=null){
@@ -113,7 +115,31 @@ public class PazienteService {
         }
     }
 
+    private void checkParamsPaziente(SearchPazienteParams params) {
+        boolean checkId = params.getIdPaziente()==null;
+        boolean checkNome = params.getNome()==null;
+        boolean checkCognome = params.getCognome()==null;
+        boolean checkDataNascita = params.getDataNascita()==null;
+        boolean checkNomeReparto = params.getNomeReparto()==null;
+        boolean checkContattoRiferimento = params.getContattoRiferimentoDto()==null;
+
+        if(checkId && checkNome && checkCognome && checkDataNascita && checkNomeReparto && checkContattoRiferimento){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire almeno un criterio di ricerca").build());
+            esitoMessaggiRequestContextHolder.setOperationId("searchPaziente");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public String deleteById(Integer id) {
+        if(id==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id del pazie").build());
+            esitoMessaggiRequestContextHolder.setOperationId("deleteById");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
         if(!pazienteRepository.findById(id).isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -162,22 +188,30 @@ public class PazienteService {
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
                 esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                         .codMsg("Nessun contatto di riferimento trovato.").build());
-                esitoMessaggiRequestContextHolder.setOperationId("deleteById");
+                esitoMessaggiRequestContextHolder.setOperationId("addPaziente");
             }
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire il contatto di riferimento.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("deleteById");
+            esitoMessaggiRequestContextHolder.setOperationId("addPaziente");
         }
 
         if(params.getRepartoId()!=null ){
             Optional<Reparto> repartoFind = repartoRepository.findById(params.getRepartoId());
+            if(repartoFind.isPresent()){
+                returnDto.setReparto(RepartoDtoMapper.INSTANCE.toDto(repartoFind.get()));
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Nessun reparto trovato.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("addPaziente");
+            }
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire l'id del reparto.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("deleteById");
+            esitoMessaggiRequestContextHolder.setOperationId("addPaziente");
         }
         return returnDto;
     }
@@ -262,13 +296,20 @@ public class PazienteService {
     }
 
     private PazienteDto checkPazientePresente(ModificaPazienteParams params){
+        if(params.getIdPazinente()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id del paziente da modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modificaPaziente");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
         Optional<Paziente> findPaziente = pazienteRepository.findById(params.getIdPazinente());
         if (!findPaziente.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Paziente da modificare non trovato.").build());
             esitoMessaggiRequestContextHolder.setOperationId("modificaPaziente");
-            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             return PazienteDtoMapper.INSTANCE.toDto(findPaziente.get());
         }

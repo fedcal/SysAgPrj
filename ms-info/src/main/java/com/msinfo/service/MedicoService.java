@@ -46,6 +46,7 @@ public class MedicoService {
             esitoMessaggiRequestContextHolder.setOperationId("findAll");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             return listaMedici;
         }
     }
@@ -54,7 +55,7 @@ public class MedicoService {
         List<MedicoDto> listaMedico = new ArrayList<>();
 
         Optional<Medico> findMedico = medicoRepository.findById(params.getIdMedico());
-        if(findMedico.isEmpty()){
+        if(findMedico.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessun medico trovato.").build());
@@ -63,6 +64,7 @@ public class MedicoService {
         }else{
             listaMedico.add(MedicoDtoMapper.INSTANCE.toDto(findMedico.get()));
         }
+
         List<Medico> listFindMedico = new ArrayList<>();
         if(params.getNome()!=null && params.getCognome()!=null){
             listFindMedico = medicoRepository.findByNomeAndCognome(params.getNome(),params.getCognome());
@@ -71,6 +73,7 @@ public class MedicoService {
         } else if (params.getCognome()!=null) {
             listFindMedico = medicoRepository.findByCognome(params.getCognome());
         }
+
         if(listFindMedico.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -80,10 +83,20 @@ public class MedicoService {
         }else{
             listaMedico = MedicoDtoMapper.INSTANCE.toDto(listFindMedico);
         }
+
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         return listaMedico;
     }
 
     public String deleteMedico(Integer id) {
+        if(id==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id del medico che si vuole cancellare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("deleteMedico");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
         if(!medicoRepository.findById(id).isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -93,6 +106,7 @@ public class MedicoService {
         }else{
             try {
                 medicoRepository.deleteById(id);
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
                 return "Medico eliminato";
             }catch (Exception e){
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -105,6 +119,14 @@ public class MedicoService {
     }
 
     public MedicoDto modifyMedico(ModifyMedicoParams params) {
+        if(params.getIdMedico()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id del medico che si vuole modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modifyMedico");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
         Optional<Medico> medicoFind = medicoRepository.findById(params.getIdMedico());
         if(!medicoFind.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -123,6 +145,7 @@ public class MedicoService {
             if(params.getNuovoTurno()!=null){
                 modifyMedico.setTurno(params.getNuovoTurno());
             }
+
             if(params.getNuovoProfilo()!=null){
                 Optional<Profilo> findProfilo = profiloRepository.findById(params.getNuovoProfilo());
                 if(findProfilo.isPresent()){
@@ -159,6 +182,7 @@ public class MedicoService {
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
 
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         medicoRepository.save(MedicoEntityMapper.INSTANCE.toEntity(medicoSave));
 
         return medicoSave;

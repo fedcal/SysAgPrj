@@ -43,7 +43,7 @@ public class InfermieriService {
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna lista di infermieri trovata.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findAll");
-            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             return catchAll;
@@ -76,7 +76,7 @@ public class InfermieriService {
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire almeno un parametro di ricerca.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findInfermiere");
-            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -86,7 +86,7 @@ public class InfermieriService {
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire almeno un parametro di ricerca.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findInfermiere");
-            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -101,14 +101,14 @@ public class InfermieriService {
                 esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                         .codMsg("L'infermiere non è stato eliminato.").build());
                 esitoMessaggiRequestContextHolder.setOperationId("deleteInfermiere");
-                throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+                throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
             }
         }else {
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Infermiere non trovato.").build());
             esitoMessaggiRequestContextHolder.setOperationId("deleteInfermiere");
-            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
     }
 

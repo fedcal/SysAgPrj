@@ -147,7 +147,16 @@ public class RepartoService {
             repartoFind.setNomeReparto(params.getNomeRepartoNuovo());
         }
         if(params.getCapoRepartoNuovo()!=null){
-            repartoFind.setCapoReparto(MedicoEntityMapper.INSTANCE.toEntity(params.getCapoRepartoNuovo()));
+            Optional<Medico> capoRepartoFind = medicoRepository.findById(params.getCapoRepartoNuovo());
+            if(capoRepartoFind.isPresent()){
+                repartoFind.setCapoReparto(capoRepartoFind.get());
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Capo reparto non trovato.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("modificaReparto");
+                throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }
         }
         if(params.getDescrizioneNuovo()!=null){
             repartoFind.setDescrizione(params.getDescrizioneNuovo());

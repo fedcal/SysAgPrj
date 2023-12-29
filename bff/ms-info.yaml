@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: 'Applicativo robot medici: Ms-info'
+  description: Strato applicativo tramite il quale si espongono al bff tutti quei path e controller dedicati al recupero di informazioni di medici, infermieri, specialisti e pazienti
+  contact:
+    name: Federico Calò
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8086
-    description: Generated server url
+    description: Ambiente locale
 paths:
   /info/specialista/modify:
     put:
@@ -19,8 +24,10 @@ paths:
           description: Id dello specialista da modificare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id dello specialista da modificare
+            example: 1
+          example: 1
         - name: nuovoNome
           in: query
           description: Nuovo nome dello specialista
@@ -28,6 +35,8 @@ paths:
           schema:
             type: string
             description: Nuovo nome dello specialista
+            example: Mario
+          example: Mario
         - name: nuovoCognome
           in: query
           description: Nuovo cognome dello specialista
@@ -35,6 +44,8 @@ paths:
           schema:
             type: string
             description: Nuovo cognome dello specialista
+            example: Rossi
+          example: Rossi
         - name: nuovaSpecializzazione
           in: query
           description: Nuova specializzazione dello specialista
@@ -42,6 +53,8 @@ paths:
           schema:
             type: string
             description: Nuova specializzazione dello specialista
+            example: Laringoiatra
+          example: Laringoiatra
         - name: nuovoTurno
           in: query
           description: Nuovo turno dello specialista
@@ -49,13 +62,17 @@ paths:
           schema:
             type: string
             description: Nuovo turno dello specialista
+            example: Mer. 8:00-18:00
+          example: Mer. 8:00-18:00
         - name: nuovoProfilo
           in: query
           description: Nuovo profilo dello specialista
           required: false
           schema:
-            type: string
+            type: integer
             description: Nuovo profilo dello specialista
+            example: 1
+          example: 1
       responses:
         '200':
           description: Medico modificato
@@ -88,8 +105,10 @@ paths:
           description: Id del reparto che bisogna modificare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del reparto che bisogna modificare
+            example: 1
+          example: 1
         - name: nomeRepartoRicerca
           in: query
           description: Nome del reparto che bisogna modificare
@@ -97,6 +116,8 @@ paths:
           schema:
             type: string
             description: Nome del reparto che bisogna modificare
+            example: Chirurgia
+          example: Chirurgia
         - name: nomeRepartoNuovo
           in: query
           description: Nome del nuovo reparto
@@ -104,6 +125,8 @@ paths:
           schema:
             type: string
             description: Nome del nuovo reparto
+            example: Chirurgia2
+          example: Chirurgia2
         - name: descrizioneNuovo
           in: query
           description: Nuova descrizione del reparto
@@ -111,6 +134,8 @@ paths:
           schema:
             type: string
             description: Nuova descrizione del reparto
+            example: Chirurgia estetica 2
+          example: Chirurgia estetica 2
         - name: alaRepartoNuovo
           in: query
           description: La nuova ala del reparto
@@ -118,43 +143,17 @@ paths:
           schema:
             type: string
             description: La nuova ala del reparto
-        - name: capoRepartoNuovo.idMedico
+            example: Piano terra, ala Est
+          example: Piano terra, ala Est
+        - name: capoRepartoNuovo
           in: query
+          description: Capo del nuovo reparto
           required: false
           schema:
             type: integer
-            format: int32
-        - name: capoRepartoNuovo.nome
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: capoRepartoNuovo.cognome
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: capoRepartoNuovo.turno
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: capoRepartoNuovo.profilo.idProfilo
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-        - name: capoRepartoNuovo.profilo.tipo
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: capoRepartoNuovo.profilo.descrizione
-          in: query
-          required: false
-          schema:
-            type: string
+            description: Capo del nuovo reparto
+            example: 1
+          example: 1
       responses:
         '200':
           description: Modifica andata a buon fine
@@ -187,8 +186,10 @@ paths:
           description: Id del profilo da aggiornare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del profilo da aggiornare
+            example: 1
+          example: 1
         - name: nuovoTipo
           in: query
           description: Nuovo tipo di profilo
@@ -196,6 +197,8 @@ paths:
           schema:
             type: string
             description: Nuovo tipo di profilo
+            example: Medico
+          example: Medico
         - name: nuovaDescrizione
           in: query
           description: Nuova descrizione del profilo
@@ -203,6 +206,8 @@ paths:
           schema:
             type: string
             description: Nuova descrizione del profilo
+            example: Medico presente nella struttura
+          example: Medico presente nella struttura
       responses:
         '200':
           description: Operazione andata a buon fine
@@ -235,8 +240,10 @@ paths:
           description: Id del paziente da modificare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del paziente da modificare
+            example: 1
+          example: 1
         - name: nuovoNome
           in: query
           description: Nuovo nome del paziente
@@ -244,6 +251,8 @@ paths:
           schema:
             type: string
             description: Nuovo nome del paziente
+            example: Ferdinando
+          example: Ferdinando
         - name: nuovoCognome
           in: query
           description: Nuovo cognome del paziente
@@ -251,6 +260,8 @@ paths:
           schema:
             type: string
             description: Nuovo cognome del paziente
+            example: De Lorenzi
+          example: De Lorenzi
         - name: nuovaDataNascita
           in: query
           description: Nuova data di nascita del paziente
@@ -258,6 +269,8 @@ paths:
           schema:
             type: string
             description: Nuova data di nascita del paziente
+            example: '1985-07-05'
+          example: '1985-07-05'
         - name: nuovoLuogoNascita
           in: query
           description: Nuovo luogo di nascita del paziente
@@ -265,6 +278,8 @@ paths:
           schema:
             type: string
             description: Nuovo luogo di nascita del paziente
+            example: Galatina
+          example: Galatina
         - name: nuovaProvinciaNascita
           in: query
           description: Nuova provincia di nascita del paziente
@@ -272,20 +287,26 @@ paths:
           schema:
             type: string
             description: Nuova provincia di nascita del paziente
+            example: Lecce
+          example: Lecce
         - name: nuovoContattoRiferimentoId
           in: query
           description: Nuovo contatto di riferimento del paziente
           required: false
           schema:
-            type: string
+            type: integer
             description: Nuovo contatto di riferimento del paziente
+            example: 1
+          example: 1
         - name: nuovoRepartoId
           in: query
           description: Nuovo reparto nel quale viene curato il paziente
           required: false
           schema:
-            type: string
+            type: integer
             description: Nuovo reparto nel quale viene curato il paziente
+            example: 1
+          example: 1
       responses:
         '200':
           description: Operazione andata a buon fine
@@ -318,8 +339,10 @@ paths:
           description: Id del medico da modificare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del medico da modificare
+            example: 1
+          example: 1
         - name: nuovoNome
           in: query
           description: Nuovo nome
@@ -327,6 +350,8 @@ paths:
           schema:
             type: string
             description: Nuovo nome
+            example: Roberto
+          example: Roberto
         - name: nuovoCognome
           in: query
           description: Nuovo cognome
@@ -334,6 +359,8 @@ paths:
           schema:
             type: string
             description: Nuovo cognome
+            example: Benigni
+          example: Benigni
         - name: nuovoTurno
           in: query
           description: Nuovo turno
@@ -341,13 +368,17 @@ paths:
           schema:
             type: string
             description: Nuovo turno
+            example: Lun. 08:30-16:30
+          example: Lun. 08:30-16:30
         - name: nuovoProfilo
           in: query
           description: Nuovo profilo
           required: false
           schema:
-            type: string
+            type: integer
             description: Nuovo profilo
+            example: 1
+          example: 1
       responses:
         '200':
           description: Medico modificato
@@ -380,8 +411,10 @@ paths:
           description: Id infermiere da modificare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id infermiere da modificare
+            example: 1
+          example: 1
         - name: nuovoNome
           in: query
           description: Nuovo nome
@@ -389,6 +422,8 @@ paths:
           schema:
             type: string
             description: Nuovo nome
+            example: Ferdinando
+          example: Ferdinando
         - name: nuovoCognome
           in: query
           description: Nuovo cognome
@@ -396,6 +431,8 @@ paths:
           schema:
             type: string
             description: Nuovo cognome
+            example: Del Bosco
+          example: Del Bosco
         - name: nuovoTurno
           in: query
           description: Nuovo turno
@@ -403,13 +440,17 @@ paths:
           schema:
             type: string
             description: Nuovo turno
+            example: Lun. 08:30-16:30
+          example: Lun. 08:30-16:30
         - name: nuovoProfilo
           in: query
           description: Nuovo profilo
           required: false
           schema:
-            type: string
+            type: integer
             description: Nuovo profilo
+            example: 1
+          example: 1
       responses:
         '200':
           description: Infermiere modificato
@@ -444,6 +485,8 @@ paths:
           schema:
             type: string
             description: Nome dello specialista da inserire
+            example: Mario
+          example: Mario
         - name: cognome
           in: query
           description: Cognome dello specialista da inserire
@@ -451,6 +494,8 @@ paths:
           schema:
             type: string
             description: Cognome dello specialista da inserire
+            example: Rossi
+          example: Rossi
         - name: specializzazione
           in: query
           description: Specializzazione dello specialista da inserire
@@ -458,6 +503,8 @@ paths:
           schema:
             type: string
             description: Specializzazione dello specialista da inserire
+            example: Anestesia
+          example: Anestesia
         - name: turno
           in: query
           description: Turno dello specialista da inserire
@@ -465,13 +512,17 @@ paths:
           schema:
             type: string
             description: Turno dello specialista da inserire
+            example: Lun.. 15:00-00:00
+          example: Lun.. 15:00-00:00
         - name: profilo
           in: query
           description: Profilo dello specialista da inserire
           required: false
           schema:
-            type: string
+            type: integer
             description: Profilo dello specialista da inserire
+            example: 1
+          example: 1
       responses:
         '200':
           description: Medico aggiunto
@@ -506,6 +557,8 @@ paths:
           schema:
             type: string
             description: Nome del reparto da aggiungere
+            example: Chirurgia
+          example: Chirurgia
         - name: descrizione
           in: query
           description: Descrizione del reparto da aggiungere
@@ -513,6 +566,8 @@ paths:
           schema:
             type: string
             description: Descrizione del reparto da aggiungere
+            example: Chirurgia estetica
+          example: Chirurgia estetica
         - name: alaReparto
           in: query
           description: Ala del reparto da aggiungere
@@ -520,13 +575,17 @@ paths:
           schema:
             type: string
             description: Ala del reparto da aggiungere
+            example: Piano 1, ala Est
+          example: Piano 1, ala Est
         - name: capoReparto
           in: query
           description: Id relativo al capo reparto del reparto da aggiungere
           required: false
           schema:
-            type: string
+            type: integer
             description: Id relativo al capo reparto del reparto da aggiungere
+            example: 2
+          example: 2
       responses:
         '200':
           description: Modifica andata a buon fine
@@ -561,6 +620,8 @@ paths:
           schema:
             type: string
             description: Tipo del profilo da aggiungere
+            example: Medico
+          example: Medico
         - name: descrizione
           in: query
           description: Tipo del profilo da aggiungere
@@ -568,6 +629,8 @@ paths:
           schema:
             type: string
             description: Tipo del profilo da aggiungere
+            example: Medico presente nella struttura
+          example: Medico presente nella struttura
       responses:
         '200':
           description: Operazione andata a buon fine
@@ -602,6 +665,8 @@ paths:
           schema:
             type: string
             description: Nome paziente
+            example: Roberto
+          example: Roberto
         - name: cognome
           in: query
           description: Cognome paziente
@@ -609,6 +674,8 @@ paths:
           schema:
             type: string
             description: Cognome paziente
+            example: Benigni
+          example: Benigni
         - name: dataNascita
           in: query
           description: Data di nascita del paziente
@@ -616,6 +683,8 @@ paths:
           schema:
             type: string
             description: Data di nascita del paziente
+            example: '1998-07-05'
+          example: '1998-07-05'
         - name: luogoNascita
           in: query
           description: Luogo di nascita del paziente
@@ -623,6 +692,8 @@ paths:
           schema:
             type: string
             description: Luogo di nascita del paziente
+            example: Bari
+          example: Bari
         - name: provinciaNascita
           in: query
           description: Provincia di nascita del paziente
@@ -630,20 +701,26 @@ paths:
           schema:
             type: string
             description: Provincia di nascita del paziente
+            example: Bari
+          example: Bari
         - name: contattoRiferimentoId
           in: query
           description: Contatto di riferimento del paziente
           required: false
           schema:
-            type: string
+            type: integer
             description: Contatto di riferimento del paziente
+            example: 1
+          example: 1
         - name: repartoId
           in: query
           description: Reparto nel quale si trova il paziente
           required: false
           schema:
-            type: string
+            type: integer
             description: Reparto nel quale si trova il paziente
+            example: 1
+          example: 1
       responses:
         '200':
           description: Operazione andata a buon fine
@@ -678,6 +755,8 @@ paths:
           schema:
             type: string
             description: Nome del medico da aggiungere
+            example: Roberto
+          example: Roberto
         - name: cognome
           in: query
           description: Cognome del medico da aggiungere
@@ -685,6 +764,8 @@ paths:
           schema:
             type: string
             description: Cognome del medico da aggiungere
+            example: Benigni
+          example: Benigni
         - name: turno
           in: query
           description: Turno del medico da aggiungere
@@ -692,13 +773,17 @@ paths:
           schema:
             type: string
             description: Turno del medico da aggiungere
+            example: Lun. 08:30-16:30
+          example: Lun. 08:30-16:30
         - name: profilo
           in: query
           description: Profilo del medico da aggiungere
           required: false
           schema:
-            type: string
+            type: integer
             description: Profilo del medico da aggiungere
+            example: 1
+          example: 1
       responses:
         '200':
           description: Medico aggiunto
@@ -733,6 +818,8 @@ paths:
           schema:
             type: string
             description: Nome dell'infermiere da inserire
+            example: Francesco
+          example: Francesco
         - name: cognome
           in: query
           description: Cognome dell'infermiere da inserire
@@ -740,6 +827,8 @@ paths:
           schema:
             type: string
             description: Cognome dell'infermiere da inserire
+            example: De Ceglie
+          example: De Ceglie
         - name: turno
           in: query
           description: Turno dell'infermiere da inserire
@@ -747,13 +836,17 @@ paths:
           schema:
             type: string
             description: Turno dell'infermiere da inserire
+            example: Lun. 08:30-16:30, Ven. 14:30-18:00
+          example: Lun. 08:30-16:30, Ven. 14:30-18:00
         - name: profilo
           in: query
           description: Profilo dell'infermiere da inserire
           required: false
           schema:
-            type: string
+            type: integer
             description: Profilo dell'infermiere da inserire
+            example: 1
+          example: 1
       responses:
         '200':
           description: Infermiere aggiunto
@@ -786,8 +879,10 @@ paths:
           description: Id dello specialista da trovare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id dello specialista da trovare
+            example: 1
+          example: 1
         - name: nome
           in: query
           description: Nome dello specialista da trovare
@@ -795,6 +890,8 @@ paths:
           schema:
             type: string
             description: Nome dello specialista da trovare
+            example: Mario
+          example: Mario
         - name: cognome
           in: query
           description: Cognome dello specialista da trovare
@@ -802,6 +899,8 @@ paths:
           schema:
             type: string
             description: Cognome dello specialista da trovare
+            example: Rossi
+          example: Rossi
       responses:
         '200':
           description: Elenco di tutti gli infermieri
@@ -860,8 +959,10 @@ paths:
           description: Id del reparto
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del reparto
+            example: 1
+          example: 1
         - name: nomeReparto
           in: query
           description: Nome del reparto
@@ -869,6 +970,8 @@ paths:
           schema:
             type: string
             description: Nome del reparto
+            example: Chirurgia
+          example: Chirurgia
       responses:
         '200':
           description: Recupero informazioni andato a buon fine
@@ -986,7 +1089,7 @@ paths:
           description: Id del paziente
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del paziente
             example: 1
           example: 1
@@ -1026,27 +1129,13 @@ paths:
             description: Nome del reparto del paziente
             example: Medicina Generale
           example: Medicina Generale
-        - name: contattoRiferimentoDto.idContatto
+        - name: contattoRiferimentoDto
           in: query
+          description: Contatto di riferimento del paziente
           required: false
           schema:
             type: integer
-            format: int32
-        - name: contattoRiferimentoDto.nome
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: contattoRiferimentoDto.cognome
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: contattoRiferimentoDto.numeroCellulare
-          in: query
-          required: false
-          schema:
-            type: string
+            description: Contatto di riferimento del paziente
       responses:
         '200':
           description: Ricerca andata a buon fine
@@ -1105,8 +1194,10 @@ paths:
           description: Id del medico da trovare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del medico da trovare
+            example: 1
+          example: 1
         - name: nome
           in: query
           description: Nome del medico da trovare
@@ -1114,6 +1205,8 @@ paths:
           schema:
             type: string
             description: Nome del medico da trovare
+            example: Roberto
+          example: Roberto
         - name: cognome
           in: query
           description: Cognome del medico da trovare
@@ -1121,6 +1214,8 @@ paths:
           schema:
             type: string
             description: Cognome del medico da trovare
+            example: Benigni
+          example: Benigni
       responses:
         '200':
           description: Elenco di tutti gli infermieri
@@ -1179,8 +1274,10 @@ paths:
           description: Id infermiere da eliminare
           required: false
           schema:
-            type: string
+            type: integer
             description: Id infermiere da eliminare
+            example: 1
+          example: 1
         - name: nomeInfermiere
           in: query
           description: Nome infermiere da eliminare
@@ -1188,6 +1285,8 @@ paths:
           schema:
             type: string
             description: Nome infermiere da eliminare
+            example: Francesco
+          example: Francesco
         - name: cognomeInfermiere
           in: query
           description: Cognome infermiere da eliminare
@@ -1195,6 +1294,8 @@ paths:
           schema:
             type: string
             description: Cognome infermiere da eliminare
+            example: De Ceglie
+          example: De Ceglie
       responses:
         '200':
           description: Elenco di tutti gli infermieri
@@ -1286,8 +1387,10 @@ paths:
           description: Id del reparto
           required: false
           schema:
-            type: string
+            type: integer
             description: Id del reparto
+            example: 1
+          example: 1
         - name: nomeReparto
           in: query
           description: Nome del reparto
@@ -1295,6 +1398,8 @@ paths:
           schema:
             type: string
             description: Nome del reparto
+            example: Chirurgia
+          example: Chirurgia
       responses:
         '200':
           description: Eliminizazione andata a buon fine

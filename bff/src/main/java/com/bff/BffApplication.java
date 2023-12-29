@@ -1,6 +1,10 @@
 package com.bff;
 
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +20,25 @@ import java.util.stream.Collectors;
 
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@OpenAPIDefinition(
+		info = @Info(
+				title = "Bff applicativo robot medici",
+				version = "1.0.0",
+				description = "Strato applicativo tramite il quale si fa interfacciare i vari " +
+						"microservizi BE con l'applicativo FE",
+				contact = @Contact(
+						name = "Federico Calò",
+						email = "f.calo29@studenti.uniba.it",
+						url = "https://www.federicocalo.dev"
+				)
+		),
+		servers = {
+				@Server(
+						description = "Ambiente locale",
+						url = "http://localhost:8080"
+				)
+		}
+)
 public class BffApplication {
 
 	public static void main(String[] args) {

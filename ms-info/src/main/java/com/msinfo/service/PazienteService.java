@@ -87,20 +87,17 @@ public class PazienteService {
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByDataNascita(params.getDataNascita()));
         }
 
-        if(params.getContattoRiferimentoDto().getIdContatto()!=null){
-            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByIdContatto(params.getContattoRiferimentoDto().getIdContatto()));
-        }
-
-        if(params.getContattoRiferimentoDto().getNome()!=null){
-            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByNomeContatto(params.getContattoRiferimentoDto().getNome()));
-        }
-
-        if(params.getContattoRiferimentoDto().getCognome()!=null){
-            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByCognomeContatto(params.getContattoRiferimentoDto().getCognome()));
-        }
-
-        if(params.getContattoRiferimentoDto().getNumeroCellulare()!=null){
-            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByContattoNumeroCellulare(params.getContattoRiferimentoDto().getNumeroCellulare()));
+        if(params.getContattoRiferimentoDto()!=null){
+            Optional<ContattoRiferimento> contattoRiferimentoFind = contattoRiferimentoRepository.findById(params.getContattoRiferimentoDto());
+            if(contattoRiferimentoFind.isPresent()){
+                findByContatto(contattoRiferimentoFind.get(),pazienteDtoList);
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Nessun contatto di riferimetno trovato").build());
+                esitoMessaggiRequestContextHolder.setOperationId("searchPaziente");
+                throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }
         }
 
         if (pazienteDtoList == null || pazienteDtoList.isEmpty()){
@@ -114,6 +111,25 @@ public class PazienteService {
             return pazienteDtoList;
         }
     }
+
+    private void findByContatto(ContattoRiferimento contattoRiferimento, List<PazienteDto> pazienteDtoList) {
+        if(contattoRiferimento.getIdContatto()!=null){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByIdContatto(contattoRiferimento.getIdContatto()));
+        }
+
+        if(contattoRiferimento.getNome()!=null){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByNomeContatto(contattoRiferimento.getNome()));
+        }
+
+        if(contattoRiferimento.getCognome()!=null){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByCognomeContatto(contattoRiferimento.getCognome()));
+        }
+
+        if(contattoRiferimento.getNumeroCellulare()!=null){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByContattoNumeroCellulare(contattoRiferimento.getNumeroCellulare()));
+        }
+    }
+
 
     private void checkParamsPaziente(SearchPazienteParams params) {
         boolean checkId = params.getIdPaziente()==null;

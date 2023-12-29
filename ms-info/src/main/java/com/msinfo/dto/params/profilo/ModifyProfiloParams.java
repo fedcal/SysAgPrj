@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class ModifyProfiloParams {
-    @Schema(description = "Id del profilo da aggiornare")
+    @Schema(description = "Id del profilo da aggiornare",type = "integer",example = "1")
     private Integer idProfilo;
 
-    @Schema(description = "Nuovo tipo di profilo")
+    @Schema(description = "Nuovo tipo di profilo",type = "string",example = "Medico")
     private String nuovoTipo;
 
-    @Schema(description = "Nuova descrizione del profilo")
+    @Schema(description = "Nuova descrizione del profilo",type = "string",example = "Medico presente nella struttura")
     private String nuovaDescrizione;
 }

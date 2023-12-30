@@ -11,6 +11,6 @@ import java.util.List;
 public interface SintomoDtoMapper {
     SintomoDtoMapper INSTANCE = Mappers.getMapper(SintomoDtoMapper.class);
 
-    SintomoDto toDto(Sintomo entity);
-    List<SintomoDto> toDto(List<Sintomo> entity);
+    SintomoDto toDto(Sintomo dto);
+    List<SintomoDto> toDto(List<Sintomo> dto);
 }

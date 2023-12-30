@@ -27,11 +27,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -113,13 +108,43 @@
 						</goals>
 						<configuration>
 							<inputSpec>
-								${project.basedir}/enciclopedia.yaml
+								${project.basedir}/ms-enciclopedia.yaml
 							</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
 							<modelPackage>com.bff.enciclopedia.model</modelPackage>
 							<apiPackage>com.bff.enciclopedia.api</apiPackage>
 							<invokerPackage>com.bff.enciclopedia.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>generate-client-ms-info</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/ms-info.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.bff.info.model</modelPackage>
+							<apiPackage>com.bff.info.api</apiPackage>
+							<invokerPackage>com.bff.info.invoker</invokerPackage>
 							<output>${project.build.directory}/generated-sources</output>
 							<generateApiTests>false</generateApiTests>
 							<configOptions>

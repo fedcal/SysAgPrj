@@ -11,6 +11,6 @@ import java.util.List;
 public interface MedicinaleDtoMapper {
     MedicinaleDtoMapper INSTANCE = Mappers.getMapper( MedicinaleDtoMapper.class );
 
-    MedicinaleDto toDto(Medicinale entity);
-    List<MedicinaleDto> toDto(List<Medicinale> entity);
+    MedicinaleDto toDto(Medicinale dto);
+    List<MedicinaleDto> toDto(List<Medicinale> dto);
 }

@@ -39,7 +39,7 @@ FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE);
 
 -- PAZIENTE 
 CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita DATE,
-luogoNascita VARCHAR(50),  provinciaNascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
+luogo_nascita VARCHAR(50),  provincia_nascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE,
 FOREIGN KEY (contatto_riferimento) REFERENCES contatto_riferimento(id_contatto) ON DELETE CASCADE,
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo));
@@ -82,16 +82,11 @@ FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DE
 FOREIGN KEY (id_referto) REFERENCES referto_visita_medica(id_referto) ON DELETE CASCADE);
 
 -- OPERAZIONE CARTELLA
-CREATE TABLE IF NOT EXISTS operazione_cartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_operazione INT, id_cartella INT, id_referto INT,
+CREATE TABLE IF NOT EXISTS operazione_cartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_operazione INT, id_cartella INT, id_referto INT, id_medico INT,
 FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
 FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_referto) REFERENCES referto_operazione(id_referto) ON DELETE CASCADE); 
-
--- OPERAZIONE DOTTORE
-CREATE TABLE IF NOT EXISTS operazione_dottore(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_medico INT, id_operazione INT, id_cartella_clinica INT,
-FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE CASCADE,
-FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE);
+FOREIGN KEY (id_referto) REFERENCES referto_operazione(id_referto) ON DELETE CASCADE,
+FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE CASCADE); 
 
 -- VISITA SOTTOMINISTRAZIONE INFERMIERE
 CREATE TABLE IF NOT EXISTS visita_sottoministrazione_infermiere (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_infermiere INT, id_visita INT, id_cartella_clinica INT,
@@ -134,19 +129,19 @@ FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinic
 FOREIGN KEY (id_visita) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE);
 
 -- OPERAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS Operazionespecialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
+CREATE TABLE IF NOT EXISTS operazione_specialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (id_specialista) REFERENCES specialista(id_specialista) ON DELETE CASCADE,
 FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
-FOREIGN KEY (id_referto_operazione_specialistaid_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
+FOREIGN KEY (id_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
 
--- SINTOMO
+-- sintomo
 CREATE TABLE IF NOT EXISTS sintomo(id_sintomo INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100), descrizione VARCHAR(5000));
 
 -- MALATTIA
 CREATE TABLE IF NOT EXISTS malattia(id_malattia INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(50), descrizione VARCHAR(5000));
 
--- SINTOMO MALATTIA
+-- sintomo MALATTIA
 CREATE TABLE IF NOT EXISTS sintomo_malattia(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_malattia INT, id_sintomo INT,
 FOREIGN KEY (id_malattia) REFERENCES malattia(id_malattia), 
 FOREIGN KEY (id_sintomo)  REFERENCES sintomo(id_sintomo));

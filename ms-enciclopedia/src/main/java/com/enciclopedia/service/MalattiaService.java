@@ -72,7 +72,7 @@ public class MalattiaService {
     }
 
     private void checkParamsMalattiaInfo(MalattiaInfoParams params) {
-        if(params.getIdMalattia()==null || params.getNomeMalattia()==null){
+        if(params.getIdMalattia()==null && params.getNomeMalattia()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Inserire l'id o il nome della malattia.");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);

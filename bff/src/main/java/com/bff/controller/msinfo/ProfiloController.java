@@ -1,12 +1,13 @@
-package com.msinfo.controller;
+package com.bff.controller.msinfo;
 
-import com.msinfo.constants.WebConstants;
-import com.msinfo.dto.ProfiloDto;
-import com.msinfo.dto.params.profilo.ModifyProfiloParams;
-import com.msinfo.dto.params.profilo.AddProfiloParams;
-import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
-import com.msinfo.esito.GenericResponseDto;
-import com.msinfo.service.ProfiloService;
+import com.bff.constants.WebContstants;
+import com.bff.dto.msinfo.ProfiloDto;
+import com.bff.dto.msinfo.params.profilo.AddProfiloParams;
+import com.bff.dto.msinfo.params.profilo.ModifyProfiloParams;
+import com.bff.esito.EsitoMessaggiRequestContextHolder;
+import com.bff.esito.GenericResponseDto;
+import com.bff.service.msinfo.PazienteService;
+import com.bff.service.msinfo.ProfiloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/profilo")
+@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_INFO+"/profilo")
 public class ProfiloController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -28,7 +29,7 @@ public class ProfiloController {
     private ProfiloService profiloService;
 
     @Operation(summary = "Recupero lista profili disponibili",
-               description = "Restituisce una lista di profili disponibili")
+            description = "Restituisce una lista di profili disponibili")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ricerca andata a buon fine"),
             @ApiResponse(responseCode = "404", description = "Ricerca non andata a buon fine"),
@@ -74,5 +75,4 @@ public class ProfiloController {
     public ResponseEntity<GenericResponseDto<ProfiloDto>> modifyProfilo(@ParameterObject ModifyProfiloParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(profiloService.modifcaProfilo(params)));
     }
-
 }

@@ -1,13 +1,13 @@
-package com.msinfo.controller;
+package com.bff.controller.msinfo;
 
-import com.msinfo.constants.WebConstants;
-import com.msinfo.dto.PazienteDto;
-import com.msinfo.dto.params.paziente.AddPazienteParams;
-import com.msinfo.dto.params.paziente.ModificaPazienteParams;
-import com.msinfo.dto.params.paziente.SearchPazienteParams;
-import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
-import com.msinfo.esito.GenericResponseDto;
-import com.msinfo.service.PazienteService;
+import com.bff.constants.WebContstants;
+import com.bff.dto.msinfo.PazienteDto;
+import com.bff.dto.msinfo.params.paziente.AddPazienteParams;
+import com.bff.dto.msinfo.params.paziente.ModificaPazienteParams;
+import com.bff.dto.msinfo.params.paziente.SearchPazienteParams;
+import com.bff.esito.EsitoMessaggiRequestContextHolder;
+import com.bff.esito.GenericResponseDto;
+import com.bff.service.msinfo.PazienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/paziente")
+@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_INFO+"/paziente")
 public class PazienteController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -36,19 +36,19 @@ public class PazienteController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAllPaziente(){
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAll(){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.findAll()));
     }
 
     @Operation(summary = "Ricerca di un paziente in base ai diversi parametri in input",
-               description = "Restituisce una lista di PazienteDto che soddisfa i parametri di ricerca")
+            description = "Restituisce una lista di PazienteDto che soddisfa i parametri di ricerca")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ricerca andata a buon fine"),
             @ApiResponse(responseCode = "404", description = "Ricerca non andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/searchPazienti",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> searchPaziente(@ParameterObject SearchPazienteParams params){
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> search(@ParameterObject SearchPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.searchPaziente(params)));
     }
 
@@ -88,6 +88,4 @@ public class PazienteController {
     public ResponseEntity<GenericResponseDto<PazienteDto>> modifyPaziente(@ParameterObject ModificaPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.modificaPaziente(params)));
     }
-
-
 }

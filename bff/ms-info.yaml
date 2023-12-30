@@ -179,7 +179,7 @@ paths:
         - profilo-controller
       summary: Aggiunta profilo
       description: Restituisce il profilo mdoficato
-      operationId: modify
+      operationId: modifyProfilo
       parameters:
         - name: idProfilo
           in: query
@@ -1023,7 +1023,7 @@ paths:
         - profilo-controller
       summary: Recupero info profilo disponibile
       description: Restituisce le info di un profilo
-      operationId: getInfo
+      operationId: getInfoProfilo
       parameters:
         - name: id
           in: path
@@ -1056,7 +1056,7 @@ paths:
         - profilo-controller
       summary: Recupero lista profili disponibili
       description: Restituisce una lista di profili disponibili
-      operationId: getAll
+      operationId: getAllProfilo
       responses:
         '200':
           description: Ricerca andata a buon fine
@@ -1082,7 +1082,7 @@ paths:
         - paziente-controller
       summary: Ricerca di un paziente in base ai diversi parametri in input
       description: Restituisce una lista di PazienteDto che soddisfa i parametri di ricerca
-      operationId: search
+      operationId: searchPaziente
       parameters:
         - name: idPaziente
           in: query
@@ -1161,7 +1161,7 @@ paths:
         - paziente-controller
       summary: Elenco di tutti i pazienti
       description: Restituisce una lista di PazienteDto che racchiude tutti i pazienti
-      operationId: getAll_1
+      operationId: getAllPaziente
       responses:
         '200':
           description: Elenco di tutti i pazienti

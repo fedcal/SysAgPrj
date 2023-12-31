@@ -1,6 +1,6 @@
 package com.msmedico.repository;
 
-import com.msmedico.entity.medico.Medico;
+import com.msmedico.entity.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -69,7 +69,6 @@ public class ProfiloService {
         ProfiloDto profiloAdd = new ProfiloDto();
         profiloAdd.setTipo(params.getTipo());
         profiloAdd.setDescrizione(params.getDescrizione());
-        profiloAdd.setIdProfilo(profiloRepository.findAll().size()+1);
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         return ProfiloDtoMapper.INSTANCE.toDto(profiloRepository.save(ProfiloEntityMapper.INSTANCE.toEntity(profiloAdd)));

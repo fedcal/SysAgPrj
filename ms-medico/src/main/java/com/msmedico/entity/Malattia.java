@@ -1,6 +1,6 @@
-package com.enciclopedia.entity;
+package com.msmedico.entity;
 
-import com.enciclopedia.entity.relationship.SintomoMalattia;
+import com.msmedico.entity.relationentities.MalattiaCartella;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class Malattia {
     @Id
     @Column(name="id_malattia")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idMalattia;
 
     @Column(name="nome")
@@ -26,4 +26,7 @@ public class Malattia {
 
     @Column(name="descrizione")
     private String descrizione;
+
+    @OneToMany(mappedBy = "malattia")
+    private Set<MalattiaCartella> cartelle;
 }

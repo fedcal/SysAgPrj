@@ -172,7 +172,6 @@ public class RepartoService {
 
         Reparto repartoToSave = new Reparto();
 
-        repartoToSave.setIdReparto(repartoRepository.findAll().size() + 1);
         repartoToSave.setCapoReparto(MedicoEntityMapper.INSTANCE.toEntity(caporeparto));
         repartoToSave.setNomeReparto(params.getNomeReparto());
         repartoToSave.setDescrizione(params.getDescrizione());

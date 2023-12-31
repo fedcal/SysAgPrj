@@ -166,7 +166,6 @@ public class MedicoService {
     public MedicoDto addMedico(AddMedicoParams params) {
         MedicoDto medicoSave = new MedicoDto();
 
-        medicoSave.setIdMedico(medicoRepository.findAll().size()+1);
         medicoSave.setNome(params.getNome());
         medicoSave.setCognome(params.getCognome());
         medicoSave.setTurno(params.getTurno());

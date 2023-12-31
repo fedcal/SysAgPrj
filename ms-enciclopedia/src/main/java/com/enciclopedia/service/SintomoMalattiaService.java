@@ -56,7 +56,6 @@ public class SintomoMalattiaService {
                 throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
             }else{
                 List<SintomoMalattia> listaTotale = repository.findAll();
-                toSave.setIdRelazione(listaTotale.size()+1);
                 return SintomoMalattiaDtoMapper.INSTANCE.toDto(repository.save(toSave));
             }
         }
@@ -130,8 +129,7 @@ public class SintomoMalattiaService {
             esitoMessaggiRequestContextHolder.setOperationId("SintomoMalattiaParams");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
-        return "Sono riuscito ad eliminare la relazione tra la malattia "+returnRelazione.get().getMalattia().getNome()+
-                "e il sintomo " + returnRelazione.get().getSintomo().getNome();
+        return "Sono riuscito ad eliminare la relazione tra la malattia e il sintomo.";
     }
 
     public SintomoMalattiaDto modifySintomo(SintomoMalattiaChangeParams params) {

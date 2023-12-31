@@ -1,6 +1,7 @@
 package com.msmedico.entity.account;
 
-import com.msmedico.entity.medico.Medico;
+import com.msmedico.entity.Medico;
+import com.msmedico.entity.paziente.Paziente;
 import com.msmedico.entity.relationentities.OperazioneConsentita;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,4 +28,7 @@ public class Profilo {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Medico> medico;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
+    private Set<Paziente> pazienti;
 }

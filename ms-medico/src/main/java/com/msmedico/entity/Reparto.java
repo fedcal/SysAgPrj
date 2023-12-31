@@ -1,6 +1,7 @@
-package com.msmedico.entity.reparto;
+package com.msmedico.entity;
 
-import com.msmedico.entity.medico.Medico;
+
+import com.msmedico.entity.paziente.Paziente;
 import com.msmedico.entity.relationentities.RepartoMedico;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,4 +32,7 @@ public class Reparto {
 
     @OneToMany(mappedBy = "reparto")
     private Set<RepartoMedico> repartoMedicoSet;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="reparto")
+    private Set<Paziente> repartoPazienteSet;
 }

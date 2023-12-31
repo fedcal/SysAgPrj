@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "profilo")
 public class Profilo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_profilo")
     private Integer idProfilo;
 

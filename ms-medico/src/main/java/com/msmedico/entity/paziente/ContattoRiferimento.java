@@ -1,4 +1,4 @@
-package com.msinfo.entity.pazienti;
+package com.msmedico.entity.paziente;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,9 +7,8 @@ import lombok.Data;
 @Entity
 @Table(name = "contatto_riferimento")
 public class ContattoRiferimento {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contatto")
     private Integer idContatto;
 
@@ -21,7 +20,4 @@ public class ContattoRiferimento {
 
     @Column(name = "numero_cellulare")
     private String numeroCellulare;
-
-    @OneToOne(mappedBy = "contattoRiferimento")
-    private Paziente paziente;
 }

@@ -1,7 +1,7 @@
-package com.msinfo.entity.pazienti;
+package com.msmedico.entity.paziente;
 
-import com.msinfo.entity.account.Profilo;
-import com.msinfo.entity.reparto.Reparto;
+import com.msmedico.entity.Reparto;
+import com.msmedico.entity.account.Profilo;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "paziente")
 public class Paziente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_paziente")
     private Integer idPaziente;
 
@@ -40,5 +40,8 @@ public class Paziente {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
+
+    @OneToOne(mappedBy = "paziente")
+    private CartellaClinica cartellaClinica;
 
 }

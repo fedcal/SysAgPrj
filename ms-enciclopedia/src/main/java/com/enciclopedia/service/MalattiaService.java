@@ -41,7 +41,6 @@ public class MalattiaService {
             return null;
         }else{
             MalattiaDto toSave = new MalattiaDto();
-            toSave.setIdMalattia(repository.findAll().size()+1);
             toSave.setNome(params.getNome());
             toSave.setDescrizione(params.getDescrizione());
             return serviceConverter.addMalattia(toSave);

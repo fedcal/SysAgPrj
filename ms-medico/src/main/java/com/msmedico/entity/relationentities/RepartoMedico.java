@@ -1,7 +1,7 @@
 package com.msmedico.entity.relationentities;
 
-import com.msmedico.entity.medico.Medico;
-import com.msmedico.entity.reparto.Reparto;
+import com.msmedico.entity.Medico;
+import com.msmedico.entity.Reparto;
 import jakarta.persistence.*;
 import lombok.Data;
 

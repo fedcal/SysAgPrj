@@ -1,6 +1,8 @@
-package com.msmedico.entity.medico;
+package com.msmedico.entity;
 
 import com.msmedico.entity.account.Profilo;
+import com.msmedico.entity.relationentities.MedicinalePrescrizione;
+import com.msmedico.entity.relationentities.OperazioneCartella;
 import com.msmedico.entity.relationentities.RepartoMedico;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -32,4 +34,10 @@ public class Medico {
 
     @OneToMany(mappedBy = "medico")
     private Set<RepartoMedico> repartoMedicoSet;
+
+    @OneToOne(mappedBy = "medico")
+    private OperazioneCartella operazioneCartella;
+
+    /*@OneToMany(mappedBy = "medico")
+    private Set<MedicinalePrescrizione> medico;*/
 }

@@ -1,7 +1,7 @@
-package com.msmedico.mapper;
+package com.msmedico.mapper.medico;
 
 import com.msmedico.dto.MedicoDto;
-import com.msmedico.entity.medico.Medico;
+import com.msmedico.entity.Medico;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

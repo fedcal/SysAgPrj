@@ -2,6 +2,7 @@ package com.enciclopedia.controller;
 
 import com.enciclopedia.constants.WebContstants;
 import com.enciclopedia.dto.SintomoMalattiaDto;
+import com.enciclopedia.dto.output.SintomoMalattiaOutput;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaChangeParams;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaParams;
 import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
@@ -56,7 +57,7 @@ public class SintomoMalattiaController {
     public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> addSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addSintomo");
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.addSintomo(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.addRelazione(params)));
     }
 
     @Operation(summary = "Ottenere una relazione tra sinotmi e malattie",
@@ -67,10 +68,10 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> infoSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
+    public ResponseEntity<GenericResponseDto<SintomoMalattiaOutput>> infoSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("infoSintomo");
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.infoSintomo(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.infoRelazione(params)));
     }
 
     @Operation(summary = "Eliminare una relazione",
@@ -98,6 +99,6 @@ public class SintomoMalattiaController {
     public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> modifySintomoMalattia(@ParameterObject SintomoMalattiaChangeParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("modifySintomo");
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.modifySintomo(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.modifyRelazione(params)));
     }
 }

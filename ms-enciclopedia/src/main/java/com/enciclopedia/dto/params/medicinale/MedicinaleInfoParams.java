@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class MedicinaleInfoParams {
-    @Schema(description = "Id medicinale")
+    @Schema(description = "Id medicinale",type = "integer")
     private Integer idMedicinale;
 
-    @Schema(description = "Nome medicinale")
+    @Schema(description = "Nome medicinale",type = "string")
     private String nomeMedicinale;
 }

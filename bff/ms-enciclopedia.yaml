@@ -20,8 +20,9 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 1
+          example: 1
         - name: nomeSintomo
           in: query
           description: Nome sintomo
@@ -29,6 +30,8 @@ paths:
           schema:
             type: string
             description: Nome sintomo
+            example: Abulia
+          example: Abulia
         - name: descrizioneNuova
           in: query
           description: Nuova descrizione
@@ -36,6 +39,8 @@ paths:
           schema:
             type: string
             description: Nuova descrizione
+            example: Abulia
+          example: Abulia
         - name: nomeSintomoNuovo
           in: query
           description: Nuovo nome
@@ -43,6 +48,8 @@ paths:
           schema:
             type: string
             description: Nuovo nome
+            example: Abulia
+          example: Abulia
       responses:
         '200':
           description: Informazioni modificate
@@ -77,6 +84,8 @@ paths:
           schema:
             type: string
             description: Nome sintomo
+            example: Abulia
+          example: Abulia
         - name: descrizioneSintomo
           in: query
           description: Descrizione sintomo
@@ -84,6 +93,8 @@ paths:
           schema:
             type: string
             description: Descrizione sintomo
+            example: Abulia
+          example: Abulia
       responses:
         '200':
           description: Sintomo aggiunto
@@ -117,40 +128,45 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id relazione
+            example: 1
+          example: 1
         - name: idMalattia
           in: query
           description: Id Malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Id Malattia
+            example: 1
+          example: 1
         - name: idSintomo
           in: query
           description: Id sintomo
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 1
+          example: 1
         - name: newIdMalattia
           in: query
           description: Nuovo id malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Nuovo id malattia
+            example: 1
+          example: 1
         - name: newIdSitnomo
           in: query
           description: Nuovo id sintomo
           required: false
           schema:
             type: integer
-            format: int32
             description: Nuovo id sintomo
+            example: 1
+          example: 1
       responses:
         '200':
           description: Relazione modificata
@@ -185,14 +201,17 @@ paths:
           schema:
             type: string
             description: Nome malattia
+            example: Acalasia
+          example: Acalasia
         - name: id
           in: query
           description: Id malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
         - name: nuovoNome
           in: query
           description: Nome nuovo della malattia
@@ -200,6 +219,8 @@ paths:
           schema:
             type: string
             description: Nome nuovo della malattia
+            example: Acalasia
+          example: Acalasia
         - name: nuovaDescrizione
           in: query
           description: Descrizione nuova della malattia
@@ -207,6 +228,8 @@ paths:
           schema:
             type: string
             description: Descrizione nuova della malattia
+            example: Acalasia
+          example: Acalasia
       responses:
         '200':
           description: Informazioni modificate correttamente
@@ -234,22 +257,33 @@ paths:
       description: Restituisce la relazzione aggiunta
       operationId: addSintomoMalattia
       parameters:
+        - name: idRelazione
+          in: query
+          description: Id relazione
+          required: false
+          schema:
+            type: integer
+            description: Id relazione
+            example: 1
+          example: 1
         - name: idSintomo
           in: query
           description: Id sintomo
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 1
+          example: 1
         - name: idMalattia
           in: query
           description: Id malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
       responses:
         '200':
           description: Relazione aggiunta
@@ -269,7 +303,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
-  /ms-enciclopedia/medicinale/modify/{id}:
+  /ms-enciclopedia/medicinale/modify/{idMedicinale}:
     post:
       tags:
         - medicinale-controller
@@ -277,13 +311,12 @@ paths:
       description: Restituisce il medicinale modificato
       operationId: modificaMedicinale
       parameters:
-        - name: id
+        - name: idMedicinale
           in: path
           description: Id medicinale
           required: true
           schema:
             type: integer
-            format: int32
             description: Id medicinale
         - name: nome
           in: query
@@ -388,6 +421,8 @@ paths:
           schema:
             type: string
             description: Nome malattia
+            example: Acalasia
+          example: Acalasia
         - name: descrizione
           in: query
           description: Descrizione malattia
@@ -395,6 +430,8 @@ paths:
           schema:
             type: string
             description: Descrizione malattia
+            example: Acalasia
+          example: Acalasia
       responses:
         '200':
           description: Informazioni aggiunte
@@ -428,8 +465,9 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 2
+          example: 2
         - name: nomeSintomo
           in: query
           description: Nome sintomo
@@ -437,6 +475,8 @@ paths:
           schema:
             type: string
             description: Nome sintomo
+            example: Abulia
+          example: Abulia
       responses:
         '200':
           description: Informazioni trovate
@@ -490,41 +530,52 @@ paths:
       description: Restituisce la relazioni
       operationId: infoSintomoMalattia
       parameters:
+        - name: idRelazione
+          in: query
+          description: Id relazione
+          required: false
+          schema:
+            type: integer
+            description: Id relazione
+            example: 1
+          example: 1
         - name: idSintomo
           in: query
           description: Id sintomo
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 1
+          example: 1
         - name: idMalattia
           in: query
           description: Id malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
       responses:
         '200':
           description: Relazioni ottenute
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaOutput'
         '404':
           description: Relazioni non ottenute
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaOutput'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaDto'
+                $ref: '#/components/schemas/GenericResponseDtoSintomoMalattiaOutput'
   /ms-enciclopedia/sintomo-malattia/all:
     get:
       tags:
@@ -565,15 +616,14 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
-            description: Id malattia
+            description: Id medicinale
         - name: nomeMedicinale
           in: query
           description: Nome medicinale
           required: false
           schema:
             type: string
-            description: Nome malattia
+            description: Nome medicinale
       responses:
         '200':
           description: Informazioni del medicinale
@@ -633,8 +683,9 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
         - name: nomeMalattia
           in: query
           description: Nome malattia
@@ -642,6 +693,8 @@ paths:
           schema:
             type: string
             description: Nome malattia
+            example: Acalasia
+          example: Acalasia
       responses:
         '200':
           description: Recupero informazioni andato a buon fine
@@ -701,8 +754,9 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 2
+          example: 2
         - name: nomeSintomo
           in: query
           description: Nome sintomo
@@ -710,6 +764,8 @@ paths:
           schema:
             type: string
             description: Nome sintomo
+            example: Abulia
+          example: Abulia
       responses:
         '200':
           description: Sintomo eliminato
@@ -737,22 +793,33 @@ paths:
       description: Restituisce il riusltato dell'operazione
       operationId: deleteSintomoMalattia
       parameters:
+        - name: idRelazione
+          in: query
+          description: Id relazione
+          required: false
+          schema:
+            type: integer
+            description: Id relazione
+            example: 1
+          example: 1
         - name: idSintomo
           in: query
           description: Id sintomo
           required: false
           schema:
             type: integer
-            format: int32
             description: Id sintomo
+            example: 1
+          example: 1
         - name: idMalattia
           in: query
           description: Id malattia
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
       responses:
         '200':
           description: Relazione eliminata
@@ -786,7 +853,6 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id medicinale
         - name: nomeMedicinale
           in: query
@@ -828,8 +894,9 @@ paths:
           required: false
           schema:
             type: integer
-            format: int32
             description: Id malattia
+            example: 1
+          example: 1
         - name: nomeMalattia
           in: query
           description: Nome malattia
@@ -837,6 +904,8 @@ paths:
           schema:
             type: string
             description: Nome malattia
+            example: Acalasia
+          example: Acalasia
       responses:
         '200':
           description: Restituisce l'esito dell'operazione
@@ -920,16 +989,6 @@ components:
           $ref: '#/components/schemas/Esito'
         payload:
           $ref: '#/components/schemas/SintomoMalattiaDto'
-    MalattiaDto:
-      type: object
-      properties:
-        idMalattia:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        descrizione:
-          type: string
     SintomoMalattiaDto:
       type: object
       properties:
@@ -942,10 +1001,6 @@ components:
         idSintomo:
           type: integer
           format: int32
-        sintomo:
-          $ref: '#/components/schemas/SintomoDto'
-        malattia:
-          $ref: '#/components/schemas/MalattiaDto'
     GenericResponseDtoMalattiaDto:
       type: object
       properties:
@@ -953,6 +1008,16 @@ components:
           $ref: '#/components/schemas/Esito'
         payload:
           $ref: '#/components/schemas/MalattiaDto'
+    MalattiaDto:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
     GenericResponseDtoMedicinaleDto:
       type: object
       properties:
@@ -981,6 +1046,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SintomoDto'
+    GenericResponseDtoSintomoMalattiaOutput:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/SintomoMalattiaOutput'
+    SintomoMalattiaOutput:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        malattiaDto:
+          $ref: '#/components/schemas/MalattiaDto'
+        sintomoDto:
+          $ref: '#/components/schemas/SintomoDto'
     GenericResponseDtoListSintomoMalattiaDto:
       type: object
       properties:
@@ -990,16 +1072,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SintomoMalattiaDto'
-    MedicinaleInfoParams:
-      type: object
-      properties:
-        idMedicinale:
-          type: integer
-          description: Id medicinale
-          format: int32
-        nomeMedicinale:
-          type: string
-          description: Nome medicinale
     GenericResponseDtoListMedicinaleDto:
       type: object
       properties:

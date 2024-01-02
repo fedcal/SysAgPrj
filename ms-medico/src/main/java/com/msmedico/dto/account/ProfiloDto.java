@@ -1,4 +1,4 @@
-package com.msmedico.dto;
+package com.msmedico.dto.account;
 
 import lombok.Data;
 

@@ -10,6 +10,6 @@ import java.util.List;
 @Mapper
 public interface MedicoEntityMapper {
     MedicoEntityMapper INSTANCE = Mappers.getMapper( MedicoEntityMapper.class );
-    Medico toEntity(MedicoDto entity);
-    List<Medico> toEntity(List<MedicoDto> entities);
+    Medico toEntity(MedicoDto dto);
+    List<Medico> toEntity(List<MedicoDto> dtos);
 }

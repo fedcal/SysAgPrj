@@ -1,5 +1,6 @@
 package com.msmedico.dto;
 
+import com.msmedico.dto.account.ProfiloDto;
 import lombok.Data;
 
 @Data

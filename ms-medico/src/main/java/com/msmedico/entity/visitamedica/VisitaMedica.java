@@ -1,6 +1,8 @@
 package com.msmedico.entity.visitamedica;
 
 import com.msmedico.entity.relationentities.VisitaMedicaCartella;
+import com.msmedico.entity.relationentities.VisitaPrescrizione;
+import com.msmedico.entity.relationentities.VisitaSottoministrazioneMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +27,8 @@ public class VisitaMedica {
     private String descrizione;
 
     @OneToMany(mappedBy = "visitaMedica")
-    private Set<VisitaMedicaCartella> visitaMedicaCartella;
+    private Set<VisitaPrescrizione> visitaPrescrizione;
+
+    @OneToMany(mappedBy = "visitaMedica")
+    private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
 }

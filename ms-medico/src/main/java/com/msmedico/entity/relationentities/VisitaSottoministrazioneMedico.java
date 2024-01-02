@@ -1,15 +1,15 @@
 package com.msmedico.entity.relationentities;
 
-import com.msmedico.entity.Medicinale;
 import com.msmedico.entity.Medico;
 import com.msmedico.entity.paziente.CartellaClinica;
+import com.msmedico.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "medicinale_prescrizione")
-public class MedicinalePrescrizione {
+@Table(name = "visita_sottoministrazione_medico")
+public class VisitaSottoministrazioneMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
@@ -20,8 +20,8 @@ public class MedicinalePrescrizione {
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "id_medicinale",referencedColumnName="id_medicinale")
-    private Medicinale medicinale;
+    @JoinColumn(name = "id_visita",referencedColumnName="id_visita_medica")
+    private VisitaMedica visitaMedica;
 
     @ManyToOne
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")

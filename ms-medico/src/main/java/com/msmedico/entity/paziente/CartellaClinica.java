@@ -1,9 +1,6 @@
 package com.msmedico.entity.paziente;
 
-import com.msmedico.entity.relationentities.MalattiaCartella;
-import com.msmedico.entity.relationentities.MedicinalePrescrizione;
-import com.msmedico.entity.relationentities.OperazioneCartella;
-import com.msmedico.entity.relationentities.VisitaMedicaCartella;
+import com.msmedico.entity.relationentities.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -37,6 +34,15 @@ public class CartellaClinica {
     @OneToMany(mappedBy = "cartellaClinica")
     private Set<OperazioneCartella> operazioneCartella;
 
-    /*@OneToMany(mappedBy = "cartellaClinica")
-    private Set<MedicinalePrescrizione> medicinalePrescrizione;*/
+    @OneToMany(mappedBy = "cartellaClinica")
+    private Set<MedicinalePrescrizione> medicinalePrescrizione;
+
+    @OneToMany(mappedBy = "cartellaClinica")
+    private Set<VisitaPrescrizione> visitaPrescrizione;
+
+    @OneToMany(mappedBy = "cartellaClinica")
+    private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
+
+    @OneToMany(mappedBy = "cartellaClinica")
+    private Set<MedicinaleCartella> medicinaleCartella;
 }

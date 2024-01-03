@@ -12,7 +12,7 @@ public interface RepartoEntityMapper {
 
     RepartoEntityMapper INSTANCE = Mappers.getMapper(RepartoEntityMapper.class);
 
-    Reparto toDto(RepartoDto dto);
+    Reparto toEntity(RepartoDto dto);
 
-    List<Reparto> toDto (List<RepartoDto> dtos);
+    List<Reparto> toEntity (List<RepartoDto> dtos);
 }

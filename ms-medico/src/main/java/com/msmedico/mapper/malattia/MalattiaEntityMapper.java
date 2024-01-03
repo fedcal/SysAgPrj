@@ -12,5 +12,5 @@ public interface MalattiaEntityMapper {
     MalattiaEntityMapper INSTANCE = Mappers.getMapper( MalattiaEntityMapper.class );
 
     Malattia toEntity(MalattiaDto dto);
-    List<Malattia> toEntity(List<MalattiaDto> dto);
+    List<Malattia> toEntity(List<MalattiaDto> dtos);
 }

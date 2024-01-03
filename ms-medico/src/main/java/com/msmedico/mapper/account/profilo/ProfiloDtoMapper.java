@@ -12,5 +12,5 @@ public interface ProfiloDtoMapper {
     ProfiloDtoMapper INSTANCE = Mappers.getMapper(ProfiloDtoMapper.class);
 
     ProfiloDto toDto(Profilo entity);
-    List<ProfiloDto> toDto(List<Profilo> entity);
+    List<ProfiloDto> toDto(List<Profilo> entities);
 }

@@ -1,13 +1,13 @@
-package com.msinfo.controller;
+package com.msmedico.controller;
 
-import com.msinfo.constants.WebConstants;
-import com.msinfo.dto.MedicoDto;
-import com.msinfo.dto.params.medico.AddMedicoParams;
-import com.msinfo.dto.params.medico.FindMedicoParams;
-import com.msinfo.dto.params.medico.ModifyMedicoParams;
-import com.msinfo.esito.EsitoMessaggiRequestContextHolder;
-import com.msinfo.esito.GenericResponseDto;
-import com.msinfo.service.MedicoService;
+import com.msmedico.constants.WebConstants;
+import com.msmedico.dto.MedicoDto;
+import com.msmedico.dto.params.gestionemedici.AddMedicoParams;
+import com.msmedico.dto.params.gestionemedici.FindMedicoParams;
+import com.msmedico.dto.params.gestionemedici.ModifyMedicoParams;
+import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
+import com.msmedico.esito.GenericResponseDto;
+import com.msmedico.service.GestioneMediciService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,16 +20,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebConstants.REST_CONTEX_STRING+"/medico")
-public class MedicoController {
+@RequestMapping(WebConstants.REST_CONTEX_STRING + "/gestione-medici")
+public class GestioneMediciController {
+    @Autowired
+    private GestioneMediciService gestioneMediciService;
+
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
-    @Autowired
-    private MedicoService medicoService;
-
     @Operation(summary = "Elenco di tutti i medici",
-            description = "Restituisce una lista di InfermiereDto che racchiude tutte le informazioni relaitive ai medici")
+            description = "Restituisce una lista di MediciDto che racchiude tutte le informazioni relaitive ai medici",
+            operationId = "msMedicoGetAllMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Elenco di tutti i medici"),
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
@@ -37,11 +38,12 @@ public class MedicoController {
     })
     @GetMapping(value ="/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicoDto>>> getAllMedico(){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicoService.findAll()));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.findAll()));
     }
 
     @Operation(summary = "Filtraggio dei medici",
-            description = "Restituisce una lista di MediciDto seguendo i filtri")
+            description = "Restituisce una lista di MediciDto seguendo i filtri",
+            operationId = "msMedicoFindMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Elenco di tutti i medici"),
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
@@ -49,11 +51,12 @@ public class MedicoController {
     })
     @GetMapping(value ="/find",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicoDto>>> findMedico(@ParameterObject FindMedicoParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicoService.findMedico(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.findMedico(params)));
     }
 
     @Operation(summary = "Eliminare un medico",
-            description = "Restituisce l'esito dell'operazione")
+            description = "Restituisce l'esito dell'operazione",
+            operationId = "msMedicoDeleteMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Medico eliminato"),
             @ApiResponse(responseCode = "400", description = "Medico non eliminato"),
@@ -61,11 +64,12 @@ public class MedicoController {
     })
     @DeleteMapping(value ="/delete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> deleteMedico(@ParameterObject @PathVariable Integer id){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicoService.deleteMedico(id)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.deleteMedico(id)));
     }
 
     @Operation(summary = "Modifica di un medico",
-            description = "Restituisce il medico modificato")
+            description = "Restituisce il medico modificato",
+            operationId = "msMedicoModifyMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Medico modificato"),
             @ApiResponse(responseCode = "400", description = "Medico non modificato"),
@@ -73,11 +77,12 @@ public class MedicoController {
     })
     @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicoDto>> modifyMedico(@ParameterObject ModifyMedicoParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicoService.modifyMedico(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.modifyMedico(params)));
     }
 
     @Operation(summary = "Aggiungere un medico",
-            description = "Restituisce il medico aggiunto")
+            description = "Restituisce il medico aggiunto",
+            operationId = "msMedicoAddMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Medico aggiunto"),
             @ApiResponse(responseCode = "400", description = "Medico non aggiunto"),
@@ -85,6 +90,6 @@ public class MedicoController {
     })
     @PostMapping(value ="/add",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicoDto>> addMedico(@ParameterObject AddMedicoParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicoService.addMedico(params)));
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.addMedico(params)));
     }
 }

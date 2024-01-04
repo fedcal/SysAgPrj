@@ -8,12 +8,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "reparto_medico")
+@Table(name = "visita_medica_cartella")
 public class VisitaMedicaCartella {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
+
+    /*@Column(name = "id_cartella")
+    private Integer idCartella;
+
+    @Column(name = "id_visita_medica")
+    private Integer idVisitaMedica;
+
+    @Column(name = "id_referto")
+    private Integer idReferto;*/
 
     @ManyToOne
     @JoinColumn(name = "id_cartella",referencedColumnName="id_cartella_clinica")

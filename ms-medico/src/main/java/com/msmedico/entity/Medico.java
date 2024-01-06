@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 public class Medico {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_medico")
     private Integer idMedico;
 
@@ -33,8 +33,11 @@ public class Medico {
     @OneToMany(mappedBy = "medico")
     private Set<RepartoMedico> repartoMedicoSet;
 
-    @OneToOne(mappedBy = "medico")
-    private OperazioneCartella operazioneCartella;
+    @OneToMany(mappedBy = "medico")
+    private Set<OperazioneCartella> operazioneCartella;
+
+    @OneToMany(mappedBy = "medico")
+    private Set<OperazionePrescrizione> operazionePrescrizione;
 
     @OneToMany(mappedBy = "medico")
     private Set<MedicinalePrescrizione> medicinalePrescrizione;

@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 public class RefertoOperazione {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_referto")
     private Integer idReferto;
 

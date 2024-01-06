@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "malattia_cartella")
 public class MalattiaCartella {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 

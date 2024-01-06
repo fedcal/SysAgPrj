@@ -11,7 +11,7 @@ import lombok.Data;
 @Table(name = "visita_medica_cartella")
 public class VisitaMedicaCartella {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 

@@ -1,7 +1,6 @@
 package com.msmedico.controller;
 
 import com.msmedico.constants.WebConstants;
-import com.msmedico.dto.MedicoDto;
 import com.msmedico.dto.params.visualizzastato.FindCartellaClinicaParams;
 import com.msmedico.dto.params.visualizzastato.FindOperazioneParams;
 import com.msmedico.dto.params.visualizzastato.FindStatoVisitaMedicaParams;

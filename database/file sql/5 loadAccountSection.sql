@@ -18,7 +18,7 @@ INSERT INTO profilo(id_profilo,tipo,descrizione) VALUES
 (3,"Specialista","Specialista presente nella struttura"),
 (4,"Paziente","Paziente preso in cura nella struttura");
 
-INSERT INTO operazione_consentita(id_operazione,tipo_account,operazione) VALUES
+INSERT INTO operazione_consentita(id_operazione_consentita,tipo_account,operazione) VALUES
 (1,1,1),
 (2,1,2),
 (3,1,3),

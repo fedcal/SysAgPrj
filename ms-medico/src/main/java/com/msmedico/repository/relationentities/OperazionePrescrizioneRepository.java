@@ -34,17 +34,18 @@ public interface OperazionePrescrizioneRepository extends JpaRepository<Operazio
                                                             @Param("cognomeMedico") String cognomeMedico);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.cognome = :cognomeMedico")
-    Optional<OperazionePrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
+    List<OperazionePrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente")
-    Optional<OperazionePrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
+    List<OperazionePrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    Optional<OperazionePrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
+    List<OperazionePrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.operazioneMedica.nome = :nomeOperazione ")
-    Optional<OperazionePrescrizione> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);
+    List<OperazionePrescrizione> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.nome = :nomeMedico ")
-    Optional<OperazionePrescrizione> findByNomeMedico(@Param("nomeMedico") String nomeMedico);
+    List<OperazionePrescrizione> findByNomeMedico(@Param("nomeMedico") String nomeMedico);
+
 }

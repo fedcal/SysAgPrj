@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS operazione_account(id_operazione INT PRIMARY KEY AUTO
 CREATE TABLE IF NOT EXISTS profilo(id_profilo INT PRIMARY KEY AUTO_INCREMENT, tipo VARCHAR(30), descrizione VARCHAR(100));
 
 -- OPERAZIONE CONSENTITA
-CREATE TABLE IF NOT EXISTS operazione_consentita(id_operazione INT PRIMARY KEY AUTO_INCREMENT, tipo_account INT, operazione INT, 
+CREATE TABLE IF NOT EXISTS operazione_consentita(id_operazione_consentita INT PRIMARY KEY AUTO_INCREMENT, tipo_account INT, operazione INT, 
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE,
 FOREIGN KEY (operazione) REFERENCES operazione_account(id_operazione) ON DELETE CASCADE);
 

@@ -9,7 +9,7 @@ import lombok.Data;
 public class ContattoRiferimento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_contatto")
     private Integer idContatto;
 
@@ -21,4 +21,7 @@ public class ContattoRiferimento {
 
     @Column(name = "numero_cellulare")
     private String numeroCellulare;
+
+    @OneToOne(mappedBy = "contattoRiferimento")
+    private Paziente paziente;
 }

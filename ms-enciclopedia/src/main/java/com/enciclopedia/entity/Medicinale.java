@@ -15,7 +15,7 @@ import lombok.ToString;
 public class Medicinale {
     @Id
     @Column(name="id_medicinale")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Integer idMedicinale;
 
     @Column(name="nome")

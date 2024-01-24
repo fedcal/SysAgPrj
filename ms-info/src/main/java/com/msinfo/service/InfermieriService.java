@@ -163,7 +163,6 @@ public class InfermieriService {
     public InfermiereDto addInfermiere(AddInfermiereParams params) {
         InfermiereDto infermiereDto = new InfermiereDto();
 
-        infermiereDto.setIdInfermiere(infermiereRepository.findAll().size() + 1);
         infermiereDto.setNome(params.getNome());
         infermiereDto.setCognome(params.getCognome());
         infermiereDto.setTurno(params.getTurno());

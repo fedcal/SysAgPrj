@@ -146,7 +146,6 @@ public class SpecialistaService {
     public SpecialistaDto addSpecialista(AddSpecialistaParams params) {
         SpecialistaDto specialistaDto = new SpecialistaDto();
 
-        specialistaDto.setIdSpecialista(specialistaRepository.findAll().size()+1);
         specialistaDto.setNome(params.getNome());
         specialistaDto.setCognome(params.getCognome());
         specialistaDto.setTurno(params.getTurno());

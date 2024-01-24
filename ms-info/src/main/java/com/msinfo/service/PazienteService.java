@@ -187,7 +187,6 @@ public class PazienteService {
     private PazienteDto mappPazienteDto(AddPazienteParams params) {
         PazienteDto returnDto = new PazienteDto();
 
-        returnDto.setIdPaziente(pazienteRepository.findAll().size()+1);
         returnDto.setNome(params.getNome());
         returnDto.setCognome(params.getCognome());
         returnDto.setDataNascita(params.getDataNascita());

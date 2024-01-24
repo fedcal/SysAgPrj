@@ -117,9 +117,9 @@ public class MedicinaleController {
             @ApiResponse(responseCode = "400", description = "Informazioni non modificate"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value = "/modify/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/modify/{idMedicinale}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicinaleDto>> modificaMedicinale(@ParameterObject @Schema(description = "Id medicinale")
-                                                                                @PathParam("id") Integer idMedicinale,
+                                                                                @PathParam("idMedicinale") Integer idMedicinale,
                                                                                 @RequestBody @ParameterObject MedicinaleParams params){
         MedicinaleDto response = service.modificaMedicinalle(idMedicinale,params);
         if(response == null){

@@ -33,21 +33,21 @@ public class SintomoMalattiaService {
 
     public SintomoMalattiaDto addSintomo(SintomoMalattiaParams params) {
         GenericResponseDto<SintomoMalattiaDto> addSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.addSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
+                sintomoMalattiaControllerApi.addSintomoMalattia(params.getIdRelazione(), params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(addSintomo.getEsito().getMessaggi());
         return addSintomo.getPayload();
     }
 
     public SintomoMalattiaDto infoSintomo(SintomoMalattiaParams params) {
         GenericResponseDto<SintomoMalattiaDto> infoSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.infoSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
+                sintomoMalattiaControllerApi.infoSintomoMalattia(params.getIdRelazione(), params.getIdSintomo(), params.getIdMalattia()),SintomoMalattiaDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(infoSintomo.getEsito().getMessaggi());
         return infoSintomo.getPayload();
     }
 
     public String deleteSintomoRelation(SintomoMalattiaParams params) {
         GenericResponseDto<String> infoSintomo = genericResponseConverter.convertGenericResponse(
-                sintomoMalattiaControllerApi.deleteSintomoMalattia(params.getIdSintomo(), params.getIdMalattia()),String.class);
+                sintomoMalattiaControllerApi.deleteSintomoMalattia(params.getIdRelazione(), params.getIdSintomo(), params.getIdMalattia()),String.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(infoSintomo.getEsito().getMessaggi());
         return infoSintomo.getPayload();
     }

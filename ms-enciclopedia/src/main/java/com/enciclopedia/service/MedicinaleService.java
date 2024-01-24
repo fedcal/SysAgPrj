@@ -79,7 +79,6 @@ public class MedicinaleService {
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }else {
             MedicinaleDto toSave = new MedicinaleDto();
-            toSave.setIdMedicinale(repository.findAll().size() + 1);
             toSave.setNome(params.getNome());
             toSave.setDescrizione(params.getDescrizione());
             toSave.setDosaggio(params.getDosaggio());

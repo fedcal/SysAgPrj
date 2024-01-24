@@ -43,7 +43,7 @@ public class MedicoController {
     @Operation(summary = "Filtraggio dei medici",
             description = "Restituisce una lista di MediciDto seguendo i filtri")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Elenco di tutti gli infermieri"),
+            @ApiResponse(responseCode = "200", description = "Elenco di tutti i medici"),
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })

@@ -11,7 +11,7 @@ import lombok.*;
 public class SintomoMalattia {
     @Id
     @Column(name="id_relazione")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Integer idRelazione;
 
     @Column(name = "id_malattia")
@@ -19,16 +19,5 @@ public class SintomoMalattia {
 
     @Column(name = "id_sintomo")
     private Integer idSintomo;
-
-    @ManyToOne
-    @MapsId("idMalattia")
-    @JoinColumn(name = "id_malattia")
-    private Malattia malattia;
-
-    @ManyToOne
-    @MapsId("idSintomo")
-    @JoinColumn(name = "id_sintomo")
-    private Sintomo sintomo;
-
 
 }

@@ -150,7 +150,7 @@ public class PrescrizioneController {
             @ApiResponse(responseCode = "400", description = "Comportamento inaspettato"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value ="/visita-info",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/visita-info",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<VisitaPrescrizioneDto>>> prescriviVisitaInfo(@ParameterObject PrescrizioneVisitaInfoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviVisitaInfo(params)));
     }

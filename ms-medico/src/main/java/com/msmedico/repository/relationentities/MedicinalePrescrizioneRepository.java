@@ -12,13 +12,13 @@ import java.util.Optional;
 @Repository
 public interface MedicinalePrescrizioneRepository extends JpaRepository<MedicinalePrescrizione, Integer> {
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medicinale.idMedicinale = :idMedicinale")
-    Optional<MedicinalePrescrizione> findByIdMedicinale(@Param("idMedicinale") Integer idMedicinale);
+    List<MedicinalePrescrizione> findByIdMedicinale(@Param("idMedicinale") Integer idMedicinale);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.idCartellaClinica = :idCartella")
-    Optional<MedicinalePrescrizione> findByIdCartella(@Param("idCartella") Integer idCartellaClinica);
+    List<MedicinalePrescrizione> findByIdCartella(@Param("idCartella") Integer idCartellaClinica);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.idMedico = :idMedico")
-    Optional<MedicinalePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
+    List<MedicinalePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.idPaziente = :idPaziente")
-    Optional<MedicinalePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
+    List<MedicinalePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente " +
             "AND op.cartellaClinica.paziente.cognome = :cognomePaziente")
     List<MedicinalePrescrizione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,

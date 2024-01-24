@@ -6,14 +6,20 @@ import com.msmedico.dto.params.prescrizione.medicinale.PrescrizioneMedicinaleMod
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneAddParams;
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneInfoParams;
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneModifyParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaAddParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaInfoParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaModifyParams;
 import com.msmedico.dto.relationentities.MedicinalePrescrizioneDto;
 import com.msmedico.dto.relationentities.OperazionePrescrizioneDto;
+import com.msmedico.dto.relationentities.VisitaPrescrizioneDto;
 import com.msmedico.entity.Medicinale;
 import com.msmedico.entity.Medico;
 import com.msmedico.entity.operazione.OperazioneMedica;
 import com.msmedico.entity.paziente.CartellaClinica;
 import com.msmedico.entity.relationentities.MedicinalePrescrizione;
 import com.msmedico.entity.relationentities.OperazionePrescrizione;
+import com.msmedico.entity.relationentities.VisitaPrescrizione;
+import com.msmedico.entity.visitamedica.VisitaMedica;
 import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
 import com.msmedico.esito.Messaggio;
 import com.msmedico.esito.constants.EsitoOperazioneEnum;
@@ -21,17 +27,21 @@ import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import com.msmedico.exception.EsitoRuntimeException;
 import com.msmedico.mapper.relationentities.medicinaleprescrizione.MedicinalePrescrizioneDtoMapper;
 import com.msmedico.mapper.relationentities.operazioneprescrizione.OperazionePrescrizioneDtoMapper;
+import com.msmedico.mapper.relationentities.visitaprescrizione.VisitaPrescrizioneDtoMapper;
 import com.msmedico.repository.MedicinaleRepository;
 import com.msmedico.repository.MedicoRepository;
 import com.msmedico.repository.operazione.OperazioneMedicaRepository;
 import com.msmedico.repository.paziente.CartellaClinicaRepository;
 import com.msmedico.repository.relationentities.MedicinalePrescrizioneRepository;
 import com.msmedico.repository.relationentities.OperazionePrescrizioneRepository;
+import com.msmedico.repository.relationentities.VisitaPrescrizioneRepository;
+import com.msmedico.repository.visitamedica.VisitaMedicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,32 +68,27 @@ public class PrescrizioneService {
     @Autowired
     private OperazioneMedicaRepository operazioneMedicaRepository;
 
+    @Autowired
+    private VisitaPrescrizioneRepository visitaPrescrizioneRepository;
+
+    @Autowired
+    private VisitaMedicaRepository visitaMedicaRepository;
+
     public List<OperazionePrescrizioneDto> prescriviOperazioneInfo(PrescrizioneOperazioneInfoParams params) {
         checkParams(params);
 
-        Optional<OperazionePrescrizione> operazionePrescrizioneById = findOperazioneById(params);
         List<OperazionePrescrizione> operazionePrescrizioneByString = findOperazioneByString(params);
 
-        if(operazionePrescrizioneById.isEmpty()&&operazionePrescrizioneByString.isEmpty()){
+        if(operazionePrescrizioneByString.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna operazione trovata.").build());
             esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneInfo");
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
-        }
-
-        if(operazionePrescrizioneById.isPresent()){
-            List<OperazionePrescrizioneDto> listaReturn = new ArrayList<>();
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            listaReturn.add(OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneById.get()));
-            return listaReturn;
-        }
-
-        if(!operazionePrescrizioneByString.isEmpty()){
+        }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             return OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneByString);
         }
-        return new ArrayList<>();
     }
 
     private List<OperazionePrescrizione> findOperazioneByString(PrescrizioneOperazioneInfoParams params) {
@@ -108,23 +113,19 @@ public class PrescrizioneService {
         if(params.getNomeMedico()!=null){
             return operazionePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
         }
-        return new ArrayList<>();
-    }
-
-    private Optional<OperazionePrescrizione> findOperazioneById(PrescrizioneOperazioneInfoParams params) {
         if (params.getIdOperazione()!=null){
             return operazionePrescrizioneRepository.findByIdOperazione(params.getIdOperazione());
-        }
-        if(params.getIdCartella()!=null){
-            return operazionePrescrizioneRepository.findByIdCartella(params.getIdCartella());
         }
         if(params.getIdMedico()!=null){
             return operazionePrescrizioneRepository.findByIdMedico(params.getIdMedico());
         }
+        if(params.getIdCartella()!=null){
+            return operazionePrescrizioneRepository.findByIdCartella(params.getIdCartella());
+        }
         if(params.getIdPaziente()!=null){
             return operazionePrescrizioneRepository.findByIdPaziente(params.getIdPaziente());
         }
-        return Optional.empty();
+        return new ArrayList<>();
     }
 
     private void checkParams(PrescrizioneOperazioneInfoParams params) {
@@ -173,7 +174,7 @@ public class PrescrizioneService {
 
     public OperazionePrescrizioneDto prescriviOperazioneModify(PrescrizioneOperazioneModifyParams params) {
         checkParams(params);
-        Optional<OperazionePrescrizione> findOperazionePrescrizione = operazionePrescrizioneRepository.findByIdOperazione(params.getIdRelazione());
+        Optional<OperazionePrescrizione> findOperazionePrescrizione = operazionePrescrizioneRepository.findById(params.getIdRelazione());
         Optional<Medico> findMedico = Optional.empty();
         Optional<CartellaClinica> findCartellaClinica = Optional.empty();
         Optional<OperazioneMedica> findOperazioneMedica = Optional.empty();
@@ -205,7 +206,7 @@ public class PrescrizioneService {
             esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneModify");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
-        Optional<OperazionePrescrizione> findOperazionePrescrizione = Optional.empty();
+        List<OperazionePrescrizione> findOperazionePrescrizione = new ArrayList<>();
         Optional<Medico> findMedico = Optional.empty();
         Optional<CartellaClinica> findCartellaClinica = Optional.empty();
         Optional<OperazioneMedica> findOperazioneMedica = Optional.empty();
@@ -225,7 +226,7 @@ public class PrescrizioneService {
         }
 
 
-        if( (params.getIdRelazione()!=null && !findOperazionePrescrizione.isPresent())
+        if( (params.getIdRelazione()!=null && !findOperazionePrescrizione.isEmpty())
                 || (params.getNuovoMedico()!=null && !findMedico.isPresent())
                 || (params.getNuovaCartellaClinica()!=null && !findCartellaClinica.isPresent())
                 || (params.getNuovaOperazioneMedica()!=null && !findOperazioneMedica.isPresent())){
@@ -296,18 +297,7 @@ public class PrescrizioneService {
     }
 
     private Optional<MedicinalePrescrizione> findMedicinalePrescrizioneById(PrescrizioneMedicinaleInfoParams params) {
-        if (params.getIdMedicinale()!=null){
-            return medicinalePrescrizioneRepository.findByIdMedicinale(params.getIdMedicinale());
-        }
-        if(params.getIdCartellaClinica()!=null){
-            return medicinalePrescrizioneRepository.findByIdCartella(params.getIdCartellaClinica());
-        }
-        if(params.getIdMedico()!=null){
-            return medicinalePrescrizioneRepository.findByIdMedico(params.getIdMedico());
-        }
-        if(params.getIdPaziente()!=null){
-            return medicinalePrescrizioneRepository.findByIdPaziente(params.getIdPaziente());
-        }
+
         if(params.getIdRelazione()!=null){
             return medicinalePrescrizioneRepository.findById(params.getIdRelazione());
         }
@@ -335,6 +325,18 @@ public class PrescrizioneService {
         }
         if(params.getNomeMedico()!=null){
             return medicinalePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
+        }
+        if (params.getIdMedicinale()!=null){
+            return medicinalePrescrizioneRepository.findByIdMedicinale(params.getIdMedicinale());
+        }
+        if(params.getIdCartellaClinica()!=null){
+            return medicinalePrescrizioneRepository.findByIdCartella(params.getIdCartellaClinica());
+        }
+        if(params.getIdMedico()!=null){
+            return medicinalePrescrizioneRepository.findByIdMedico(params.getIdMedico());
+        }
+        if(params.getIdPaziente()!=null){
+            return medicinalePrescrizioneRepository.findByIdPaziente(params.getIdPaziente());
         }
         return new ArrayList<>();
     }
@@ -467,6 +469,197 @@ public class PrescrizioneService {
                     .codMsg("Inserire almeno un parametro oltre all'id della relazione.").build());
             esitoMessaggiRequestContextHolder.setOperationId("prescriviMedicinaleModify");
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public List<VisitaPrescrizioneDto> prescriviVisitaInfo(PrescrizioneVisitaInfoParams params) {
+        checkParams(params);
+
+        List<VisitaPrescrizione> findListVisita = findListVisitaPrescrizione(params);
+        Optional<VisitaPrescrizione> findVisita = visitaPrescrizioneRepository.findById(params.getIdRelazione());
+        if(!findVisita.isPresent() && findListVisita.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun elemento trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaInfo");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        } else if (findVisita.isPresent()) {
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return Arrays.asList(VisitaPrescrizioneDtoMapper.INSTANCE.toDto(findVisita.get()));
+        }else if (!findListVisita.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(findListVisita);
+        }
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        return new ArrayList<>();
+    }
+
+    private List<VisitaPrescrizione> findListVisitaPrescrizione(PrescrizioneVisitaInfoParams params) {
+        if(params.getCognomePaziente()!=null && params.getNomePaziente()!=null){
+            return visitaPrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
+        }
+        if(params.getCognomeMedico()!=null && params.getNomeMedico()!=null){
+            return visitaPrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
+        }
+        if(params.getNomeVisita()!=null){
+            return visitaPrescrizioneRepository.findByNomeVisita(params.getNomeVisita());
+        }
+        if(params.getCognomePaziente()!=null){
+            return visitaPrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
+        }
+        if(params.getNomePaziente()!=null){
+            return visitaPrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
+        }
+        if(params.getCognomeMedico()!=null){
+            return visitaPrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
+        }
+        if(params.getNomeMedico()!=null){
+            return visitaPrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
+        }
+        if(params.getIdMedico()!=null){
+            return visitaPrescrizioneRepository.findbyIdMedico(params.getIdMedico());
+        }
+        if(params.getIdCartella()!=null){
+            return visitaPrescrizioneRepository.findbyIdCartella(params.getIdCartella());
+        }
+        if(params.getIdVisita()!=null){
+            return visitaPrescrizioneRepository.findbyIdVisita(params.getIdVisita());
+        }
+        if(params.getIdPaziente()!=null){
+            return visitaPrescrizioneRepository.findbyIdPaziente(params.getIdPaziente());
+        }
+        return new ArrayList<>();
+    }
+
+    private void checkParams(PrescrizioneVisitaInfoParams params) {
+        boolean checkId = params.getIdCartella()==null && params.getIdMedico()==null && params.getIdVisita()==null &&
+                params.getIdPaziente()==null && params.getIdRelazione()==null;
+        boolean checkString = params.getNomeMedico()==null && params.getCognomeMedico()!=null && params.getNomePaziente()==null
+                && params.getCognomePaziente()==null && params.getNomeVisita()==null;
+        if(checkId && checkString){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire almeno un parametro di ricerca.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneInfo");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public VisitaPrescrizioneDto prescriviVisitaAdd(PrescrizioneVisitaAddParams params) {
+        checkParams(params);
+        Optional<VisitaMedica> visitaMedica = visitaMedicaRepository.findById(params.getVisitaMedica());
+        Optional<CartellaClinica> cartellaClinica = cartellaClinicaRepository.findById(params.getCartellaClinica());
+        Optional<Medico> medico = medicoRepository.findById(params.getMedico());
+
+        if(!visitaMedica.isPresent() || !cartellaClinica.isPresent() || !medico.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Non è stato possibile trovare uno dei tre parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneInfo");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        VisitaPrescrizione visitaPrescrizione = new VisitaPrescrizione();
+        visitaPrescrizione.setVisitaMedica(visitaMedica.get());
+        visitaPrescrizione.setMedico(medico.get());
+        visitaPrescrizione.setCartellaClinica(cartellaClinica.get());
+
+        return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(visitaPrescrizioneRepository.save(visitaPrescrizione));
+    }
+
+    private void checkParams(PrescrizioneVisitaAddParams params) {
+        if(params.getMedico()==null && params.getCartellaClinica()==null && params.getVisitaMedica()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire i parametri di ricerca.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaAdd");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public String prescriviVisitaDelete(Integer params) {
+        if(!visitaPrescrizioneRepository.findById(params).isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna prescrizione trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaDelete");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }else{
+            visitaPrescrizioneRepository.deleteById(params);
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return "Prescrizione eliminata";
+        }
+    }
+
+    public VisitaPrescrizioneDto prescriviVisitaModify(PrescrizioneVisitaModifyParams params) {
+        checkParams(params);
+        Optional<VisitaPrescrizione> visitaPrescrizione = visitaPrescrizioneRepository.findById(params.getIdRelazione());
+        Optional<VisitaMedica> visitaMedica= null;
+        Optional<Medico> medico= null;
+        Optional<CartellaClinica> cartellaClinica = null;
+
+        if(!visitaPrescrizione.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna prescrizione trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaModify");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+        if(params.getNuovaVisitaMedica()!=null){
+            visitaMedica = visitaMedicaRepository.findById(params.getNuovaVisitaMedica());
+        }
+        if(params.getNuovoMedico()!=null){
+            medico = medicoRepository.findById(params.getNuovoMedico());
+        }
+        if(params.getNuovaCartellaClinica()!=null){
+            cartellaClinica = cartellaClinicaRepository.findById(params.getNuovaCartellaClinica());
+        }
+
+        if(visitaMedica==null && medico==null && cartellaClinica==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun nuovo elemento trovato per poter effettuare la modifica.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaModify");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+
+        if((visitaMedica!=null && !visitaMedica.isPresent()) && (medico!=null && !medico.isPresent())
+                && (cartellaClinica!=null && !cartellaClinica.isPresent())){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun nuovo elemento trovato per poter effettuare la modifica.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaModify");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+
+        if(visitaMedica!=null && visitaMedica.isPresent()){
+            visitaPrescrizione.get().setVisitaMedica(visitaMedica.get());
+        }
+        if(medico!=null && medico.isPresent()){
+            visitaPrescrizione.get().setMedico(medico.get());
+        }
+        if(cartellaClinica!=null && cartellaClinica.isPresent()){
+            visitaPrescrizione.get().setCartellaClinica(cartellaClinica.get());
+        }
+
+        return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(visitaPrescrizioneRepository.save(visitaPrescrizione.get()));
+
+    }
+
+    private void checkParams(PrescrizioneVisitaModifyParams params) {
+        if(params.getIdRelazione()!=null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id della relazione.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaModify");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+        if(params.getNuovoMedico()==null && params.getNuovaCartellaClinica()==null && params.getNuovaVisitaMedica()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire il nuovo l'elemento da modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("prescriviVisitaModify");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 }

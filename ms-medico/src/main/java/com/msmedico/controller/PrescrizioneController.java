@@ -7,8 +7,12 @@ import com.msmedico.dto.params.prescrizione.medicinale.PrescrizioneMedicinaleMod
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneAddParams;
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneInfoParams;
 import com.msmedico.dto.params.prescrizione.operazione.PrescrizioneOperazioneModifyParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaAddParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaInfoParams;
+import com.msmedico.dto.params.prescrizione.visita.PrescrizioneVisitaModifyParams;
 import com.msmedico.dto.relationentities.MedicinalePrescrizioneDto;
 import com.msmedico.dto.relationentities.OperazionePrescrizioneDto;
+import com.msmedico.dto.relationentities.VisitaPrescrizioneDto;
 import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
 import com.msmedico.esito.GenericResponseDto;
 import com.msmedico.service.PrescrizioneService;
@@ -135,6 +139,62 @@ public class PrescrizioneController {
     @PostMapping(value ="/medicinale-modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicinalePrescrizioneDto>> prescriviMedicinaleModify(@ParameterObject PrescrizioneMedicinaleModifyParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviMedicinaleModify(params)));
+    }
+
+    @Operation(summary = "Informazione di una prescrizione di una visita",
+            description = "Informazione di una prescrizione di una visita",
+            operationId = "msMedicoprescriviVisitaInfo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunta"),
+            @ApiResponse(responseCode = "404", description = "Nessun medicinale aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Comportamento inaspettato"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/visita-info",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<VisitaPrescrizioneDto>>> prescriviVisitaInfo(@ParameterObject PrescrizioneVisitaInfoParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviVisitaInfo(params)));
+    }
+
+    @Operation(summary = "Modificare una prescrizione di un medicinale",
+            description = "Eliminare una prescrizione di un medicinale",
+            operationId = "msMedicoprescriviVisitaAdd")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunta"),
+            @ApiResponse(responseCode = "404", description = "Nessun medicinale aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Comportamento inaspettato"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/visita-add",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaPrescrizioneDto>> prescriviVisitaAdd(@ParameterObject PrescrizioneVisitaAddParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviVisitaAdd(params)));
+    }
+
+    @Operation(summary = "Eliminare una prescrizione di una visita",
+            description = "Eliminare una prescrizione di una visita",
+            operationId = "msMedicoprescriviVisitaDelete")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunta"),
+            @ApiResponse(responseCode = "404", description = "Nessun medicinale aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Comportamento inaspettato"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/visita-delete",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> prescriviVisitaAdd(@ParameterObject Integer params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviVisitaDelete(params)));
+    }
+
+    @Operation(summary = "Eliminare una prescrizione di una visita",
+            description = "Eliminare una prescrizione di una visita",
+            operationId = "msMedicoprescriviVisitaModify")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunta"),
+            @ApiResponse(responseCode = "404", description = "Nessun medicinale aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Comportamento inaspettato"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/visita-modify",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaPrescrizioneDto>> prescriviVisitaAdd(@ParameterObject PrescrizioneVisitaModifyParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(prescrizioneService.prescriviVisitaModify(params)));
     }
 
 }

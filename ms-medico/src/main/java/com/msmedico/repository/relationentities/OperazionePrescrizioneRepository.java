@@ -12,16 +12,16 @@ import java.util.Optional;
 @Repository
 public interface OperazionePrescrizioneRepository extends JpaRepository<OperazionePrescrizione,Integer> {
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.operazioneMedica.idOperazioneMedica = :idOperazione")
-    Optional<OperazionePrescrizione> findByIdOperazione(@Param("idOperazione") Integer idOperazione);
+    List<OperazionePrescrizione> findByIdOperazione(@Param("idOperazione") Integer idOperazione);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.idCartellaClinica = :idCartella")
-    Optional<OperazionePrescrizione> findByIdCartella(@Param("idCartella") Integer idCartella);
+    List<OperazionePrescrizione> findByIdCartella(@Param("idCartella") Integer idCartella);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.idMedico = :idMedico")
-    Optional<OperazionePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
+    List<OperazionePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.idPaziente = :idPaziente")
-    Optional<OperazionePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
+    List<OperazionePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente " +
             "AND op.cartellaClinica.paziente.cognome = :cognomePaziente")

@@ -3,13 +3,13 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-  - url: http://localhost:8082
+  - url: http://localhost:8083
     description: Generated server url
 paths:
-  /ms-infermiere/messagistica/ricevi-meidco:
+  /ms-pazienti/messagistica/ricevi-medico:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - pazienti-messaggistica-controller
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
       operationId: msMedicoRiceviMessaggioMedico
@@ -51,10 +51,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
-  /ms-infermiere/messagistica/invio-medico:
+  /ms-pazienti/messagistica/ricevi-infermiere:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - pazienti-messaggistica-controller
+      summary: Ricevi messaggio dal robot infermiere
+      description: Ricevi messaggio dal robot infermiere
+      operationId: msMedicoRiceviMessaggioInfermiere
+      parameters:
+        - name: messaggio
+          in: query
+          description: Messaggio da inviare
+          required: false
+          schema:
+            type: string
+            description: Messaggio da inviare
+            example: Ciao
+          example: Ciao
+        - name: livelloUrgenza
+          in: query
+          description: Livello di urgenza del messaggio da inviare
+          required: false
+          schema:
+            type: string
+            description: Livello di urgenza del messaggio da inviare
+            example: LOW
+          example: LOW
+      responses:
+        '200':
+          description: Messaggio inviato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-pazienti/messagistica/invio-medico:
+    get:
+      tags:
+        - pazienti-messaggistica-controller
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
       operationId: msMedicoInvioMessaggioMedico
@@ -96,58 +141,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
-  /ms-infermiere/messagistica/ricevi-paziente:
+  /ms-pazienti/messagistica/invio-infermiere:
     get:
       tags:
-        - infermieri-messaggistica-controller
-      summary: Ricevi messaggio dal robot medico
-      description: Ricevi messaggio dal robot medico
-      operationId: msMedicoRiceviMessaggioPaziente
-      parameters:
-        - name: messaggio
-          in: query
-          description: Messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
-        - name: livelloUrgenza
-          in: query
-          description: Livello di urgenza del messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
-      responses:
-        '200':
-          description: Messaggio inviato
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
-        '400':
-          description: Errore elaborazione
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
-        '500':
-          description: Errore di sistema
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
-  /ms-infermiere/messagistica/invio-paziente:
-    get:
-      tags:
-        - infermieri-messaggistica-controller
-      summary: Invio messaggio al robot medico
-      description: Invio messaggio al robot medico
-      operationId: msMedicoInvioMessaggioPaziente
+        - pazienti-messaggistica-controller
+      summary: Invio messaggio al robot infermiere
+      description: Invio messaggio al robot infermiere
+      operationId: msMedicoInvioMessaggioInfermiere
       parameters:
         - name: messaggio
           in: query
@@ -188,17 +188,6 @@ paths:
                 $ref: '#/components/schemas/GenericResponseDtoString'
 components:
   schemas:
-    MedicoInfermiereMessaggioDto:
-      type: object
-      properties:
-        messaggio:
-          type: string
-          description: Messaggio da inviare
-          example: Ciao
-        livelloUrgenza:
-          type: string
-          description: Livello di urgenza del messaggio
-          example: Ciao
     Esito:
       type: object
       properties:
@@ -214,6 +203,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string
     Messaggio:
       type: object
       properties:
@@ -236,22 +232,4 @@ components:
         nome:
           type: string
         valore:
-          type: string
-    InfermiereMedicoMessaggioDto:
-      type: object
-      properties:
-        messaggio:
-          type: string
-          description: Messaggio da inviare
-          example: Ciao
-        livelloUrgenza:
-          type: string
-          description: Livello di urgenza del messaggio
-          example: Ciao
-    GenericResponseDtoString:
-      type: object
-      properties:
-        esito:
-          $ref: '#/components/schemas/Esito'
-        payload:
           type: string

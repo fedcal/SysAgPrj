@@ -1,7 +1,6 @@
 package com.msmedico.service;
 
-import com.msmedico.dto.params.messaggistica.infermiere.InfermiereMedicoMessaggioDto;
-import com.msmedico.dto.params.messaggistica.infermiere.MedicoInfermiereMessaggioDto;
+import com.msmedico.dto.params.messaggistica.MessaggioParamsDto;
 import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
 import com.msmedico.esito.GenericResponseConverter;
 import com.msmedico.esito.GenericResponseDto;
@@ -22,16 +21,16 @@ public class MessaggisticaService {
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     @Autowired
     private InfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
-    public String invioMessaggioInfermiere(MedicoInfermiereMessaggioDto messaggioDto) {
+    public String invioMessaggioInfermiere(MessaggioParamsDto messaggioDto) {
         GenericResponseDto<String> invioMessaggio = genericResponseConverter.convertGenericResponse(
-                messaggisticaControllerApiInfermiere.msMedicoRiceviMessaggioInfermiere(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);
+                messaggisticaControllerApiInfermiere.msMedicoRiceviMessaggioMedico(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(invioMessaggio.getEsito().getMessaggi());
         esitoMessaggiRequestContextHolder.setCodRet(invioMessaggio.getEsito().getCodRet());
         esitoMessaggiRequestContextHolder.setOperationId(invioMessaggio.getEsito().getOperationId());
         return invioMessaggio.getPayload();
     }
 
-    public String riceviMessaggioInfermiere(InfermiereMedicoMessaggioDto messaggioDto) {
+    public String riceviMessaggioInfermiere(MessaggioParamsDto messaggioDto) {
         if(messaggioDto.getLivelloUrgenza()!=null && (!messaggioDto.getLivelloUrgenza().equalsIgnoreCase("HIGH") ||
                 messaggioDto.getLivelloUrgenza().equalsIgnoreCase("MEDIUM")|| messaggioDto.getLivelloUrgenza().equalsIgnoreCase("LOW"))){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -59,5 +58,13 @@ public class MessaggisticaService {
             return "Messaggio ricevuto";
         }
         return "";
+    }
+
+    public String invioMessaggioPaziente(MessaggioParamsDto messaggioParamsDto) {
+        return null;
+    }
+
+    public String riceviMessaggioPaziente(MessaggioParamsDto messaggioParamsDto) {
+        return null;
     }
 }

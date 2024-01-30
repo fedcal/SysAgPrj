@@ -16,7 +16,7 @@ public class ExternalApiClientConfig {
 
     @Primary
     @Bean
-    public com.msmedico.msinfermiere.invoker.ApiClient msCiclomotoriApiClient() {
+    public com.msmedico.msinfermiere.invoker.ApiClient msInfermiereApiClient() {
         com.msmedico.msinfermiere.invoker.ApiClient apiClient = new com.msmedico.msinfermiere.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8082");
         return apiClient;

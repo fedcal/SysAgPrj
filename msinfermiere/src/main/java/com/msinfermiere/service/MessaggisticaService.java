@@ -1,7 +1,6 @@
 package com.msinfermiere.service;
 
-import com.msinfermiere.dto.params.messaggimedico.InfermiereMedicoMessaggioDto;
-import com.msinfermiere.dto.params.messaggimedico.MedicoInfermiereMessaggioDto;
+import com.msinfermiere.dto.params.MessaggioParamsDto;
 import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfermiere.esito.GenericResponseConverter;
 import com.msinfermiere.esito.GenericResponseDto;
@@ -23,7 +22,7 @@ public class MessaggisticaService {
     @Autowired
     private MediciMessaggisticaControllerApi mediciMessaggisticaControllerApi;
 
-    public String invioMessaggioMedico(InfermiereMedicoMessaggioDto messaggioDto) {
+    public String invioMessaggioMedico(MessaggioParamsDto messaggioDto) {
         GenericResponseDto<String> invioMessaggio = genericResponseConverter.convertGenericResponse(
                 mediciMessaggisticaControllerApi.msMedicoRiceviMessaggioInfermiere(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(invioMessaggio.getEsito().getMessaggi());
@@ -32,7 +31,7 @@ public class MessaggisticaService {
         return invioMessaggio.getPayload();
     }
 
-    public String riceviMessaggioMedico(MedicoInfermiereMessaggioDto messaggioDto) {
+    public String riceviMessaggioMedico(MessaggioParamsDto messaggioDto) {
         if(messaggioDto.getLivelloUrgenza()!=null && (!messaggioDto.getLivelloUrgenza().equalsIgnoreCase("HIGH") &&
                 messaggioDto.getLivelloUrgenza().equalsIgnoreCase("MEDIUM")&& messaggioDto.getLivelloUrgenza().equalsIgnoreCase("LOW"))){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);

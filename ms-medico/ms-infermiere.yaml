@@ -12,7 +12,7 @@ paths:
         - infermieri-messaggistica-controller
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
-      operationId: msMedicoRiceviMessaggioMedico
+      operationId: msInfermiereRiceviMessaggioMedico
       parameters:
         - name: messaggio
           in: query
@@ -57,7 +57,7 @@ paths:
         - infermieri-messaggistica-controller
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
-      operationId: msMedicoInvioMessaggioMedico
+      operationId: msInfermiereInvioMessaggioMedico
       parameters:
         - name: messaggio
           in: query
@@ -102,7 +102,7 @@ paths:
         - infermieri-messaggistica-controller
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
-      operationId: msMedicoRiceviMessaggioPaziente
+      operationId: msInfermiereRiceviMessaggioPaziente
       parameters:
         - name: messaggio
           in: query
@@ -147,7 +147,7 @@ paths:
         - infermieri-messaggistica-controller
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
-      operationId: msMedicoInvioMessaggioPaziente
+      operationId: msInfermiereInvioMessaggioPaziente
       parameters:
         - name: messaggio
           in: query

@@ -144,9 +144,9 @@
 							</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
-							<modelPackage>com.msmedico.mspaziente.model</modelPackage>
-							<apiPackage>com.msmedico.mspaziente.api</apiPackage>
-							<invokerPackage>com.msmedico.mspaziente.invoker</invokerPackage>
+							<modelPackage>com.msinfermiere.mspaziente.model</modelPackage>
+							<apiPackage>com.msinfermiere.mspaziente.api</apiPackage>
+							<invokerPackage>com.msinfermiere.mspaziente.invoker</invokerPackage>
 							<output>${project.build.directory}/generated-sources</output>
 							<generateApiTests>false</generateApiTests>
 							<configOptions>

@@ -24,7 +24,7 @@ public class PazientiMessaggisticaController {
     private MessaggisticaService messaggisticaService;
     @Operation(summary = "Invio messaggio al robot infermiere",
             description = "Invio messaggio al robot infermiere",
-            operationId = "msMedicoInvioMessaggioInfermiere")
+            operationId = "msPazienteInvioMessaggioInfermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -37,7 +37,7 @@ public class PazientiMessaggisticaController {
 
     @Operation(summary = "Ricevi messaggio dal robot infermiere",
             description = "Ricevi messaggio dal robot infermiere",
-            operationId = "msMedicoRiceviMessaggioInfermiere")
+            operationId = "msPazienteRiceviMessaggioInfermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -50,7 +50,7 @@ public class PazientiMessaggisticaController {
 
     @Operation(summary = "Invio messaggio al robot medico",
             description = "Invio messaggio al robot medico",
-            operationId = "msMedicoInvioMessaggioMedico")
+            operationId = "msPazienteInvioMessaggioMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -63,7 +63,7 @@ public class PazientiMessaggisticaController {
 
     @Operation(summary = "Ricevi messaggio dal robot medico",
             description = "Ricevi messaggio dal robot medico",
-            operationId = "msMedicoRiceviMessaggioMedico")
+            operationId = "msPazienteRiceviMessaggioMedico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),

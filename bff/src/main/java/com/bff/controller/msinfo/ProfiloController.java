@@ -1,12 +1,11 @@
 package com.bff.controller.msinfo;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msinfo.ProfiloDto;
 import com.bff.dto.msinfo.params.profilo.AddProfiloParams;
 import com.bff.dto.msinfo.params.profilo.ModifyProfiloParams;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
-import com.bff.service.msinfo.PazienteService;
 import com.bff.service.msinfo.ProfiloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_INFO+"/profilo")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFO+"/profilo")
 public class ProfiloController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

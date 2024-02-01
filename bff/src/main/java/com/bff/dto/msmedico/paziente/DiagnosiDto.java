@@ -1,4 +1,4 @@
-package com.msmedico.dto.paziente;
+package com.bff.dto.msmedico.paziente;
 
 import lombok.Data;
 

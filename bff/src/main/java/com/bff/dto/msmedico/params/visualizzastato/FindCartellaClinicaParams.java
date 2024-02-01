@@ -1,4 +1,4 @@
-package com.msmedico.dto.params.visualizzastato;
+package com.bff.dto.msmedico.params.visualizzastato;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

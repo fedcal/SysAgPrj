@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_MEDICI + "/gestione-medici")
+@RequestMapping(WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_MEDICI + "/messaggistica")
 public class MediciMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

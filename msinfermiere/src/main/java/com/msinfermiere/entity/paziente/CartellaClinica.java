@@ -1,6 +1,6 @@
 package com.msinfermiere.entity.paziente;
 
-import com.msinfermiere.entity.relationenitites.*;
+import com.msinfermiere.entity.relationentites.*;
 import jakarta.persistence.*;
 import lombok.Data;
 

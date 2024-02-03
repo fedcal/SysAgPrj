@@ -1,4 +1,4 @@
-package com.msinfermiere.entity.relationenitites;
+package com.msinfermiere.entity.relationentites;
 
 import com.msinfermiere.entity.Medico;
 import com.msinfermiere.entity.paziente.CartellaClinica;
@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "medicinale_prescrizione")
-public class VisitaPrescrizione {
+@Table(name = "visita_sottoministrazione_medico")
+public class VisitaSottoministrazioneMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_relazione")

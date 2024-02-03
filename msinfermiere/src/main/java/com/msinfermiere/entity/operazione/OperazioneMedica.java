@@ -1,7 +1,7 @@
 package com.msinfermiere.entity.operazione;
 
-import com.msinfermiere.entity.relationenitites.OperazioneCartella;
-import com.msinfermiere.entity.relationenitites.OperazionePrescrizione;
+import com.msinfermiere.entity.relationentites.OperazioneCartella;
+import com.msinfermiere.entity.relationentites.OperazionePrescrizione;
 import jakarta.persistence.*;
 import lombok.Data;
 

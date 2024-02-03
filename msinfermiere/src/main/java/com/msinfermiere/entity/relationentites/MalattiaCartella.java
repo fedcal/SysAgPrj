@@ -1,4 +1,4 @@
-package com.msinfermiere.entity.relationenitites;
+package com.msinfermiere.entity.relationentites;
 
 import com.msinfermiere.entity.Malattia;
 import com.msinfermiere.entity.paziente.CartellaClinica;

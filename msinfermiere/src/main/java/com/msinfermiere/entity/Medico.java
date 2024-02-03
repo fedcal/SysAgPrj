@@ -1,7 +1,7 @@
 package com.msinfermiere.entity;
 
 import com.msinfermiere.entity.account.Profilo;
-import com.msinfermiere.entity.relationenitites.RepartoMedico;
+import com.msinfermiere.entity.relationentites.RepartoMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 

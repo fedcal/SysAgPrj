@@ -1,7 +1,7 @@
 package com.msinfermiere.entity;
 
-import com.msinfermiere.entity.relationenitites.MedicinaleCartella;
-import com.msinfermiere.entity.relationenitites.MedicinaleSottoministrazione;
+import com.msinfermiere.entity.relationentites.MedicinaleCartella;
+import com.msinfermiere.entity.relationentites.MedicinaleSottoministrazione;
 import jakarta.persistence.*;
 import lombok.Data;
 

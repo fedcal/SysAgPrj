@@ -1,7 +1,7 @@
 package com.msinfermiere.entity.visitamedica;
 
-import com.msinfermiere.entity.relationenitites.VisitaPrescrizione;
-import com.msinfermiere.entity.relationenitites.VisitaSottoministrazioneMedico;
+import com.msinfermiere.entity.relationentites.VisitaPrescrizione;
+import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 

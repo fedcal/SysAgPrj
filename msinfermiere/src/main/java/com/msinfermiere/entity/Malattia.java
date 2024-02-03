@@ -1,6 +1,6 @@
 package com.msinfermiere.entity;
 
-import com.msinfermiere.entity.relationenitites.MalattiaCartella;
+import com.msinfermiere.entity.relationentites.MalattiaCartella;
 import jakarta.persistence.*;
 import lombok.*;
 

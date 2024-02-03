@@ -1,7 +1,7 @@
 package com.msinfermiere.entity.account;
 
 import com.msinfermiere.entity.Infermiere;
-import com.msinfermiere.entity.relationenitites.OperazioneConsentita;
+import com.msinfermiere.entity.relationentites.OperazioneConsentita;
 import jakarta.persistence.*;
 import lombok.Data;
 

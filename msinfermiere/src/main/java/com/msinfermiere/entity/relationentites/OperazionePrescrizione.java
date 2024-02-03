@@ -1,16 +1,15 @@
-package com.msinfermiere.entity.relationenitites;
+package com.msinfermiere.entity.relationentites;
 
 import com.msinfermiere.entity.Medico;
 import com.msinfermiere.entity.operazione.OperazioneMedica;
-import com.msinfermiere.entity.operazione.RefertoOperazione;
 import com.msinfermiere.entity.paziente.CartellaClinica;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "operazione_cartella")
-public class OperazioneCartella {
+@Table(name="operazione_prescrizione")
+public class OperazionePrescrizione {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_relazione")
@@ -27,8 +26,4 @@ public class OperazioneCartella {
     @ManyToOne
     @JoinColumn(name = "id_medico",referencedColumnName = "id_medico")
     private Medico medico;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_referto", referencedColumnName = "id_referto")
-    private RefertoOperazione refertoOperazione;
 }

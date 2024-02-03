@@ -1,15 +1,15 @@
-package com.msmedico.entity.relationentities;
+package com.msinfermiere.entity.relationenitites;
 
-import com.msmedico.entity.Medico;
-import com.msmedico.entity.paziente.CartellaClinica;
-import com.msmedico.entity.visitamedica.VisitaMedica;
+import com.msinfermiere.entity.Medico;
+import com.msinfermiere.entity.paziente.CartellaClinica;
+import com.msinfermiere.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "medicinale_prescrizione")
-public class VisitaPrescrizione {
+@Table(name = "visita_sottoministrazione_medico")
+public class VisitaSottoministrazioneMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_relazione")

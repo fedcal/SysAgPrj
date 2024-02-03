@@ -1,7 +1,7 @@
-package com.msmedico.entity.paziente;
+package com.msinfermiere.entity.paziente;
 
-import com.msmedico.entity.Reparto;
-import com.msmedico.entity.account.Profilo;
+import com.msinfermiere.entity.Reparto;
+import com.msinfermiere.entity.account.Profilo;
 import jakarta.persistence.*;
 import lombok.Data;
 

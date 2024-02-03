@@ -1,8 +1,5 @@
-package com.msinfo.entity.reparto;
+package com.msinfermiere.entity;
 
-import com.msinfo.entity.medici.Medico;
-import com.msinfo.entity.pazienti.Paziente;
-import com.msinfo.entity.relantionentities.RepartoMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,10 +26,4 @@ public class Reparto {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "capo_reparto", referencedColumnName = "id_medico")
     private Medico capoReparto;
-
-    @OneToMany(mappedBy = "reparto")
-    private Set<RepartoMedico> repartoMedicoSet;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="reparto")
-    private Set<Paziente> repartoPazienteSet;
 }

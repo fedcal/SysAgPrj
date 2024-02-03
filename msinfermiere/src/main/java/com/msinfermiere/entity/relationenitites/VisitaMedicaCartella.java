@@ -1,8 +1,8 @@
-package com.msmedico.entity.relationentities;
+package com.msinfermiere.entity.relationenitites;
 
-import com.msmedico.entity.visitamedica.RefertoVisitaMedica;
-import com.msmedico.entity.visitamedica.VisitaMedica;
-import com.msmedico.entity.paziente.CartellaClinica;
+import com.msinfermiere.entity.paziente.CartellaClinica;
+import com.msinfermiere.entity.visitamedica.RefertoVisitaMedica;
+import com.msinfermiere.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
 import lombok.Data;
 

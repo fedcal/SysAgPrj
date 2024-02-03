@@ -43,5 +43,4 @@ public class Paziente {
 
     @OneToOne(mappedBy = "paziente")
     private CartellaClinica cartellaClinica;
-
 }

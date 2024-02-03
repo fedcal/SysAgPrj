@@ -35,5 +35,4 @@ public class Reparto {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="reparto")
     private Set<Paziente> repartoPazienteSet;
-
 }

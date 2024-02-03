@@ -124,6 +124,72 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.41</version>
+				<executions>
+					<execution>
+						<id>generate-client-ms-infermiere</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/ms-infermiere.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.msmedico.msinfermiere.model</modelPackage>
+							<apiPackage>com.msmedico.msinfermiere.api</apiPackage>
+							<invokerPackage>com.msmedico.msinfermiere.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-client-ms-paziente</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/ms-paziente.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.msmedico.mspaziente.model</modelPackage>
+							<apiPackage>com.msmedico.mspaziente.api</apiPackage>
+							<invokerPackage>com.msmedico.mspaziente.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -1,6 +1,6 @@
 package com.bff.controller.msenciclopedia;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msenciclopedia.MedicinaleDto;
 import com.bff.dto.msenciclopedia.params.medicinale.MedicinaleInfoParams;
 import com.bff.dto.msenciclopedia.params.medicinale.MedicinaleParams;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value =WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_ENCICLOPEDIA+"/medicinale")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_ENCICLOPEDIA+"/medicinale")
 public class MedicinaleController {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.bff.controller.msenciclopedia;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msenciclopedia.SintomoDto;
 import com.bff.dto.msenciclopedia.params.sintomo.SintomoChangeParams;
 import com.bff.dto.msenciclopedia.params.sintomo.SintomoInfoParams;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_ENCICLOPEDIA+"/sintomo")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_ENCICLOPEDIA+"/sintomo")
 public class SintomoController {
 
     @Autowired

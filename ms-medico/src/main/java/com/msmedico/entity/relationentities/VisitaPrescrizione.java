@@ -26,5 +26,4 @@ public class VisitaPrescrizione {
     @ManyToOne
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
-
 }

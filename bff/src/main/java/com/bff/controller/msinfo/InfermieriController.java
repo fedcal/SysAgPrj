@@ -1,6 +1,6 @@
 package com.bff.controller.msinfo;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msinfo.InfermiereDto;
 import com.bff.dto.msinfo.params.infermieri.AddInfermiereParams;
 import com.bff.dto.msinfo.params.infermieri.FindInfermiereParams;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_INFO+"/infermieri")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFO+"/infermieri")
 public class InfermieriController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

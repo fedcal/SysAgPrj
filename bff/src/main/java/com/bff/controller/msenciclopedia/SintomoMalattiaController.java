@@ -1,6 +1,6 @@
 package com.bff.controller.msenciclopedia;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msenciclopedia.SintomoMalattiaDto;
 import com.bff.dto.msenciclopedia.params.sintomomalattia.SintomoMalattiaChangeParams;
 import com.bff.dto.msenciclopedia.params.sintomomalattia.SintomoMalattiaParams;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value =WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_ENCICLOPEDIA+"/sintomo-malattia")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_ENCICLOPEDIA+"/sintomo-malattia")
 public class SintomoMalattiaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

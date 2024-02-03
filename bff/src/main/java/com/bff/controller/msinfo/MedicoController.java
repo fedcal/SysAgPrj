@@ -1,6 +1,6 @@
 package com.bff.controller.msinfo;
 
-import com.bff.constants.WebContstants;
+import com.bff.constants.WebConstants;
 import com.bff.dto.msinfo.MedicoDto;
 import com.bff.dto.msinfo.params.medico.AddMedicoParams;
 import com.bff.dto.msinfo.params.medico.FindMedicoParams;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebContstants.REST_CONTEX_BFF + WebContstants.REST_CONTEX_INFO+"/medico")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFO+"/medico")
 public class MedicoController {
 
     @Autowired

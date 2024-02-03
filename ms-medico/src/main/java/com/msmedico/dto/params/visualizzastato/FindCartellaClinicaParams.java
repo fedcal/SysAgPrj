@@ -6,14 +6,14 @@ import lombok.Data;
 @Data
 public class FindCartellaClinicaParams {
     @Schema(description = "Id della cartella clinica da ricercare",type = "integer")
-    Integer idCartellaClinica;
+    private Integer idCartellaClinica;
 
     @Schema(description = "Id del paziente",type = "integer")
-    Integer idPaziente;
+    private Integer idPaziente;
 
     @Schema(description = "Nome del paziente",type = "string")
-    String nome;
+    private String nome;
 
     @Schema(description = "Cognome del paziente",type = "string")
-    String cognome;
+    private String cognome;
 }

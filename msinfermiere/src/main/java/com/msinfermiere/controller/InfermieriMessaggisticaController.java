@@ -8,6 +8,7 @@ import com.msinfermiere.service.MessaggisticaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class InfermieriMessaggisticaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/invio-medico",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> invioMessaggioMedico (MessaggioParamsDto messaggioDto){
+    public ResponseEntity<GenericResponseDto<String>> invioMessaggioMedico (@ParameterObject MessaggioParamsDto messaggioDto){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.invioMessaggioMedico(messaggioDto)));
     }
 
@@ -44,7 +45,7 @@ public class InfermieriMessaggisticaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/ricevi-meidco",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> riceviMessaggioMedico (MessaggioParamsDto messaggioParamsDto){
+    public ResponseEntity<GenericResponseDto<String>> riceviMessaggioMedico (@ParameterObject MessaggioParamsDto messaggioParamsDto){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.riceviMessaggioMedico(messaggioParamsDto)));
     }
 
@@ -57,7 +58,7 @@ public class InfermieriMessaggisticaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/invio-paziente",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> invioMessaggioPaziente (MessaggioParamsDto messaggioParamsDto){
+    public ResponseEntity<GenericResponseDto<String>> invioMessaggioPaziente (@ParameterObject MessaggioParamsDto messaggioParamsDto){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.invioMessaggioPaziente(messaggioParamsDto)));
     }
 
@@ -70,7 +71,7 @@ public class InfermieriMessaggisticaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/ricevi-paziente",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> riceviMessaggioPaziente (MessaggioParamsDto messaggioParamsDto){
+    public ResponseEntity<GenericResponseDto<String>> riceviMessaggioPaziente (@ParameterObject MessaggioParamsDto messaggioParamsDto){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.riceviMessaggioPaziente(messaggioParamsDto)));
     }
 }

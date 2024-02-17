@@ -12,5 +12,4 @@ public class InfermiereDto {
     private String cognome;
     private String turno;
     private ProfiloDto profilo;
-    private Set<MedicinaleSottoministrazioneDto> medicinaleSottoministrazione;
 }

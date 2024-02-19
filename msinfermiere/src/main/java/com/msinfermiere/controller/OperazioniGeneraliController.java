@@ -14,9 +14,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +23,7 @@ import java.util.List;
 public class OperazioniGeneraliController {
     @Autowired
     private OperazioniGeneraliService operazioniGeneraliService;
+
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
@@ -78,7 +77,7 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "404", description = "Infermiere non trovato"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggiungi-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value ="/aggiungi-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<InfermiereDto>> addInfermiere (@ParameterObject InfermiereAddParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.addInfermiere(params)));
     }
@@ -92,7 +91,7 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "404", description = "Infermiere non trovato"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/elimina-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value ="/elimina-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> deleteInfermiere (@ParameterObject InfermiereDeleteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.deleteInfermiere(params)));
     }
@@ -106,8 +105,21 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "404", description = "Infermiere non trovato"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/modifica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value ="/modifica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<InfermiereDto>> modifyInfermiere (@ParameterObject InfermiereModifyParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.modifyInfermiere(params)));
+    }
+    @Operation(summary = "Ricerca infermiere per turni",
+            description = "Ricerca infermiere per turni",
+            operationId = "msInfermiereRicercaTramiteTurni")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Infermiere modificato"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "404", description = "Infermiere non trovato"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/modifica",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<InfermiereDto>>> ricercaInfermiereTramiteTurno (@ParameterObject InfermieriTurniParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.ricercaInfermiereTramiteTurno(params)));
     }
 }

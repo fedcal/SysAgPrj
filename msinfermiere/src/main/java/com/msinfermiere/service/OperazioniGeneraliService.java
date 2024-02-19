@@ -25,8 +25,10 @@ import java.util.Optional;
 public class OperazioniGeneraliService {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+
     @Autowired
     private InfermiereRepository infermiereRepository;
+
     @Autowired
     private ProfiloRepository profiloRepository;
 
@@ -107,6 +109,8 @@ public class OperazioniGeneraliService {
         infermiere.setCognome(params.getCognome());
         infermiere.setTurno(params.getTurno());
         infermiere.setProfilo(profiloRepository.findById(2).get());
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("addInfermiere");
         return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.save(infermiere));
     }
 
@@ -136,6 +140,8 @@ public class OperazioniGeneraliService {
         }else{
             try{
                 infermiereRepository.deleteById(findInfermiere.get().getIdInfermiere());
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+                esitoMessaggiRequestContextHolder.setOperationId("deleteInfermiere");
                 return "Ifermiere eliminato";
             }catch (IllegalArgumentException  e){
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -175,6 +181,8 @@ public class OperazioniGeneraliService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             modifyInfoInfermiere(findInfermiere,params);
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
             return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.save(findInfermiere.get()));
         }
     }
@@ -208,5 +216,35 @@ public class OperazioniGeneraliService {
             esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public List<InfermiereDto> ricercaInfermiereTramiteTurno(InfermieriTurniParams params) {
+        List<Infermiere> findAllInfermieri =  infermiereRepository.findAll();
+
+        if(findAllInfermieri.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Lista infermieri vuota.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("ricercaInfermiereTramiteTurno");
+            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }else{
+            List<Infermiere> infermieriFiltrati = new ArrayList<>();
+            for(Infermiere i : findAllInfermieri){
+                if(i.getTurno().contains(params.getTurno())){
+                    infermieriFiltrati.add(i);
+                }
+            }
+            if(infermieriFiltrati.isEmpty()){
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Nessun infermiere trovato per il turno inserito.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("ricercaInfermiereTramiteTurno");
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+                esitoMessaggiRequestContextHolder.setOperationId("modifyInfermiere");
+                return InfermiereDtoMapper.INSTANCE.toDto(infermieriFiltrati);
+            }
+        }
+        return new ArrayList<>();
     }
 }

@@ -60,16 +60,16 @@ public class MedicinaleOperazioniController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getPrescrizioniMedicinaliFiltrati(params)));
     }
 
-    @Operation(summary = "Lista sottoministrazione medicinali",
-            description = "Lista sottoministrazione medicinali",
-            operationId = "msInfermiereListaSottoministrazioneMedicinali")
+    @Operation(summary = "Lista sottoministrazione medicinali infermiere",
+            description = "Lista sottoministrazione medicinali infermiere",
+            operationId = "msInfermiereListaSottoministrazioneMedicinaliInfermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-sottoministrazioni-medicinali",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/lista-sottoministrazioni-medicinali-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicinaleSottoministrazioneDto>>> getAllMedicinaleSottoministrazioni (){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getAllMedicinaleSottoministrazioni()));
     }
@@ -92,9 +92,8 @@ public class MedicinaleOperazioniController {
             description = "Somministra medicinale",
             operationId = "msInfermiereSomministraMedicinale")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Aggiunta sottoministrazione medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
-            @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value ="/somministrazione-medicinale",produces = MediaType.APPLICATION_JSON_VALUE)

@@ -19,6 +19,7 @@ import com.bff.service.msmedico.PrescrizioneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_MEDICI + "/prescrizione")
+@Tag(name = "Microservizio medico", description = "ms-medico")
 public class PrescrizioneController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

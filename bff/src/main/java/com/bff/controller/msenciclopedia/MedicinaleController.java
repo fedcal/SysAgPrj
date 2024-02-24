@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_ENCICLOPEDIA+"/medicinale")
+@Tag(name = "Microservizio enciclopedia", description = "ms-enciclopedia")
 public class MedicinaleController {
 
     @Autowired

@@ -12,18 +12,18 @@ import java.util.Optional;
 @Repository
 public interface OperazioneCartellaRepository extends JpaRepository<OperazioneCartella,Integer> {
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.operazioneMedica.idOperazioneMedica = :idOperazione")
-    Optional<OperazioneCartella> findByIdOperazione(@Param("idOperazione") Integer idOperazione);
+    List<OperazioneCartella> findByIdOperazione(@Param("idOperazione") Integer idOperazione);
 
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.idCartellaClinica = :idCartellaClinica")
-    Optional<OperazioneCartella> findByIdCartellaClinica(@Param("idCartellaClinica") Integer idCartellaClinica);
+    List<OperazioneCartella> findByIdCartellaClinica(@Param("idCartellaClinica") Integer idCartellaClinica);
 
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.paziente.idPaziente = :idPaziente")
-    Optional<OperazioneCartella> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
+    List<OperazioneCartella> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.medico.idMedico = :idMedico")
-    Optional<OperazioneCartella> findByIdMedico(@Param("idMedico") Integer idMedico);
+    List<OperazioneCartella> findByIdMedico(@Param("idMedico") Integer idMedico);
 
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.refertoOperazione.idReferto = :idReferto")
-    Optional<OperazioneCartella> findByIdReferto(@Param("idReferto") Integer idReferto);
+    List<OperazioneCartella> findByIdReferto(@Param("idReferto") Integer idReferto);
 
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.operazioneMedica.nome = :nomeOperazione")
     List<OperazioneCartella> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);

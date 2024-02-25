@@ -16,6 +16,7 @@ import com.msmedico.esito.constants.EsitoOperazioneEnum;
 import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import com.msmedico.exception.EsitoRuntimeException;
 import com.msmedico.mapper.paziente.cartellaclinica.CartellaClinicaDtoMapper;
+import com.msmedico.mapper.relationentities.operazionecartella.OperazioneCartellaDtoMapper;
 import com.msmedico.mapper.relationentities.visitamedicacartella.VisitaMedicaCartellaDtoMapper;
 import com.msmedico.repository.paziente.CartellaClinicaRepository;
 import com.msmedico.repository.relationentities.OperazioneCartellaRepository;
@@ -23,8 +24,10 @@ import com.msmedico.repository.relationentities.VisitaMedicaCartellaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +73,7 @@ public class VisualizzaStatoService {
             visitaMedicaCartellaFindList = visitaMedicaCartellaRepository.findByIdReferto(params.getIdReferto());
         }
 
-        if(visitaMedicaCartellaFindId!=null && !visitaMedicaCartellaFindId.isPresent()){
+        if(visitaMedicaCartellaFindId.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg(ReturnMessagge.NOT_FOUND).build());
@@ -78,7 +81,7 @@ public class VisualizzaStatoService {
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
 
-        if(visitaMedicaCartellaFindId!=null && visitaMedicaCartellaFindId.isPresent()){
+        if(visitaMedicaCartellaFindId.isPresent()){
             visitaMedicaCartellaReturn.add(VisitaMedicaCartellaDtoMapper.INSTANCE.toDto(visitaMedicaCartellaFindId.get()));
         }
 
@@ -167,16 +170,22 @@ public class VisualizzaStatoService {
     public List<OperazioneCartellaDto> operazioneCartella(FindOperazioneParams params) {
         checkParams(params);
 
-        Optional<OperazioneCartella> cartellaClinicaFindId = Optional.empty();
+        List<OperazioneCartella> cartellaClinicaFindId = findById(params);
+        List<OperazioneCartella> cartellaClinicaFindList = findByStringParams(params);
 
-        List<OperazioneCartella> cartellaClinicaFindList = new ArrayList<>();
-        List<OperazioneCartellaDto> cartellaClinicaReturn = new ArrayList<>();
-
-        cartellaClinicaFindId = findById(params);
-
-        cartellaClinicaFindList = findByStringParams(params);
-
-
+        if(cartellaClinicaFindId.isEmpty() && cartellaClinicaFindList.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun elemento trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("operazioneCartella");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }else {
+            if (!cartellaClinicaFindId.isEmpty()){
+                return OperazioneCartellaDtoMapper.INSTANCE.toDto(cartellaClinicaFindId);
+            } else if (!cartellaClinicaFindList.isEmpty()) {
+                return OperazioneCartellaDtoMapper.INSTANCE.toDto(cartellaClinicaFindList);
+            }
+        }
         return new ArrayList<>();
     }
 
@@ -206,9 +215,9 @@ public class VisualizzaStatoService {
         return new ArrayList<>();
     }
 
-    private Optional<OperazioneCartella> findById(FindOperazioneParams params) {
+    private List<OperazioneCartella> findById(FindOperazioneParams params) {
         if(params.getIdRelazione()!=null){
-            return operazioneCartellaRepository.findById(params.getIdRelazione());
+            return Arrays.asList(operazioneCartellaRepository.findById(params.getIdRelazione()).get());
         }
         if(params.getIdOperazione()!=null){
             return operazioneCartellaRepository.findByIdOperazione(params.getIdOperazione());
@@ -226,14 +235,15 @@ public class VisualizzaStatoService {
             return operazioneCartellaRepository.findByIdReferto(params.getIdReferto());
         }
 
-        return  Optional.empty();
+        return  new ArrayList<>();
     }
 
     private void checkParams(FindOperazioneParams params) {
         boolean idCheck = params.getIdOperazione()==null && params.getIdMedico()==null && params.getIdCartellaClinica()==null
                 && params.getIdRelazione()==null && params.getIdPaziente()==null && params.getIdReferto()==null;
-        boolean stringCheck = params.getNomeOperazione()==null && params.getNomePaziente()==null && params.getCognomePaziente()==null
-                && params.getNomeMedico()==null && params.getCognomeMedico()==null;
+        boolean stringCheck = StringUtils.hasLength(params.getNomeOperazione()) && StringUtils.hasLength(params.getNomePaziente())
+                && StringUtils.hasLength(params.getCognomePaziente())
+                && StringUtils.hasLength(params.getNomeMedico()) && StringUtils.hasLength(params.getCognomeMedico());
         if(idCheck && stringCheck){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

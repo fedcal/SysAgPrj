@@ -39,6 +39,7 @@ import com.msmedico.repository.visitamedica.VisitaMedicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,10 +77,10 @@ public class PrescrizioneService {
 
     public List<OperazionePrescrizioneDto> prescriviOperazioneInfo(PrescrizioneOperazioneInfoParams params) {
         checkParams(params);
-
+        List<OperazionePrescrizione> operazionePrescrizioneByid = findOperazioneById(params);
         List<OperazionePrescrizione> operazionePrescrizioneByString = findOperazioneByString(params);
 
-        if(operazionePrescrizioneByString.isEmpty()){
+        if(operazionePrescrizioneByString.isEmpty() && operazionePrescrizioneByid.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna operazione trovata.").build());
@@ -87,32 +88,17 @@ public class PrescrizioneService {
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            return OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneByString);
+
+            if(!operazionePrescrizioneByString.isEmpty()){
+                return OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneByString);
+            }else{
+                return OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneByid);
+            }
+
         }
     }
 
-    private List<OperazionePrescrizione> findOperazioneByString(PrescrizioneOperazioneInfoParams params) {
-        if(params.getCognomePaziente()!=null && params.getNomePaziente()!=null){
-            return operazionePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
-        if(params.getCognomeMedico()!=null && params.getNomeMedico()!=null){
-            return operazionePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
-        }
-        if (params.getNomeOperazione()!=null){
-            return operazionePrescrizioneRepository.findByNomeOperazione(params.getNomeOperazione());
-        }
-        if(params.getCognomePaziente()!=null){
-            return operazionePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
-        if(params.getNomePaziente()!=null){
-            return operazionePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(params.getCognomeMedico()!=null){
-            return operazionePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
-        }
-        if(params.getNomeMedico()!=null){
-            return operazionePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
-        }
+    private List<OperazionePrescrizione> findOperazioneById(PrescrizioneOperazioneInfoParams params) {
         if (params.getIdOperazione()!=null){
             return operazionePrescrizioneRepository.findByIdOperazione(params.getIdOperazione());
         }
@@ -128,11 +114,37 @@ public class PrescrizioneService {
         return new ArrayList<>();
     }
 
+    private List<OperazionePrescrizione> findOperazioneByString(PrescrizioneOperazioneInfoParams params) {
+        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
+            return operazionePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
+        }
+        if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
+            return operazionePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
+        }
+        if (StringUtils.hasLength(params.getNomeOperazione())){
+            return operazionePrescrizioneRepository.findByNomeOperazione(params.getNomeOperazione());
+        }
+        if(StringUtils.hasLength(params.getCognomePaziente())){
+            return operazionePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
+        }
+        if(StringUtils.hasLength(params.getNomePaziente())){
+            return operazionePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
+        }
+        if(StringUtils.hasLength(params.getCognomeMedico())){
+            return operazionePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
+        }
+        if(StringUtils.hasLength(params.getNomeMedico())){
+            return operazionePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
+        }
+        return new ArrayList<>();
+    }
+
     private void checkParams(PrescrizioneOperazioneInfoParams params) {
         boolean checkId = params.getIdCartella()==null && params.getIdMedico()==null && params.getIdOperazione()==null &&
                 params.getIdPaziente()==null;
-        boolean checkString = params.getNomeMedico()==null && params.getCognomeMedico()!=null && params.getNomePaziente()==null
-                && params.getCognomePaziente()==null && params.getNomeOperazione()==null;
+        boolean checkString = StringUtils.hasLength(params.getNomeMedico()) && StringUtils.hasLength(params.getCognomeMedico())
+                && StringUtils.hasLength(params.getNomePaziente()) && StringUtils.hasLength(params.getCognomePaziente())
+                && StringUtils.hasLength(params.getNomeOperazione());
         if(checkId && checkString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -144,10 +156,12 @@ public class PrescrizioneService {
 
     public OperazionePrescrizioneDto prescriviOperazioneAdd(PrescrizioneOperazioneAddParams params) {
         checkParams(params);
+
         OperazionePrescrizione operazionePrescrizioneSave = new OperazionePrescrizione();
         operazionePrescrizioneSave.setMedico(medicoRepository.findById(params.getMedico()).get());
         operazionePrescrizioneSave.setCartellaClinica(cartellaClinicaRepository.findById(params.getMedico()).get());
         operazionePrescrizioneSave.setOperazioneMedica(operazioneMedicaRepository.findById(params.getMedico()).get());
+
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         return  OperazionePrescrizioneDtoMapper.INSTANCE.toDto(operazionePrescrizioneRepository.save(operazionePrescrizioneSave));
     }
@@ -156,13 +170,15 @@ public class PrescrizioneService {
         if(params.getMedico()==null || params.getCartellaClinica()==null || params.getOperazioneMedica()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Inserire tutti i parametri di ricerca.").build());
+                    .codMsg("Inserire tutti i parametri.").build());
             esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneAdd");
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
+
         Optional<Medico> findMedico = medicoRepository.findById(params.getMedico());
         Optional<CartellaClinica> findCartellaClinica = cartellaClinicaRepository.findById(params.getCartellaClinica());
         Optional<OperazioneMedica> findOperazioneMedica = operazioneMedicaRepository.findById(params.getOperazioneMedica());
+
         if(!findMedico.isPresent() || !findCartellaClinica.isPresent() || !findOperazioneMedica.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -174,6 +190,7 @@ public class PrescrizioneService {
 
     public OperazionePrescrizioneDto prescriviOperazioneModify(PrescrizioneOperazioneModifyParams params) {
         checkParams(params);
+
         Optional<OperazionePrescrizione> findOperazionePrescrizione = operazionePrescrizioneRepository.findById(params.getIdRelazione());
         Optional<Medico> findMedico = Optional.empty();
         Optional<CartellaClinica> findCartellaClinica = Optional.empty();
@@ -198,14 +215,15 @@ public class PrescrizioneService {
     }
 
     private void checkParams(PrescrizioneOperazioneModifyParams params) {
-        if(params.getIdRelazione()==null || params.getNuovoMedico()==null || params.getNuovaOperazioneMedica()==null
-        || params.getNuovaCartellaClinica()==null){
+        if(params.getIdRelazione()==null && params.getNuovoMedico()==null && params.getNuovaOperazioneMedica()==null
+                && params.getNuovaCartellaClinica()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Inserire almeno due parametri di ricerca.").build());
+                    .codMsg("Inserire tutti i parametri di ricerca.").build());
             esitoMessaggiRequestContextHolder.setOperationId("prescriviOperazioneModify");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
+
         List<OperazionePrescrizione> findOperazionePrescrizione = new ArrayList<>();
         Optional<Medico> findMedico = Optional.empty();
         Optional<CartellaClinica> findCartellaClinica = Optional.empty();
@@ -270,7 +288,7 @@ public class PrescrizioneService {
     public List<MedicinalePrescrizioneDto> prescriviMedicinaleInfo(PrescrizioneMedicinaleInfoParams params) {
         checkParams(params);
 
-        Optional<MedicinalePrescrizione> medicinalePrescrizioneById = findMedicinalePrescrizioneById(params);
+        List<MedicinalePrescrizione> medicinalePrescrizioneById = findMedicinalePrescrizioneById(params);
         List<MedicinalePrescrizione> medicinalePrescrizioneByString = findMedicinalePrescrizioneByString(params);
 
         if(medicinalePrescrizioneById.isEmpty() && medicinalePrescrizioneByString.isEmpty()){
@@ -281,11 +299,9 @@ public class PrescrizioneService {
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
 
-        if(medicinalePrescrizioneById.isPresent()){
-            List<MedicinalePrescrizioneDto> listaReturn = new ArrayList<>();
+        if(!medicinalePrescrizioneById.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            listaReturn.add(MedicinalePrescrizioneDtoMapper.INSTANCE.toDto(medicinalePrescrizioneById.get()));
-            return listaReturn;
+            return MedicinalePrescrizioneDtoMapper.INSTANCE.toDto(medicinalePrescrizioneById);
         }
 
         if(!medicinalePrescrizioneByString.isEmpty()){
@@ -296,35 +312,10 @@ public class PrescrizioneService {
         return null;
     }
 
-    private Optional<MedicinalePrescrizione> findMedicinalePrescrizioneById(PrescrizioneMedicinaleInfoParams params) {
+    private List<MedicinalePrescrizione> findMedicinalePrescrizioneById(PrescrizioneMedicinaleInfoParams params) {
 
         if(params.getIdRelazione()!=null){
-            return medicinalePrescrizioneRepository.findById(params.getIdRelazione());
-        }
-        return Optional.empty();
-    }
-
-    private List<MedicinalePrescrizione> findMedicinalePrescrizioneByString(PrescrizioneMedicinaleInfoParams params) {
-        if(params.getCognomePaziente()!=null && params.getNomePaziente()!=null){
-            return medicinalePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
-        if(params.getCognomeMedico()!=null && params.getNomeMedico()!=null){
-            return medicinalePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
-        }
-        if (params.getNomeMedicinale()!=null){
-            return medicinalePrescrizioneRepository.findByNomeMedicinale(params.getNomeMedicinale());
-        }
-        if(params.getCognomePaziente()!=null){
-            return medicinalePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
-        if(params.getNomePaziente()!=null){
-            return medicinalePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(params.getCognomeMedico()!=null){
-            return medicinalePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
-        }
-        if(params.getNomeMedico()!=null){
-            return medicinalePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
+            return Arrays.asList(medicinalePrescrizioneRepository.findById(params.getIdRelazione()).get());
         }
         if (params.getIdMedicinale()!=null){
             return medicinalePrescrizioneRepository.findByIdMedicinale(params.getIdMedicinale());
@@ -341,11 +332,39 @@ public class PrescrizioneService {
         return new ArrayList<>();
     }
 
+    private List<MedicinalePrescrizione> findMedicinalePrescrizioneByString(PrescrizioneMedicinaleInfoParams params) {
+        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
+            return medicinalePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
+        }
+        if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
+            return medicinalePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
+        }
+        if (StringUtils.hasLength(params.getNomeMedicinale())){
+            return medicinalePrescrizioneRepository.findByNomeMedicinale(params.getNomeMedicinale());
+        }
+        if(StringUtils.hasLength(params.getCognomePaziente())){
+            return medicinalePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
+        }
+        if(StringUtils.hasLength(params.getNomePaziente())){
+            return medicinalePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
+        }
+        if(StringUtils.hasLength(params.getCognomeMedico())){
+            return medicinalePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
+        }
+        if(StringUtils.hasLength(params.getNomeMedico())){
+            return medicinalePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
+        }
+        return new ArrayList<>();
+    }
+
     private void checkParams(PrescrizioneMedicinaleInfoParams params) {
         boolean checkId = params.getIdMedico()==null && params.getIdMedicinale()==null &&
                 params.getIdPaziente()==null && params.getIdCartellaClinica()==null && params.getIdRelazione()==null;
-        boolean checkString = params.getNomeMedico()==null && params.getCognomeMedico()==null && params.getNomePaziente()==null
-                && params.getCognomePaziente()==null && params.getNomeMedicinale()==null;
+
+        boolean checkString = StringUtils.hasLength(params.getNomeMedico()) && StringUtils.hasLength(params.getCognomeMedico())
+                && StringUtils.hasLength(params.getNomePaziente())
+                && StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomeMedicinale());
+
         if(checkId && checkString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -495,25 +514,25 @@ public class PrescrizioneService {
     }
 
     private List<VisitaPrescrizione> findListVisitaPrescrizione(PrescrizioneVisitaInfoParams params) {
-        if(params.getCognomePaziente()!=null && params.getNomePaziente()!=null){
+        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
             return visitaPrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
         }
-        if(params.getCognomeMedico()!=null && params.getNomeMedico()!=null){
+        if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
             return visitaPrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
-        if(params.getNomeVisita()!=null){
+        if(StringUtils.hasLength(params.getNomeVisita())){
             return visitaPrescrizioneRepository.findByNomeVisita(params.getNomeVisita());
         }
-        if(params.getCognomePaziente()!=null){
+        if(StringUtils.hasLength(params.getCognomePaziente())){
             return visitaPrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
         }
-        if(params.getNomePaziente()!=null){
+        if(StringUtils.hasLength(params.getNomePaziente())){
             return visitaPrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
         }
-        if(params.getCognomeMedico()!=null){
+        if(StringUtils.hasLength(params.getCognomeMedico())){
             return visitaPrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
         }
-        if(params.getNomeMedico()!=null){
+        if(StringUtils.hasLength(params.getNomeMedico())){
             return visitaPrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
         }
         if(params.getIdMedico()!=null){
@@ -534,8 +553,9 @@ public class PrescrizioneService {
     private void checkParams(PrescrizioneVisitaInfoParams params) {
         boolean checkId = params.getIdCartella()==null && params.getIdMedico()==null && params.getIdVisita()==null &&
                 params.getIdPaziente()==null && params.getIdRelazione()==null;
-        boolean checkString = params.getNomeMedico()==null && params.getCognomeMedico()!=null && params.getNomePaziente()==null
-                && params.getCognomePaziente()==null && params.getNomeVisita()==null;
+        boolean checkString = StringUtils.hasLength(params.getNomeMedico()) && StringUtils.hasLength(params.getCognomeMedico())
+                && StringUtils.hasLength(params.getNomePaziente())
+                && StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomeVisita());
         if(checkId && checkString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

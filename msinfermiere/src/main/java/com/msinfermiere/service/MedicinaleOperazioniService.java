@@ -69,6 +69,7 @@ public class MedicinaleOperazioniService {
 
     public List<MedicinalePrescrizioneDto> getPrescrizioniMedicinaliFiltrati(FiltraMedicinalePrescrizioniParams params) {
         checkParams(params);
+
         List<MedicinalePrescrizione> findById = findMedicinalePrescrizioneById(params);
         List<MedicinalePrescrizione> findByString = findMedicinalePrescrizioneByString(params);
 
@@ -134,8 +135,9 @@ public class MedicinaleOperazioniService {
     private void checkParams(FiltraMedicinalePrescrizioniParams params) {
         boolean verifyId = params.getIdMedicinale()==null && params.getIdPrescrizioneMedicinale()==null && params.getIdMedico()==null
                             && params.getIdCartellaClinica()==null;
-        boolean verifyString = params.getCognomeMedico()==null && params.getNomeMedico()==null && params.getNomeMedicinale()==null &&
-                                params.getNomePaziente()==null && params.getCognomePaziente()==null;
+        boolean verifyString = !StringUtils.hasLength(params.getCognomeMedico()) && !StringUtils.hasLength(params.getNomeMedico())
+                                && !StringUtils.hasLength(params.getNomeMedicinale()) && !StringUtils.hasLength(params.getNomePaziente())
+                                && !StringUtils.hasLength(params.getCognomePaziente());
         if(verifyId && verifyString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -227,8 +229,9 @@ public class MedicinaleOperazioniService {
     private void checkParams(FiltraMedicinaliSottoministrazioneParams params) {
         boolean verifyId = params.getIdMedicinale()==null && params.getIdPrescrizioneMedicinale()==null && params.getIdMedico()==null
                 && params.getIdCartellaClinica()==null;
-        boolean verifyString = params.getCognomeMedico()==null && params.getNomeMedico()==null && params.getNomeMedicinale()==null &&
-                params.getNomePaziente()==null && params.getCognomePaziente()==null;
+        boolean verifyString = !StringUtils.hasLength(params.getCognomeMedico()) && !StringUtils.hasLength(params.getNomeMedico())
+                && !StringUtils.hasLength(params.getNomeMedicinale()) && !StringUtils.hasLength(params.getNomePaziente())
+                && !StringUtils.hasLength(params.getCognomePaziente());
         if(verifyId && verifyString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -264,7 +267,7 @@ public class MedicinaleOperazioniService {
     }
 
     private void checkParams(SomministraMedicinaleParams params) {
-        if(params.getMedicinale()==null&&params.getInfermiere()==null&&params.getCartellaClinica()==null){
+        if(params.getMedicinale()==null && params.getInfermiere()==null && params.getCartellaClinica()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire almeno un parametro di ricerca.").build());

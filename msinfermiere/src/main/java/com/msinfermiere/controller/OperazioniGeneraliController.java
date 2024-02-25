@@ -40,19 +40,6 @@ public class OperazioniGeneraliController {
     public ResponseEntity<GenericResponseDto<List<InfermiereDto>>> getAllInfermieri (){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.getAll()));
     }
-    @Operation(summary = "Lista Infermieri filtrata",
-            description = "Lista Infermieri filtrata",
-            operationId = "msInfermiereFiltrati")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista infermieri"),
-            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
-            @ApiResponse(responseCode = "404", description = "Lista non trovata"),
-            @ApiResponse(responseCode = "500", description = "Errore di sistema")
-    })
-    @GetMapping(value ="/lista-infermieri-filtrata",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<InfermiereDto>>> getInfermieriFiltrati (@ParameterObject InfermieriFiltatiParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.getFiltrati(params)));
-    }
 
     @Operation(summary = "Informazioni infermiere",
             description = "Informazioni infermiere",

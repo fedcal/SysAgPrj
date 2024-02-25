@@ -63,22 +63,22 @@ public class VisitaOperazioniService {
     }
 
     public List<VisitaPrescrizioneDto> getVisitePrescrizioniFiltrata(FiltraVisitePrescrizioniParams params) {
-
         checkParams(params);
+
         List<VisitaPrescrizione> findById = findMedicinalePrescrizioneById(params);
         List<VisitaPrescrizione> findByString = findMedicinalePrescrizioneByString(params);
 
-        if((findByString==null && findById==null)||(findByString!=null && findByString.isEmpty())||(findById!=null && findById.isEmpty())){
+        if( findByString.isEmpty() && findById.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna prescrizione medicinale.").build());
             esitoMessaggiRequestContextHolder.setOperationId("getPrescrizioniMedicinaliFiltrati");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
-        if(findById!=null && !findById.isEmpty()){
+        if(!findById.isEmpty()){
             return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(findById);
         }
-        if(findByString!=null && !findByString.isEmpty()){
+        if(!findByString.isEmpty()){
             return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(findByString);
         }
         return new ArrayList<>();
@@ -132,8 +132,11 @@ public class VisitaOperazioniService {
 
         boolean verifyId = params.getIdVisita()==null && params.getIdPrescrizioneMedicinale()==null && params.getIdMedico()==null
                 && params.getIdCartellaClinica()==null;
-        boolean verifyString = params.getCognomeMedico()==null && params.getNomeMedico()==null && params.getNomeVisita()==null &&
-                params.getNomePaziente()==null && params.getCognomePaziente()==null;
+
+        boolean verifyString = !StringUtils.hasLength(params.getCognomeMedico()) && !StringUtils.hasLength(params.getNomeMedico())
+                && !StringUtils.hasLength(params.getNomeVisita()) && !StringUtils.hasLength(params.getNomePaziente())
+                && !StringUtils.hasLength(params.getCognomePaziente());
+
         if(verifyId && verifyString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -165,17 +168,17 @@ public class VisitaOperazioniService {
         List<VisitaSottoministrazioneInfermiere> findById = findMedicinaleSottoministrazioneById(params);
         List<VisitaSottoministrazioneInfermiere> findByString = findMedicinaleSottoministrazioneByString(params);
 
-        if((findByString==null && findById==null)||(findByString!=null && findByString.isEmpty())||(findById!=null && findById.isEmpty())){
+        if(findByString.isEmpty() && findById.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna sottoministrazione medicinale da nessun infermiere.").build());
             esitoMessaggiRequestContextHolder.setOperationId("getAllVisiteSottoministrateInfermieriFiltrate");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
-        if(findById!=null && !findById.isEmpty()){
+        if(!findById.isEmpty()){
             return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(findById);
         }
-        if(findByString!=null && !findByString.isEmpty()){
+        if(!findByString.isEmpty()){
             return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(findByString);
         }
         return new ArrayList<>();
@@ -229,8 +232,11 @@ public class VisitaOperazioniService {
     private void checkParams(FiltraVisiteSottoministrateInfermieriParams params) {
         boolean verifyId = params.getIdVisita()==null && params.getIdSottoministrazione()==null && params.getIdInfermiere()==null
                 && params.getIdCartellaClinica()==null;
-        boolean verifyString = params.getCognomeInfermiere()==null && params.getNomeInfermiere()==null && params.getNomeVisita()==null &&
-                params.getNomePaziente()==null && params.getCognomePaziente()==null;
+
+        boolean verifyString = !StringUtils.hasLength(params.getCognomeInfermiere()) && !StringUtils.hasLength(params.getNomeInfermiere())
+                && !StringUtils.hasLength(params.getNomeVisita()) && !StringUtils.hasLength(params.getNomePaziente())
+                && !StringUtils.hasLength(params.getCognomePaziente());
+
         if(verifyId && verifyString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

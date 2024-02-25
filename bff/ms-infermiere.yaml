@@ -16,9 +16,11 @@ paths:
       parameters:
         - name: turno
           in: query
+          description: Turno
           required: false
           schema:
             type: string
+            description: Turno
       responses:
         '200':
           description: Infermiere modificato
@@ -53,35 +55,46 @@ paths:
       parameters:
         - name: idInfermiere
           in: query
+          description: Id infermiere
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id infermiere
         - name: nomeRicerca
           in: query
+          description: Nome infermiere da ricercare e da modificare
           required: false
           schema:
             type: string
+            description: Nome infermiere da ricercare e da modificare
         - name: cognomeRicerca
           in: query
+          description: Cognome infermiere da ricercare e da modificare
           required: false
           schema:
             type: string
+            description: Cognome infermiere da ricercare e da modificare
         - name: nuovoNome
           in: query
+          description: Nuovo nome dell'infermiere
           required: false
           schema:
             type: string
+            description: Nuovo nome dell'infermiere
         - name: nuovoCognome
           in: query
+          description: Nuovo cognome dell'infermiere
           required: false
           schema:
             type: string
+            description: Nuovo cognome dell'infermiere
         - name: nuovoTurno
           in: query
+          description: Nuovo turno dell'infermiere infermiere
           required: false
           schema:
             type: string
+            description: Nuovo turno dell'infermiere infermiere
       responses:
         '200':
           description: Infermiere modificato
@@ -117,22 +130,25 @@ paths:
       parameters:
         - name: idInfermiere
           in: query
+          description: Id infermiere
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id infermiere
         - name: idVisita
           in: query
+          description: Id visita
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id visita
         - name: idCartellaClinica
           in: query
+          description: Id cartella clinica
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id cartella clinica
       responses:
         '200':
           description: 'Aggiunta sottoministrazione vista da infermiere '
@@ -162,22 +178,25 @@ paths:
       parameters:
         - name: infermiere
           in: query
+          description: Id infermiere
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id infermiere
         - name: medicinale
           in: query
+          description: Id medicinale
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id medicinale
         - name: cartellaClinica
           in: query
+          description: Id cartella clinica
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id cartella clinica
       responses:
         '200':
           description: Aggiunta sottoministrazione medicinali
@@ -207,19 +226,25 @@ paths:
       parameters:
         - name: nome
           in: query
+          description: Nome infermiere
           required: false
           schema:
             type: string
+            description: Nome infermiere
         - name: cognome
           in: query
+          description: Cognome infermiere
           required: false
           schema:
             type: string
+            description: Cognome infermiere
         - name: turno
           in: query
+          description: Turno infermiere
           required: false
           schema:
             type: string
+            description: Turno infermiere
       responses:
         '200':
           description: Informazioni infermiere
@@ -497,53 +522,67 @@ paths:
       parameters:
         - name: idPrescrizioneMedicinale
           in: query
+          description: Id prescrizione medicinale
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id prescrizione medicinale
         - name: idMedico
           in: query
+          description: Id medico
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id medico
         - name: idMedicinale
           in: query
+          description: Id medicinale
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id medicinale
         - name: idCartellaClinica
           in: query
+          description: Id cartella clinica
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id cartella clinica
         - name: nomeMedico
           in: query
+          description: Nome medico
           required: false
           schema:
             type: string
+            description: Nome medico
         - name: cognomeMedico
           in: query
+          description: Cognome medico
           required: false
           schema:
             type: string
+            description: Cognome medico
         - name: nomeMedicinale
           in: query
+          description: Nome medicinale
           required: false
           schema:
             type: string
+            description: Nome medicinale
         - name: nomePaziente
           in: query
+          description: Nome paziente
           required: false
           schema:
             type: string
+            description: Nome paziente
         - name: cognomePaziente
           in: query
+          description: Cognome paziente
           required: false
           schema:
             type: string
+            description: Cognome paziente
       responses:
         '200':
           description: Lista prescrizioni medicinali
@@ -611,53 +650,67 @@ paths:
       parameters:
         - name: idPrescrizioneMedicinale
           in: query
+          description: Id prescrizione medicinale
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id prescrizione medicinale
         - name: idMedico
           in: query
+          description: Id medico
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id medico
         - name: idMedicinale
           in: query
+          description: Id medicinale
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id medicinale
         - name: idCartellaClinica
           in: query
+          description: Id cartella clinica
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id cartella clinica
         - name: nomeMedico
           in: query
+          description: Nome medico
           required: false
           schema:
             type: string
+            description: Nome medico
         - name: cognomeMedico
           in: query
+          description: Cognome medico
           required: false
           schema:
             type: string
+            description: Cognome medico
         - name: nomeMedicinale
           in: query
+          description: Nome medicinale
           required: false
           schema:
             type: string
+            description: Nome medicinale
         - name: nomePaziente
           in: query
+          description: Nome paziente
           required: false
           schema:
             type: string
+            description: Nome paziente
         - name: cognomePaziente
           in: query
+          description: Cognome medico
           required: false
           schema:
             type: string
+            description: Cognome medico
       responses:
         '200':
           description: Lista prescrizioni medicinali
@@ -715,53 +768,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
-  /ms-infermiere/operazioni-generali/lista-infermieri-filtrata:
-    get:
-      tags:
-        - operazioni-generali-controller
-      summary: Lista Infermieri filtrata
-      description: Lista Infermieri filtrata
-      operationId: msInfermiereFiltrati
-      parameters:
-        - name: nome
-          in: query
-          description: Nome dell'infermiere da filtrare
-          required: false
-          schema:
-            type: string
-            description: Nome dell'infermiere da filtrare
-        - name: cognome
-          in: query
-          description: Cognome dell'infermiere da filtrare
-          required: false
-          schema:
-            type: string
-            description: Cognome dell'infermiere da filtrare
-      responses:
-        '200':
-          description: Lista infermieri
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
-        '400':
-          description: Errore elaborazione
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
-        '404':
-          description: Lista non trovata
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
-        '500':
-          description: Errore di sistema
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
   /ms-infermiere/operazioni-generali/informazioni-infermiere:
     get:
       tags:
@@ -772,20 +778,25 @@ paths:
       parameters:
         - name: id
           in: query
+          description: Id infermiere
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id infermiere
         - name: nomeInfermiere
           in: query
+          description: Nome infermiere
           required: false
           schema:
             type: string
+            description: Nome infermiere
         - name: cognomeInfermiere
           in: query
+          description: Cognome infermiere
           required: false
           schema:
             type: string
+            description: Cognome infermiere
       responses:
         '200':
           description: Informazioni infermiere
@@ -1001,20 +1012,25 @@ paths:
       parameters:
         - name: id
           in: query
+          description: Id infermiere
           required: false
           schema:
-            type: integer
-            format: int32
+            type: int
+            description: Id infermiere
         - name: nome
           in: query
+          description: Nome infermiere
           required: false
           schema:
             type: string
+            description: Nome infermiere
         - name: cognome
           in: query
+          description: Cognome infermiere
           required: false
           schema:
             type: string
+            description: Cognome infermiere
       responses:
         '200':
           description: Infermiere eliminato
@@ -1176,16 +1192,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MedicinalePrescrizioneDto'
-        visitaPrescrizione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaPrescrizioneDto'
         visitaSottoministrazioneMedico:
           uniqueItems: true
           type: array
           items:
             $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+        medicinaleCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartellaDto'
         operazionePrescrizione:
           uniqueItems: true
           type: array
@@ -1491,8 +1507,8 @@ components:
           format: int32
         infermiere:
           $ref: '#/components/schemas/InfermiereDto'
-        medicinale:
-          $ref: '#/components/schemas/MedicinaleDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
     VisitaSottoministrazioneMedicoDto:
@@ -1528,11 +1544,14 @@ components:
       properties:
         idPaziente:
           type: integer
+          description: Id del paziente
           format: int32
         nome:
           type: string
+          description: Nome del paziente
         cognome:
           type: string
+          description: Cognome del paziente
     GenericResponseDtoListVisitaSottoministrazioneInfermiereDto:
       type: object
       properties:
@@ -1547,26 +1566,35 @@ components:
       properties:
         idSottoministrazione:
           type: integer
+          description: Id sottoministrazione
           format: int32
         idInfermiere:
           type: integer
+          description: Id infermiere
           format: int32
         idVisita:
           type: integer
+          description: Id visita
           format: int32
         idCartellaClinica:
           type: integer
+          description: Id cartella clinica
           format: int32
         nomeInfermiere:
           type: string
+          description: Nome infermiere
         cognomeInfermiere:
           type: string
+          description: Cognome infermiere
         nomeVisita:
           type: string
+          description: Nome visita
         nomePaziente:
           type: string
+          description: Nome paziente
         cognomePaziente:
           type: string
+          description: Cognome paziente
     GenericResponseDtoListVisitaPrescrizioneDto:
       type: object
       properties:
@@ -1581,26 +1609,35 @@ components:
       properties:
         idPrescrizioneMedicinale:
           type: integer
+          description: Id prescrizione medicinale
           format: int32
         idMedico:
           type: integer
+          description: Id medico
           format: int32
         idVisita:
           type: integer
+          description: Id visita
           format: int32
         idCartellaClinica:
           type: integer
+          description: Id cartella clinica
           format: int32
         nomeMedico:
           type: string
+          description: Nome medico
         cognomeMedico:
           type: string
+          description: Cognome medico
         nomeVisita:
           type: string
+          description: Nome visita
         nomePaziente:
           type: string
+          description: Nome paziente
         cognomePaziente:
           type: string
+          description: Cognome paziente
     GenericResponseDtoListMedicinaleSottoministrazioneDto:
       type: object
       properties:

@@ -38,37 +38,6 @@ public class OperazioniGeneraliService {
         return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findAll());
     }
 
-    public List<InfermiereDto> getFiltrati(InfermieriFiltatiParams params) {
-        checkParams(params);
-        if(!StringUtils.hasLength(params.getNome()) && !!StringUtils.hasLength(params.getCognome())){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.setOperationId("getFiltrati");
-            return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNomeAndCognome(params.getNome(),params.getCognome()));
-        }
-        if(!StringUtils.hasLength(params.getNome())){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.setOperationId("getFiltrati");
-            return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNome(params.getNome()));
-        }
-        if(!StringUtils.hasLength(params.getCognome())){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.setOperationId("getFiltrati");
-            return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByCognome(params.getCognome()));
-        }
-        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        esitoMessaggiRequestContextHolder.setOperationId("getFiltrati");
-        return new ArrayList<>();
-    }
-
-    private void checkParams(InfermieriFiltatiParams params) {
-        if (!StringUtils.hasLength(params.getCognome()) && !StringUtils.hasLength(params.getNome())){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Inserisci almeno un parametro.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("getFiltrati");
-            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
-        }
-    }
 
     public List<InfermiereDto> getInfermiereInfo(InfermiereInfoParams params) {
         checkParams(params);
@@ -76,13 +45,13 @@ public class OperazioniGeneraliService {
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("getInfermiereInfo");
 
-        if(!StringUtils.hasLength(params.getNomeInfermiere())||!StringUtils.hasLength(params.getCognomeInfermiere())){
+        if(StringUtils.hasLength(params.getNomeInfermiere()) && StringUtils.hasLength(params.getCognomeInfermiere())){
             return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNomeAndCognome(params.getNomeInfermiere(), params.getCognomeInfermiere()));
         }
-        if(!StringUtils.hasLength(params.getNomeInfermiere())){
+        if(StringUtils.hasLength(params.getNomeInfermiere())){
             return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNome(params.getNomeInfermiere()));
         }
-        if(!StringUtils.hasLength(params.getCognomeInfermiere())){
+        if(StringUtils.hasLength(params.getCognomeInfermiere())){
             return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNome(params.getCognomeInfermiere()));
         }
         if(params.getId()!=null){
@@ -93,7 +62,7 @@ public class OperazioniGeneraliService {
 
     private void checkParams(InfermiereInfoParams params) {
         if (!StringUtils.hasLength(params.getCognomeInfermiere()) && !StringUtils.hasLength(params.getNomeInfermiere())
-                && params.getId()!=null){
+                && params.getId()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserisci almeno un parametro.").build());
@@ -105,17 +74,19 @@ public class OperazioniGeneraliService {
     public InfermiereDto addInfermiere(InfermiereAddParams params) {
         Infermiere infermiere = new Infermiere();
         checkParams(params);
+
         infermiere.setNome(params.getNome());
         infermiere.setCognome(params.getCognome());
         infermiere.setTurno(params.getTurno());
         infermiere.setProfilo(profiloRepository.findById(2).get());
+
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addInfermiere");
         return InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.save(infermiere));
     }
 
     private void checkParams(InfermiereAddParams params) {
-        if(!StringUtils.hasLength(params.getNome())&&!StringUtils.hasLength(params.getCognome())&&
+        if(!StringUtils.hasLength(params.getNome()) && !StringUtils.hasLength(params.getCognome()) &&
            !StringUtils.hasLength(params.getTurno())){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -127,8 +98,14 @@ public class OperazioniGeneraliService {
 
     public String deleteInfermiere(InfermiereDeleteParams params) {
         checkParams(params);
-        Optional<Infermiere> findInfermiere = infermiereRepository.findById(params.getId());
-        if(findInfermiere.isEmpty()){
+
+        Optional<Infermiere> findInfermiere = Optional.empty();
+
+        if(params.getId()!=null){
+            findInfermiere = infermiereRepository.findById(params.getId());
+        }
+
+        if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome())){
             findInfermiere = Optional.of(infermiereRepository.findByNomeAndCognome(params.getNome(), params.getCognome()).get(0));
         }
         if(findInfermiere.isEmpty()){
@@ -142,7 +119,7 @@ public class OperazioniGeneraliService {
                 infermiereRepository.deleteById(findInfermiere.get().getIdInfermiere());
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
                 esitoMessaggiRequestContextHolder.setOperationId("deleteInfermiere");
-                return "Ifermiere eliminato";
+                return "Infermiere eliminato";
             }catch (IllegalArgumentException  e){
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
                 esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -165,6 +142,7 @@ public class OperazioniGeneraliService {
 
     public InfermiereDto modifyInfermiere(InfermiereModifyParams params) {
         checkParams(params);
+
         Optional<Infermiere> findInfermiere =  Optional.empty();
         if(params.getIdInfermiere()!=null){
             findInfermiere = infermiereRepository.findById(params.getIdInfermiere());

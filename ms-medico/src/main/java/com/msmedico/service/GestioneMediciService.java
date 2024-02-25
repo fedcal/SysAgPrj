@@ -19,8 +19,10 @@ import com.msmedico.repository.account.ProfiloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,18 +54,14 @@ public class GestioneMediciService {
     public List<MedicoDto> findMedico(FindMedicoParams params) {
         List<MedicoDto> listaMedico = new ArrayList<>();
 
-        Optional<Medico> findMedico = medicoRepository.findById(params.getIdMedico());
-        if(findMedico.isPresent()){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Nessun medico trovato.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("findMedico");
-            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
-        }else{
-            listaMedico.add(MedicoDtoMapper.INSTANCE.toDto(findMedico.get()));
+        Optional<Medico> findMedico =Optional.empty();
+        List<Medico> listFindMedico = new ArrayList<>();
+
+
+        if(params.getIdMedico()!=null){
+            findMedico = medicoRepository.findById(params.getIdMedico());
         }
 
-        List<Medico> listFindMedico = new ArrayList<>();
         if(params.getNome()!=null && params.getCognome()!=null){
             listFindMedico = medicoRepository.findByNomeAndCognome(params.getNome(),params.getCognome());
         } else if (params.getNome()!=null) {
@@ -72,18 +70,20 @@ public class GestioneMediciService {
             listFindMedico = medicoRepository.findByCognome(params.getCognome());
         }
 
-        if(listFindMedico.isEmpty()){
+        if(listFindMedico.isEmpty() && findMedico.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessun medico trovato.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findMedico");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
-        }else{
-            listaMedico = MedicoDtoMapper.INSTANCE.toDto(listFindMedico);
+        }else if(!listFindMedico.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return MedicoDtoMapper.INSTANCE.toDto(listFindMedico);
+        }else if(findMedico.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            return Arrays.asList(MedicoDtoMapper.INSTANCE.toDto(findMedico.get()));
         }
-
-        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        return listaMedico;
+        return new ArrayList<>();
     }
 
     public String deleteMedico(Integer id) {
@@ -134,13 +134,13 @@ public class GestioneMediciService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             MedicoDto modifyMedico = MedicoDtoMapper.INSTANCE.toDto(medicoFind.get());
-            if(params.getNuovoNome()!=null){
+            if(StringUtils.hasLength(params.getNuovoNome())){
                 modifyMedico.setNome(params.getNuovoNome());
             }
-            if(params.getNuovoCognome()!=null){
+            if(StringUtils.hasLength(params.getNuovoCognome())){
                 modifyMedico.setCognome(params.getNuovoCognome());
             }
-            if(params.getNuovoTurno()!=null){
+            if(StringUtils.hasLength(params.getNuovoTurno())){
                 modifyMedico.setTurno(params.getNuovoTurno());
             }
 

@@ -43,6 +43,7 @@ public class PazienteService {
     public List<PazienteDto> getPazientiFiltrati(PazienteFiltratiParams params) {
         checkParams(params);
         List<Paziente> findListPaziente = new ArrayList<>();
+
         if(params.getIdPaziente()!=null){
             findListPaziente = Arrays.asList(pazienteRepository.findById(params.getIdPaziente()).get());
         }

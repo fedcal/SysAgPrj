@@ -1,7 +1,9 @@
 package com.bff.dto.msinfermiere.params.medicinalioperazioni;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
+@Data
 public class FiltraMedicinaliSottoministrazioneParams {
     @Schema(description = "Id prescrizione medicinale",type = "int")
     private Integer idPrescrizioneMedicinale;

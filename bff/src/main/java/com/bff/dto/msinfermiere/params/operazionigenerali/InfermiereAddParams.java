@@ -1,7 +1,9 @@
 package com.bff.dto.msinfermiere.params.operazionigenerali;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
+@Data
 public class InfermiereAddParams {
     @Schema(description = "Nome infermiere",type = "string")
     private String nome;

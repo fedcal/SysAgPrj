@@ -1,12 +1,11 @@
-package com.msinfermiere.controller;
+package com.bff.controller.msinfermiere;
 
-import com.msinfermiere.constants.WebConstants;
-import com.msinfermiere.dto.params.PazienteFiltratiParams;
-import com.msinfermiere.dto.paziente.PazienteDto;
-import com.msinfermiere.dto.relationentities.VisitaPrescrizioneDto;
-import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
-import com.msinfermiere.esito.GenericResponseDto;
-import com.msinfermiere.service.PazienteService;
+import com.bff.constants.WebConstants;
+import com.bff.dto.msinfermiere.params.PazienteFiltratiParams;
+import com.bff.dto.msinfermiere.paziente.PazienteDto;
+import com.bff.esito.EsitoMessaggiRequestContextHolder;
+import com.bff.esito.GenericResponseDto;
+import com.bff.service.msinfermiere.PazienteServiceInfermiere;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,18 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(WebConstants.REST_CONTEX_STRING + "/paziente")
-@Tag(name ="MsInfermieriPazienteController")
-public class PazienteController {
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFERMIERI +"/pazienti")
+@Tag(name = "Microservizio infermieri", description = "ms-infermieri")
+public class MsInfermieriPazienteController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
     @Autowired
-    private PazienteService pazienteService;
+    private PazienteServiceInfermiere pazienteService;
 
     @Operation(summary = "Lista pazienti",
-            description = "Lista pazienti",
-            operationId = "msInfermiereListaPazienti")
+            description = "Lista pazienti")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista pazienti"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),

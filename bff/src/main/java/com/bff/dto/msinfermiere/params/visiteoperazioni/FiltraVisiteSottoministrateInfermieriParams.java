@@ -1,7 +1,9 @@
 package com.bff.dto.msinfermiere.params.visiteoperazioni;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
+@Data
 public class FiltraVisiteSottoministrateInfermieriParams {
     @Schema(description = "Id sottoministrazione",type = "int")
     private Integer idSottoministrazione;

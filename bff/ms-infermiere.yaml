@@ -9,7 +9,7 @@ paths:
   /ms-infermiere/operazioni-generali/modifica:
     get:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Ricerca infermiere per turni
       description: Ricerca infermiere per turni
       operationId: msInfermiereRicercaTramiteTurni
@@ -48,7 +48,7 @@ paths:
                 $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
     put:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Modifica infermiere
       description: Modifica infermiere
       operationId: msInfermiereModificaInfermiere
@@ -58,7 +58,7 @@ paths:
           description: Id infermiere
           required: false
           schema:
-            type: int
+            type: integer
             description: Id infermiere
         - name: nomeRicerca
           in: query
@@ -123,31 +123,31 @@ paths:
   /ms-infermiere/operazioni-visite/somministrazione-visita-infermiere:
     post:
       tags:
-        - visita-operazioni-controller
+        - MsInfermieriVisitaOperazioniController
       summary: Somministra visita da parte di un infermiere
       description: Somministra medicinale da parte di un infermiere
-      operationId: msInfermiereSomministraMedicinaleInfermiere
+      operationId: msInfermiereSomministraVisitaInfermiere
       parameters:
         - name: idInfermiere
           in: query
           description: Id infermiere
           required: false
           schema:
-            type: int
+            type: integer
             description: Id infermiere
         - name: idVisita
           in: query
           description: Id visita
           required: false
           schema:
-            type: int
+            type: integer
             description: Id visita
         - name: idCartellaClinica
           in: query
           description: Id cartella clinica
           required: false
           schema:
-            type: int
+            type: integer
             description: Id cartella clinica
       responses:
         '200':
@@ -171,7 +171,7 @@ paths:
   /ms-infermiere/operazioni-medicinali/somministrazione-medicinale:
     post:
       tags:
-        - medicinale-operazioni-controller
+        - MsInfermieriMedicinaleOperazioniController
       summary: Somministra medicinale
       description: Somministra medicinale
       operationId: msInfermiereSomministraMedicinale
@@ -181,21 +181,21 @@ paths:
           description: Id infermiere
           required: false
           schema:
-            type: int
+            type: integer
             description: Id infermiere
         - name: medicinale
           in: query
           description: Id medicinale
           required: false
           schema:
-            type: int
+            type: integer
             description: Id medicinale
         - name: cartellaClinica
           in: query
           description: Id cartella clinica
           required: false
           schema:
-            type: int
+            type: integer
             description: Id cartella clinica
       responses:
         '200':
@@ -219,7 +219,7 @@ paths:
   /ms-infermiere/operazioni-generali/aggiungi-infermiere:
     post:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Agggiungi infermiere
       description: Agggiungi infermiere
       operationId: msInfermiereAddInfermiere
@@ -273,7 +273,7 @@ paths:
   /ms-infermiere/paziente/lista-pazienti:
     get:
       tags:
-        - paziente-controller
+        - MsInfermieriPazienteController
       summary: Lista pazienti
       description: Lista pazienti
       operationId: msInfermiereListaPazienti
@@ -305,16 +305,32 @@ paths:
   /ms-infermiere/paziente/lista-pazienti-filtrati:
     get:
       tags:
-        - paziente-controller
+        - MsInfermieriPazienteController
       summary: Lista pazienti filtrati
       description: Lista pazienti filtrati
       operationId: msInfermiereListaPazientiFiltrati
       parameters:
-        - name: params
+        - name: idPaziente
           in: query
-          required: true
+          description: Id del paziente
+          required: false
           schema:
-            $ref: '#/components/schemas/PazienteFiltratiParams'
+            type: integer
+            description: Id del paziente
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
       responses:
         '200':
           description: Lista pazienti filtrata
@@ -343,7 +359,7 @@ paths:
   /ms-infermiere/operazioni-visite/lista-visite-sottoministrate:
     get:
       tags:
-        - visita-operazioni-controller
+        - MsInfermieriVisitaOperazioniController
       summary: Lista prescrizioni visite
       description: Lista prescrizioni visite
       operationId: msInfermiereListaVisiteSottoministrateInfermierie
@@ -375,16 +391,74 @@ paths:
   /ms-infermiere/operazioni-visite/lista-visite-sottoministrate-filtrate:
     get:
       tags:
-        - visita-operazioni-controller
+        - MsInfermieriVisitaOperazioniController
       summary: Lista prescrizioni visite filtrate
       description: Lista prescrizioni visite filtrate
       operationId: msInfermiereListaVisiteSottoministrateInfermierieFiltrate
       parameters:
-        - name: params
+        - name: idSottoministrazione
           in: query
-          required: true
+          description: Id sottoministrazione
+          required: false
           schema:
-            $ref: '#/components/schemas/FiltraVisiteSottoministrateInfermieriParams'
+            type: integer
+            description: Id sottoministrazione
+        - name: idInfermiere
+          in: query
+          description: Id infermiere
+          required: false
+          schema:
+            type: integer
+            description: Id infermiere
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: nomeInfermiere
+          in: query
+          description: Nome infermiere
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognomeInfermiere
+          in: query
+          description: Cognome infermiere
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: nomeVisita
+          in: query
+          description: Nome visita
+          required: false
+          schema:
+            type: string
+            description: Nome visita
+        - name: nomePaziente
+          in: query
+          description: Nome paziente
+          required: false
+          schema:
+            type: string
+            description: Nome paziente
+        - name: cognomePaziente
+          in: query
+          description: Cognome paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome paziente
       responses:
         '200':
           description: Lista prescrizioni medicinali
@@ -413,7 +487,7 @@ paths:
   /ms-infermiere/operazioni-visite/lista-prescrizioni:
     get:
       tags:
-        - visita-operazioni-controller
+        - MsInfermieriVisitaOperazioniController
       summary: Lista prescrizioni visite
       description: Lista prescrizioni visite
       operationId: msInfermiereListaPrescrizioniVisite
@@ -445,16 +519,74 @@ paths:
   /ms-infermiere/operazioni-visite/lista-prescrizioni-filtrata:
     get:
       tags:
-        - visita-operazioni-controller
+        - MsInfermieriVisitaOperazioniController
       summary: Lista prescrizioni visite
       description: Lista prescrizioni visite
-      operationId: msInfermiereListaPrescrizioniVisite_1
+      operationId: msInfermiereListaPrescrizioniVisiteFiltrata
       parameters:
-        - name: params
+        - name: idPrescrizioneMedicinale
           in: query
-          required: true
+          description: Id prescrizione medicinale
+          required: false
           schema:
-            $ref: '#/components/schemas/FiltraVisitePrescrizioniParams'
+            type: integer
+            description: Id prescrizione medicinale
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: nomeMedico
+          in: query
+          description: Nome medico
+          required: false
+          schema:
+            type: string
+            description: Nome medico
+        - name: cognomeMedico
+          in: query
+          description: Cognome medico
+          required: false
+          schema:
+            type: string
+            description: Cognome medico
+        - name: nomeVisita
+          in: query
+          description: Nome visita
+          required: false
+          schema:
+            type: string
+            description: Nome visita
+        - name: nomePaziente
+          in: query
+          description: Nome paziente
+          required: false
+          schema:
+            type: string
+            description: Nome paziente
+        - name: cognomePaziente
+          in: query
+          description: Cognome paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome paziente
       responses:
         '200':
           description: Lista prescrizioni medicinali
@@ -483,10 +615,10 @@ paths:
   /ms-infermiere/operazioni-medicinali/lista-sottoministrazioni-medicinali-infermiere:
     get:
       tags:
-        - medicinale-operazioni-controller
+        - MsInfermieriMedicinaleOperazioniController
       summary: Lista sottoministrazione medicinali infermiere
       description: Lista sottoministrazione medicinali infermiere
-      operationId: msInfermiereListaSottoministrazioneMedicinaliInfermiere
+      operationId: msInfermiereListaSottoministrazioneMedicinali
       responses:
         '200':
           description: Lista prescrizioni medicinali
@@ -515,7 +647,7 @@ paths:
   /ms-infermiere/operazioni-medicinali/lista-sottoministrazioni-medicinali-filtrati:
     get:
       tags:
-        - medicinale-operazioni-controller
+        - MsInfermieriMedicinaleOperazioniController
       summary: Lista sottoministrazione medicinali filtrata
       description: Lista sottoministrazione medicinali filtrata
       operationId: msInfermiereListaSottoministrazioneMedicinaliFiltrata
@@ -525,28 +657,28 @@ paths:
           description: Id prescrizione medicinale
           required: false
           schema:
-            type: int
+            type: integer
             description: Id prescrizione medicinale
         - name: idMedico
           in: query
           description: Id medico
           required: false
           schema:
-            type: int
+            type: integer
             description: Id medico
         - name: idMedicinale
           in: query
           description: Id medicinale
           required: false
           schema:
-            type: int
+            type: integer
             description: Id medicinale
         - name: idCartellaClinica
           in: query
           description: Id cartella clinica
           required: false
           schema:
-            type: int
+            type: integer
             description: Id cartella clinica
         - name: nomeMedico
           in: query
@@ -611,7 +743,7 @@ paths:
   /ms-infermiere/operazioni-medicinali/lista-prescrizioni-medicinali:
     get:
       tags:
-        - medicinale-operazioni-controller
+        - MsInfermieriMedicinaleOperazioniController
       summary: Lista prescrizioni medicinali
       description: Lista prescrizioni medicinali
       operationId: msInfermiereListaPrescrizioniMedicinali
@@ -643,38 +775,38 @@ paths:
   /ms-infermiere/operazioni-medicinali/lista-prescrizioni-medicin ali-filtrati:
     get:
       tags:
-        - medicinale-operazioni-controller
+        - MsInfermieriMedicinaleOperazioniController
       summary: Lista prescrizioni medicinali
       description: Lista prescrizioni medicinali
-      operationId: msInfermiereListaPrescrizioniMedicinali_1
+      operationId: msInfermiereListaPrescrizioniMedicinaliFiltrati
       parameters:
         - name: idPrescrizioneMedicinale
           in: query
           description: Id prescrizione medicinale
           required: false
           schema:
-            type: int
+            type: integer
             description: Id prescrizione medicinale
         - name: idMedico
           in: query
           description: Id medico
           required: false
           schema:
-            type: int
+            type: integer
             description: Id medico
         - name: idMedicinale
           in: query
           description: Id medicinale
           required: false
           schema:
-            type: int
+            type: integer
             description: Id medicinale
         - name: idCartellaClinica
           in: query
           description: Id cartella clinica
           required: false
           schema:
-            type: int
+            type: integer
             description: Id cartella clinica
         - name: nomeMedico
           in: query
@@ -739,7 +871,7 @@ paths:
   /ms-infermiere/operazioni-generali/lista-infermieri:
     get:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Lista Infermieri
       description: Lista Infermieri
       operationId: msInfermiereGetAll
@@ -771,17 +903,17 @@ paths:
   /ms-infermiere/operazioni-generali/informazioni-infermiere:
     get:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Informazioni infermiere
       description: Informazioni infermiere
-      operationId: msInfermiereInformazioni
+      operationId: msInfermiereInformazioniInfermiere
       parameters:
         - name: id
           in: query
           description: Id infermiere
           required: false
           schema:
-            type: int
+            type: integer
             description: Id infermiere
         - name: nomeInfermiere
           in: query
@@ -825,7 +957,7 @@ paths:
   /ms-infermiere/messagistica/ricevi-paziente:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - MsInfermieriInfermieriMessaggisticaController
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
       operationId: msInfermiereRiceviMessaggioPaziente
@@ -870,7 +1002,7 @@ paths:
   /ms-infermiere/messagistica/ricevi-meidco:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - MsInfermieriInfermieriMessaggisticaController
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
       operationId: msInfermiereRiceviMessaggioMedico
@@ -915,7 +1047,7 @@ paths:
   /ms-infermiere/messagistica/invio-paziente:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - MsInfermieriInfermieriMessaggisticaController
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
       operationId: msInfermiereInvioMessaggioPaziente
@@ -960,7 +1092,7 @@ paths:
   /ms-infermiere/messagistica/invio-medico:
     get:
       tags:
-        - infermieri-messaggistica-controller
+        - MsInfermieriInfermieriMessaggisticaController
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
       operationId: msInfermiereInvioMessaggioMedico
@@ -1005,7 +1137,7 @@ paths:
   /ms-infermiere/operazioni-generali/elimina-infermiere:
     delete:
       tags:
-        - operazioni-generali-controller
+        - MsInfermieriOperazioniGeneraliController
       summary: Elimina infermiere
       description: Elimina infermiere
       operationId: msInfermiereDeleteInfermiere
@@ -1015,7 +1147,7 @@ paths:
           description: Id infermiere
           required: false
           schema:
-            type: int
+            type: integer
             description: Id infermiere
         - name: nome
           in: query

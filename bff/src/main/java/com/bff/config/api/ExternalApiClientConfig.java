@@ -42,4 +42,12 @@ public class ExternalApiClientConfig {
         return apiClient;
     }
 
+    @Primary
+    @Bean
+    public com.bff.msinfermiere.invoker.ApiClient msInfermieriApiClient() {
+        com.bff.msinfermiere.invoker.ApiClient apiClient = new com.bff.msinfermiere.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8082");
+        return apiClient;
+    }
+
 }

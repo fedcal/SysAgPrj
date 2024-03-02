@@ -15,6 +15,7 @@ import com.msinfermiere.service.VisitaOperazioniService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,6 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/operazioni-visite")
+@Tag(name ="MsInfermieriVisitaOperazioniController")
 public class VisitaOperazioniController {
     @Autowired
     private VisitaOperazioniService visitaOperazioniService;
@@ -51,7 +53,7 @@ public class VisitaOperazioniController {
 
     @Operation(summary = "Lista prescrizioni visite",
             description = "Lista prescrizioni visite",
-            operationId = "msInfermiereListaPrescrizioniVisite")
+            operationId = "msInfermiereListaPrescrizioniVisiteFiltrata")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -93,14 +95,14 @@ public class VisitaOperazioniController {
 
     @Operation(summary = "Somministra visita da parte di un infermiere",
             description = "Somministra medicinale da parte di un infermiere",
-            operationId = "msInfermiereSomministraMedicinaleInfermiere")
+            operationId = "msInfermiereSomministraVisitaInfermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Aggiunta sottoministrazione vista da infermiere "),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value ="/somministrazione-visita-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneInfermiereDto>> somministraMedicinale (@ParameterObject SomministraVisitaParams params){
+    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneInfermiereDto>> somministraVisita (@ParameterObject SomministraVisitaParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.somministraVisita(params)));
     }
 }

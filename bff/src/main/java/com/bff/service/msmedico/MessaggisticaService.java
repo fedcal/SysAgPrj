@@ -17,17 +17,17 @@ public class MessaggisticaService {
     @Autowired
     private MediciMessaggisticaControllerApi messaggisticaControllerApi;
     public String invioMessaggioInfermiere(MessaggioParamsDto messaggioDto) {
-        GenericResponseDto<String> listaMedici = genericResponseConverter.convertGenericResponse(
+        GenericResponseDto<String> messggioInfermiere = genericResponseConverter.convertGenericResponse(
                 messaggisticaControllerApi.msMedicoInvioMessaggioInfermiere(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()), String.class);
-        esitoMessaggiRequestContextHolder.getMessaggi().addAll(listaMedici.getEsito().getMessaggi());
-        return listaMedici.getPayload();
+        esitoMessaggiRequestContextHolder.getMessaggi().addAll(messggioInfermiere.getEsito().getMessaggi());
+        return messggioInfermiere.getPayload();
     }
 
 
     public String invioMessaggioPaziente(MessaggioParamsDto messaggioParamsDto) {
-        GenericResponseDto<String> listaMedici = genericResponseConverter.convertGenericResponse(
+        GenericResponseDto<String> messggioPaziente = genericResponseConverter.convertGenericResponse(
                 messaggisticaControllerApi.msMedicoInvioMessaggioPaziente(messaggioParamsDto.getMessaggio(),messaggioParamsDto.getLivelloUrgenza()), String.class);
-        esitoMessaggiRequestContextHolder.getMessaggi().addAll(listaMedici.getEsito().getMessaggi());
-        return listaMedici.getPayload();
+        esitoMessaggiRequestContextHolder.getMessaggi().addAll(messggioPaziente.getEsito().getMessaggi());
+        return messggioPaziente.getPayload();
     }
 }

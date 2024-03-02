@@ -6,4 +6,5 @@ public class WebConstants {
     public static final String REST_CONTEX_ENCICLOPEDIA = "/enciclopedia";
     public static final String REST_CONTEX_INFO = "/info";
     public static final String REST_CONTEX_MEDICI = "/medici";
+    public static final String REST_CONTEX_INFERMIERI = "/infermieri";
 }

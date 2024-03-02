@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 public class FiltraVisitePrescrizioniParams {
-    @Schema(description = "Id prescrizione medicinale",type = "int")
+    @Schema(description = "Id prescrizione medicinale",type = "integer")
     private Integer idPrescrizioneMedicinale;
-    @Schema(description = "Id medico",type = "int")
+    @Schema(description = "Id medico",type = "integer")
     private Integer idMedico;
-    @Schema(description = "Id visita",type = "int")
+    @Schema(description = "Id visita",type = "integer")
     private Integer idVisita;
-    @Schema(description = "Id cartella clinica",type = "int")
+    @Schema(description = "Id cartella clinica",type = "integer")
     private Integer idCartellaClinica;
 
     @Schema(description = "Nome medico",type = "string")

@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MediciMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+
     @Autowired
     private MessaggisticaService messaggisticaService;
+
     @Operation(summary = "Invio messaggio al robot infermiere",
             description = "Invio messaggio al robot infermiere",
             operationId = "msMedicoInvioMessaggioInfermiere")

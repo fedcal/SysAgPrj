@@ -19,6 +19,7 @@ import com.msinfo.repository.ProfiloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +61,11 @@ public class InfermieriService {
             if (infermiereFind.isPresent()){
                 findInfermiereList.add(InfermiereDtoMapper.INSTANCE.toDto(infermiereFind.get()));
             }
-        } else if (params.getNomeInfermiere()!=null && params.getCognomeInfermiere()!= null) {
+        } else if (StringUtils.hasLength(params.getNomeInfermiere()) && StringUtils.hasLength(params.getCognomeInfermiere())) {
             findInfermiereList.addAll(InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNomeAndCognome(params.getNomeInfermiere(),params.getCognomeInfermiere())));
-        } else if (params.getNomeInfermiere()!=null) {
+        } else if (StringUtils.hasLength(params.getNomeInfermiere())) {
             findInfermiereList.addAll(InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByNome(params.getNomeInfermiere())));
-        } else if (params.getCognomeInfermiere() != null) {
+        } else if (StringUtils.hasLength(params.getCognomeInfermiere())) {
             findInfermiereList.addAll(InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.findByCognome(params.getCognomeInfermiere())));
         }
 
@@ -81,7 +82,7 @@ public class InfermieriService {
     }
 
     private void checkParams(FindInfermiereParams params) {
-        if(params.getIdInfermiere() == null && params.getCognomeInfermiere() == null && params.getNomeInfermiere() == null){
+        if(params.getIdInfermiere() == null && !StringUtils.hasLength(params.getCognomeInfermiere()) && !StringUtils.hasLength(params.getNomeInfermiere())){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire almeno un parametro di ricerca.").build());
@@ -131,15 +132,15 @@ public class InfermieriService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
 
-            if(params.getNuovoNome()!=null){
+            if(StringUtils.hasLength(params.getNuovoNome())){
                 findInfermiere.get().setNome(params.getNuovoNome());
             }
 
-            if(params.getNuovoCognome()!=null){
+            if(StringUtils.hasLength(params.getNuovoCognome())){
                 findInfermiere.get().setCognome(params.getNuovoCognome());
             }
 
-            if(params.getNuovoTurno()!=null){
+            if(StringUtils.hasLength(params.getNuovoTurno())){
                 findInfermiere.get().setTurno(params.getNuovoTurno());
             }
 

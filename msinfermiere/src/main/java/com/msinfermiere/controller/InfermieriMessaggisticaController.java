@@ -8,6 +8,7 @@ import com.msinfermiere.service.MessaggisticaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/messagistica")
+@Tag(name ="MsInfermieriInfermieriMessaggisticaController")
 public class InfermieriMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

@@ -12,6 +12,7 @@ import com.msinfermiere.service.MedicinaleOperazioniService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/operazioni-medicinali")
+@Tag(name ="MsInfermieriMedicinaleOperazioniController")
 public class MedicinaleOperazioniController {
     @Autowired
     private MedicinaleOperazioniService medicinaleOperazioniService;
@@ -48,7 +50,7 @@ public class MedicinaleOperazioniController {
 
     @Operation(summary = "Lista prescrizioni medicinali",
             description = "Lista prescrizioni medicinali",
-            operationId = "msInfermiereListaPrescrizioniMedicinali")
+            operationId = "msInfermiereListaPrescrizioniMedicinaliFiltrati")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -62,7 +64,7 @@ public class MedicinaleOperazioniController {
 
     @Operation(summary = "Lista sottoministrazione medicinali infermiere",
             description = "Lista sottoministrazione medicinali infermiere",
-            operationId = "msInfermiereListaSottoministrazioneMedicinaliInfermiere")
+            operationId = "msInfermiereListaSottoministrazioneMedicinali")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),

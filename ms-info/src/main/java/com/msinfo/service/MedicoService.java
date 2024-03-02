@@ -19,6 +19,7 @@ import com.msinfo.repository.ProfiloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +67,11 @@ public class MedicoService {
         }
 
         List<Medico> listFindMedico = new ArrayList<>();
-        if(params.getNome()!=null && params.getCognome()!=null){
+        if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome())){
             listFindMedico = medicoRepository.findByNomeAndCognome(params.getNome(),params.getCognome());
-        } else if (params.getNome()!=null) {
+        } else if (StringUtils.hasLength(params.getNome())) {
             listFindMedico = medicoRepository.findByNome(params.getNome());
-        } else if (params.getCognome()!=null) {
+        } else if (StringUtils.hasLength(params.getCognome())) {
             listFindMedico = medicoRepository.findByCognome(params.getCognome());
         }
 
@@ -136,13 +137,13 @@ public class MedicoService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
             MedicoDto modifyMedico = MedicoDtoMapper.INSTANCE.toDto(medicoFind.get());
-            if(params.getNuovoNome()!=null){
+            if(StringUtils.hasLength(params.getNuovoNome())){
                 modifyMedico.setNome(params.getNuovoNome());
             }
-            if(params.getNuovoCognome()!=null){
+            if(StringUtils.hasLength(params.getNuovoCognome())){
                 modifyMedico.setCognome(params.getNuovoCognome());
             }
-            if(params.getNuovoTurno()!=null){
+            if(StringUtils.hasLength(params.getNuovoTurno())){
                 modifyMedico.setTurno(params.getNuovoTurno());
             }
 

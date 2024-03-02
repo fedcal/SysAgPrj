@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 public class FiltraVisiteSottoministrateInfermieriParams {
-    @Schema(description = "Id sottoministrazione",type = "int")
+    @Schema(description = "Id sottoministrazione",type = "integer")
     private Integer idSottoministrazione;
-    @Schema(description = "Id infermiere",type = "int")
+    @Schema(description = "Id infermiere",type = "integer")
     private Integer idInfermiere;
-    @Schema(description = "Id visita",type = "int")
+    @Schema(description = "Id visita",type = "integer")
     private Integer idVisita;
-    @Schema(description = "Id cartella clinica",type = "int")
+    @Schema(description = "Id cartella clinica",type = "integer")
     private Integer idCartellaClinica;
 
     @Schema(description = "Nome infermiere",type = "string")

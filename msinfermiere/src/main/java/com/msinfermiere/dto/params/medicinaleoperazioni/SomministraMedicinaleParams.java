@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class SomministraMedicinaleParams {
-    @Schema(description = "Id infermiere",type = "int")
+    @Schema(description = "Id infermiere",type = "integer")
     private Integer infermiere;
-    @Schema(description = "Id medicinale",type = "int")
+    @Schema(description = "Id medicinale",type = "integer")
     private Integer medicinale;
-    @Schema(description = "Id cartella clinica",type = "int")
+    @Schema(description = "Id cartella clinica",type = "integer")
     private Integer cartellaClinica;
 }

@@ -1,7 +1,9 @@
 package com.bff.dto.msinfermiere.params;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
+@Data
 public class PazienteFiltratiParams {
     @Schema(description = "Id del paziente",type = "int")
     private Integer idPaziente;

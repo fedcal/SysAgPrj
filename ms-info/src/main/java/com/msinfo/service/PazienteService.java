@@ -26,6 +26,7 @@ import com.msinfo.repository.RepartoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +68,7 @@ public class PazienteService {
 
         List<PazienteDto> pazienteDtoList = null;
 
-        if(params.getNome()!=null && params.getCognome()!=null){
+        if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome())){
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByNomeAndCognome(params.getNome(),params.getCognome()));
         }
 
@@ -75,15 +76,15 @@ public class PazienteService {
             pazienteDtoList = Collections.singletonList(PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findById(params.getIdPaziente()).get()));
         }
 
-        if (params.getNome()!=null){
+        if (StringUtils.hasLength(params.getNome())){
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByNome(params.getNome()));
         }
 
-        if (params.getCognome()!=null){
+        if (StringUtils.hasLength(params.getCognome())){
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByCognome(params.getCognome()));
         }
 
-        if(params.getDataNascita()!=null){
+        if(StringUtils.hasLength(params.getDataNascita())){
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByDataNascita(params.getDataNascita()));
         }
 

@@ -10,6 +10,7 @@ import com.msinfermiere.service.OperazioniGeneraliService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/operazioni-generali")
+@Tag(name ="MsInfermieriOperazioniGeneraliController")
 public class OperazioniGeneraliController {
     @Autowired
     private OperazioniGeneraliService operazioniGeneraliService;
@@ -43,7 +45,7 @@ public class OperazioniGeneraliController {
 
     @Operation(summary = "Informazioni infermiere",
             description = "Informazioni infermiere",
-            operationId = "msInfermiereInformazioni")
+            operationId = "msInfermiereInformazioniInfermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Informazioni infermiere"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),

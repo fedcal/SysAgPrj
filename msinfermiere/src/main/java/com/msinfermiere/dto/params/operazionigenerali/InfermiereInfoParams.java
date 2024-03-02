@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class InfermiereInfoParams {
-    @Schema(description = "Id infermiere",type = "int")
+    @Schema(description = "Id infermiere",type = "integer")
     private Integer id;
     @Schema(description = "Nome infermiere",type = "string")
     private String nomeInfermiere;

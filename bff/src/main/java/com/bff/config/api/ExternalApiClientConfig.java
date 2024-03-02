@@ -20,20 +20,7 @@ public class ExternalApiClientConfig {
      * The Rest template.
      */
     private final RestTemplate restTemplate;
-    @Primary
-    @Bean
-    public com.bff.enciclopedia.invoker.ApiClient msEnciclopediaApiClient() {
-        com.bff.enciclopedia.invoker.ApiClient apiClient = new com.bff.enciclopedia.invoker.ApiClient(restTemplate);
-        apiClient.setBasePath("http://localhost:8085");
-        return apiClient;
-    }
-    @Primary
-    @Bean
-    public com.bff.info.invoker.ApiClient msInfoApiClient() {
-        com.bff.info.invoker.ApiClient apiClient = new com.bff.info.invoker.ApiClient(restTemplate);
-        apiClient.setBasePath("http://localhost:8086");
-        return apiClient;
-    }
+
     @Primary
     @Bean
     public com.bff.msmedico.invoker.ApiClient msMedicoApiClient() {
@@ -47,6 +34,21 @@ public class ExternalApiClientConfig {
     public com.bff.msinfermiere.invoker.ApiClient msInfermieriApiClient() {
         com.bff.msinfermiere.invoker.ApiClient apiClient = new com.bff.msinfermiere.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8082");
+        return apiClient;
+    }
+
+    @Primary
+    @Bean
+    public com.bff.enciclopedia.invoker.ApiClient msEnciclopediaApiClient() {
+        com.bff.enciclopedia.invoker.ApiClient apiClient = new com.bff.enciclopedia.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8085");
+        return apiClient;
+    }
+    @Primary
+    @Bean
+    public com.bff.info.invoker.ApiClient msInfoApiClient() {
+        com.bff.info.invoker.ApiClient apiClient = new com.bff.info.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8086");
         return apiClient;
     }
 

@@ -8,7 +8,7 @@ import com.mspaziente.esito.Messaggio;
 import com.mspaziente.esito.constants.EsitoOperazioneEnum;
 import com.mspaziente.esito.constants.SeveritaMessaggioEnum;
 import com.mspaziente.exception.EsitoRuntimeException;
-import com.mspaziente.msinfermiere.api.InfermieriMessaggisticaControllerApi;
+import com.mspaziente.msinfermiere.api.MsInfermieriInfermieriMessaggisticaControllerApi;
 import com.mspaziente.msmedico.api.MediciMessaggisticaControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +21,10 @@ public class MessaggisticaService {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     @Autowired
-    private InfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
+    private MsInfermieriInfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
     @Autowired
     private MediciMessaggisticaControllerApi messaggisticaControllerApiMedico;
+
     public String invioMessaggioMedico(MessaggioParamsDto messaggioParamsDto) {
         GenericResponseDto<String> invioMessaggio = genericResponseConverter.convertGenericResponse(
                 messaggisticaControllerApiMedico.msMedicoRiceviMessaggioPaziente(messaggioParamsDto.getMessaggio(),messaggioParamsDto.getLivelloUrgenza()),String.class);
@@ -95,7 +96,7 @@ public class MessaggisticaService {
 
     public String invioMessaggioInfermiere(MessaggioParamsDto messaggioDto) {
         GenericResponseDto<String> invioMessaggio = genericResponseConverter.convertGenericResponse(
-                messaggisticaControllerApiInfermiere.msMedicoRiceviMessaggioPaziente(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);
+                messaggisticaControllerApiInfermiere.msInfermiereRiceviMessaggioPaziente(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(invioMessaggio.getEsito().getMessaggi());
         esitoMessaggiRequestContextHolder.setCodRet(invioMessaggio.getEsito().getCodRet());
         esitoMessaggiRequestContextHolder.setOperationId(invioMessaggio.getEsito().getOperationId());

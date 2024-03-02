@@ -112,28 +112,12 @@ FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinic
 FOREIGN KEY(id_infermiere) REFERENCES infermiere(id_infermiere) ON DELETE CASCADE,
 FOREIGN KEY(id_medicinale) REFERENCES medicinale(id_medicinale) ON DELETE CASCADE);
 
--- SPECIALISTA
-CREATE TABLE IF NOT EXISTS specialista(id_specialista INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), cognome VARCHAR(30), specializzazione VARCHAR(50),turno VARCHAR(500), tipo_account INT, 
-FOREIGN KEY(tipo_account) REFERENCES profilo(id_profilo) ON DELETE CASCADE);
-
--- VISITA SOTTOMINISTRAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS visita_sottoministrazione_specialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_cartella_clinica INT, id_visita INT,
-FOREIGN KEY (id_specialista) REFERENCES specialista(id_specialista) ON DELETE CASCADE,
-FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_visita) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE);
 
 -- VISITA SOTTOMINISTRAZIONE MEDICO
 CREATE TABLE IF NOT EXISTS visita_sottoministrazione_medico(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_medico INT, id_cartella_clinica INT, id_visita INT,
 FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE CASCADE,
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (id_visita) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE);
-
--- OPERAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS operazione_specialista(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_specialista INT, id_operazione INT, id_cartella_clinica INT, id_referto_operazione_specialista INT,
-FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
-FOREIGN KEY (id_specialista) REFERENCES specialista(id_specialista) ON DELETE CASCADE,
-FOREIGN KEY (id_operazione) REFERENCES operazione_medica(id_operazione_medica) ON DELETE CASCADE,
-FOREIGN KEY (id_referto_operazione_specialista) REFERENCES referto_operazione_specialista(id_referto) ON DELETE CASCADE);
 
 -- OPERAZIONE PRESCRIZIONNE
 CREATE TABLE IF NOT EXISTS operazione_prescrizione(id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_operazione INT, id_cartella INT, id_medico INT,

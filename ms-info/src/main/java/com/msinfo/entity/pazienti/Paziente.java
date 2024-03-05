@@ -41,4 +41,8 @@ public class Paziente {
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cartella_clinica", referencedColumnName = "id_cartella_clinica")
+    private CartellaClinica cartellaClinica;
+
 }

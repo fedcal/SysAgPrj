@@ -8,6 +8,7 @@ import com.mspaziente.service.MessaggisticaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/messagistica")
+@Tag(name ="MsPazientiMessaggisticaController")
 public class PazientiMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+
     @Autowired
     private MessaggisticaService messaggisticaService;
+
     @Operation(summary = "Invio messaggio al robot infermiere",
             description = "Invio messaggio al robot infermiere",
             operationId = "msPazienteInvioMessaggioInfermiere")

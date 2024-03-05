@@ -4,7 +4,6 @@ import com.msinfo.entity.infermieri.Infermiere;
 import com.msinfo.entity.medici.Medico;
 import com.msinfo.entity.pazienti.Paziente;
 import com.msinfo.entity.relantionentities.OperazioneConsentita;
-import com.msinfo.entity.specialista.Specialista;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -33,9 +32,6 @@ public class Profilo {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Infermiere> infermieri;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
-    private Set<Specialista> specialisti;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Paziente> pazienti;

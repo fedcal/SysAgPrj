@@ -18,10 +18,13 @@ import org.springframework.stereotype.Service;
 public class MessaggisticaService {
     @Autowired
     private GenericResponseConverter genericResponseConverter;
+
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+
     @Autowired
     private MsInfermieriInfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
+
     @Autowired
     private MediciMessaggisticaControllerApi messaggisticaControllerApiMedico;
 

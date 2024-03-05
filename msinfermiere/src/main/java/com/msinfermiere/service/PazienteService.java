@@ -35,9 +35,11 @@ public class PazienteService {
                     .codMsg("Lista paziente vuota.").build());
             esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }else{
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
+            return PazienteDtoMapper.INSTANCE.toDto(findAll);
         }
-
-        return PazienteDtoMapper.INSTANCE.toDto(findAll);
     }
 
     public List<PazienteDto> getPazientiFiltrati(PazienteFiltratiParams params) {
@@ -63,6 +65,9 @@ public class PazienteService {
             esitoMessaggiRequestContextHolder.setOperationId("getPazientiFiltrati");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
+
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            esitoMessaggiRequestContextHolder.setOperationId("getPazientiFiltrati");
             return PazienteDtoMapper.INSTANCE.toDto(findListPaziente);
         }
     }

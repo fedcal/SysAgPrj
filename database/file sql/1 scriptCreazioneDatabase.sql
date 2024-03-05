@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS SistemaSanitario;
+CREATE DATABASE IF NOT EXISTS sistemasanitario;
 USE sistemasanitario;
 
 -- CONTATTO_RIFERIMENTO
@@ -37,16 +37,16 @@ CREATE TABLE IF NOT EXISTS reparto_infermiere(id_relazione INT PRIMARY KEY AUTO_
 FOREIGN KEY(id_infermiere) REFERENCES infermiere(id_infermiere),
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE);
 
+-- CARTELLA CLINICA
+CREATE TABLE IF NOT EXISTS cartella_clinica(id_cartella_clinica INT PRIMARY KEY AUTO_INCREMENT, gruppo_sanguigno VARCHAR(3));
+
 -- PAZIENTE 
 CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita DATE,
-luogo_nascita VARCHAR(50),  provincia_nascita VARCHAR(50), contatto_riferimento INT, tipo_account INT,
+luogo_nascita VARCHAR(50),  provincia_nascita VARCHAR(50), contatto_riferimento INT, tipo_account INT, id_cartella_clinica INT,
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE,
 FOREIGN KEY (contatto_riferimento) REFERENCES contatto_riferimento(id_contatto) ON DELETE CASCADE,
+FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (tipo_account) REFERENCES profilo(id_profilo));
-
--- CARTELLA CLINICA
-CREATE TABLE IF NOT EXISTS cartella_clinica(id_cartella_clinica INT PRIMARY KEY AUTO_INCREMENT, gruppo_sanguigno VARCHAR(3), id_paziente INT,
-FOREIGN KEY (id_paziente) REFERENCES paziente(id_paziente) ON DELETE CASCADE);
 
 -- DIAGNOSI
 CREATE TABLE IF NOT EXISTS diagnosi(id_diagnosi INT PRIMARY KEY AUTO_INCREMENT, id_cartella_clinica INT, tipo_diagnosi VARCHAR(30), descrizione VARCHAR(100),
@@ -76,7 +76,7 @@ FOREIGN KEY (id_medicinale) REFERENCES medicinale(id_medicinale) ON DELETE CASCA
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE);
 
 -- VISITA MEDICA CARTELLA
-CREATE TABLE IF NOT EXISTS visita_medicaCartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_visita_medica INT, id_cartella INT, id_referto INT, 
+CREATE TABLE IF NOT EXISTS visita_medica_cartella (id_relazione INT PRIMARY KEY AUTO_INCREMENT, id_visita_medica INT, id_cartella INT, id_referto INT, 
 FOREIGN KEY (id_visita_medica) REFERENCES visita_medica(id_visita_medica) ON DELETE CASCADE, 
 FOREIGN KEY (id_cartella) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE,
 FOREIGN KEY (id_referto) REFERENCES referto_visita_medica(id_referto) ON DELETE CASCADE);

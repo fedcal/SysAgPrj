@@ -13,8 +13,4 @@ public class ProfiloDto {
     private Integer idProfilo;
     private String tipo;
     private String descrizione;
-    private Set<OperazioneConsentitaDto> operazioneConsentitaSet;
-    private Set<PazienteDto> paziente;
-    private Set<InfermiereDto> infermieri;
-    private Set<MedicoDto> medico;
 }

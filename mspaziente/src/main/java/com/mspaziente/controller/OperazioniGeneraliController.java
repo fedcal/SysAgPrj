@@ -5,6 +5,7 @@ import com.mspaziente.constants.WebConstants;
 import com.mspaziente.dto.PazienteDto;
 import com.mspaziente.dto.params.operazionigenerali.AddPazienteParams;
 import com.mspaziente.dto.params.operazionigenerali.FindPazienteParams;
+import com.mspaziente.dto.params.operazionigenerali.ModificaPazienteParams;
 import com.mspaziente.esito.EsitoMessaggiRequestContextHolder;
 import com.mspaziente.esito.GenericResponseDto;
 import com.mspaziente.service.OperazioniGeneraliService;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +55,7 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/info-paziente",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> findInfoPazienti (FindPazienteParams params){
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> findInfoPazienti (@ParameterObject FindPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.findInfoPazienti(params)));
     }
 
@@ -66,7 +68,7 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value ="/aggiunta-paziente",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<PazienteDto>> addInfoPazienti (AddPazienteParams params){
+    public ResponseEntity<GenericResponseDto<PazienteDto>> addInfoPazienti (@ParameterObject AddPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.addInfoPazienti(params)));
     }
 
@@ -81,5 +83,18 @@ public class OperazioniGeneraliController {
     @DeleteMapping(value ="/elimina-paziente/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> deleteInfoPazienti (@PathVariable("id") Integer idPaziente){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.deleteInfoPazienti(idPaziente)));
+    }
+
+    @Operation(summary = "Modifica paziente",
+            description = "Modifica paziente",
+            operationId = "msPazienteModificaPaziente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Paziente modificato"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/modifica-paziente",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<PazienteDto>> modificaInfoPazienti (@ParameterObject ModificaPazienteParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.modificaInfoPazienti(params)));
     }
 }

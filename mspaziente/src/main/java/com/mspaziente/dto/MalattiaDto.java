@@ -9,5 +9,4 @@ public class MalattiaDto {
     private Integer idMalattia;
     private String nome;
     private String descrizione;
-    private Set<MalattiaCartellaDto> cartelle;
 }

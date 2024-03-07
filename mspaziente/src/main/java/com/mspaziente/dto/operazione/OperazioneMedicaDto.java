@@ -11,6 +11,4 @@ public class OperazioneMedicaDto {
     private String nome;
     private String descrizione;
     private String tipologia;
-    private Set<OperazioneCartellaDto> operazioneCartella;
-    private Set<OperazionePrescrizioneDto> operazionePrescrizione;
 }

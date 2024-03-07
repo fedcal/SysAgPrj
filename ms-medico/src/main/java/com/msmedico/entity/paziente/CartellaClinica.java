@@ -18,10 +18,6 @@ public class CartellaClinica {
     @Column(name = "gruppo_sanguigno")
     private String gruppoSanguigno;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_paziente", referencedColumnName = "id_paziente")
-    private Paziente paziente;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="cartellaClinica")
     private Set<Diagnosi> diagnosi;
 

@@ -14,5 +14,4 @@ public class PazienteDto {
     private ContattoRiferimentoDto contattoRiferimento;
     private RepartoDto reparto;
     private ProfiloDto profilo;
-    private CartellaClinicaDto cartellaClinica;
 }

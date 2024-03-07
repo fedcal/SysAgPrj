@@ -13,7 +13,4 @@ public class VisitaMedicaDto {
     private String nome;
     private String tipologia;
     private String descrizione;
-    private Set<VisitaPrescrizioneDto> visitaPrescrizione;
-    private Set<VisitaSottoministrazioneMedicoDto> visitaSottoministrazioneMedico;
-    private Set<VisitaSottoministrazioneInfermiereDto> visitaSottoministrazioneInfermiere;
 }

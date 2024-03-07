@@ -13,5 +13,4 @@ public class MedicoDto {
     private String cognome;
     private String turno;
     private ProfiloDto profilo;
-    private Set<RepartoMedicoDto> repartoMedicoSet;
 }

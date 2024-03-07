@@ -11,6 +11,4 @@ public class MedicinaleDto {
     private String nome;
     private String descrizione;
     private String dosaggio;
-    private Set<MedicinaleCartellaDto> medicinaleCartella;
-    private Set<MedicinaleSottoministrazioneDto> medicinaleSottoministrazione;
 }

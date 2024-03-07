@@ -3,6 +3,7 @@ package com.mspaziente.service;
 import com.mspaziente.dto.PazienteDto;
 import com.mspaziente.dto.params.operazionigenerali.AddPazienteParams;
 import com.mspaziente.dto.params.operazionigenerali.FindPazienteParams;
+import com.mspaziente.dto.params.operazionigenerali.ModificaPazienteParams;
 import com.mspaziente.entity.CartellaClinica;
 import com.mspaziente.entity.ContattoRiferimento;
 import com.mspaziente.entity.Paziente;
@@ -18,6 +19,7 @@ import com.mspaziente.repository.CartellaClinicaRepository;
 import com.mspaziente.repository.ContattoRiferimentoRepository;
 import com.mspaziente.repository.PazienteRepository;
 import com.mspaziente.repository.RepartoRepository;
+import com.mspaziente.repository.account.ProfiloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,6 @@ import java.util.Optional;
 @Service
 public class OperazioniGeneraliService {
 
-    @Autowired
-    private GenericResponseConverter genericResponseConverter;
 
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -46,7 +46,10 @@ public class OperazioniGeneraliService {
     private RepartoRepository repartoRepository;
 
     @Autowired
-    private CartellaClinicaRepository cartellaClinicaRepository;;
+    private CartellaClinicaRepository cartellaClinicaRepository;
+    @Autowired
+    private ProfiloRepository profiloRepository;
+    ;
 
     public List<PazienteDto> getAllPazienti() {
         List<Paziente> pazienti = pazienteRepository.findAll();
@@ -118,6 +121,7 @@ public class OperazioniGeneraliService {
         pazienteToSave.setDataNascita(params.getDataNascita());
         pazienteToSave.setLuogoNascita(params.getLuogoNascita());
         pazienteToSave.setProvinciaNascita(params.getProvinciaNascita());
+        pazienteToSave.setProfilo(profiloRepository.findById(4).get());
 
         Optional<ContattoRiferimento> contattoRiferimentoFind = contattoRiferimentoRepository.findById(params.getIdContattoRiferimento());
 
@@ -183,6 +187,102 @@ public class OperazioniGeneraliService {
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
             return "Paziente non eliminato";
+        }
+    }
+
+    public PazienteDto modificaInfoPazienti(ModificaPazienteParams params) {
+        checkParams(params);
+        Optional<Paziente> pazienteFind = pazienteRepository.findById(params.getIdPaziente());
+        if(!pazienteFind.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Paziente da modificare non trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+
+        if(StringUtils.hasLength(params.getNuvoNome())){
+            pazienteFind.get().setNome(params.getNuvoNome());
+        }
+
+        if(StringUtils.hasLength(params.getNuovoCognome())){
+            pazienteFind.get().setCognome(params.getNuovoCognome());
+        }
+
+        if(StringUtils.hasLength(params.getNuovaDataNascita())){
+            pazienteFind.get().setDataNascita(params.getNuovaDataNascita());
+        }
+
+        if(StringUtils.hasLength(params.getNuovoLuogoNascita())){
+            pazienteFind.get().setLuogoNascita(params.getNuovoLuogoNascita());
+        }
+
+        if(StringUtils.hasLength(params.getNuovaProvinciaNascita())){
+            pazienteFind.get().setProvinciaNascita(params.getNuovaProvinciaNascita());
+        }
+
+        if(params.getIdContattoRiferimento()!=null){
+            Optional<ContattoRiferimento> contattoRiferimentoFind = contattoRiferimentoRepository.findById(params.getIdContattoRiferimento());
+            if(contattoRiferimentoFind.isPresent()){
+                pazienteFind.get().setContattoRiferimento(contattoRiferimentoFind.get());
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Contatto riferimento da modificare non trovato.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+                throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+            }
+        }
+
+        if(params.getIdReparto()!=null){
+            Optional<Reparto> repartoFind = repartoRepository.findById(params.getIdReparto());
+            if(repartoFind.isPresent()){
+                pazienteFind.get().setReparto(repartoFind.get());
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Reparto da modificare non trovato.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+                throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+            }
+        }
+
+        if(params.getIdCartellaClinica()!=null){
+            Optional<CartellaClinica> cartellaClinicaFind = cartellaClinicaRepository.findById(params.getIdReparto());
+            if(cartellaClinicaFind.isPresent()){
+                pazienteFind.get().setCartellaClinica(cartellaClinicaFind.get());
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Cartella clinica non trovata.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+                throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+            }
+        }
+
+        return PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.save(pazienteFind.get()));
+    }
+
+    private void checkParams(ModificaPazienteParams params) {
+        boolean checkId = params.getIdCartellaClinica()==null && params.getIdReparto()==null
+                && params.getIdContattoRiferimento()==null;
+        boolean checkString = !StringUtils.hasLength(params.getNuovoCognome()) && !StringUtils.hasLength(params.getNuovoCognome()) &&
+                !StringUtils.hasLength(params.getNuovaDataNascita()) && !StringUtils.hasLength(params.getNuovoLuogoNascita()) &&
+                !StringUtils.hasLength(params.getNuovaProvinciaNascita());
+        if(params.getIdPaziente()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire l'id del paziente da modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        if(checkId && checkString){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire almeno un parametro da modificare.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modificaInfoPazienti");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 }

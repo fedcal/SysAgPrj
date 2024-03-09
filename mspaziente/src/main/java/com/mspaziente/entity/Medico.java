@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 public class Medico {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_medico")
     private Integer idMedico;
 

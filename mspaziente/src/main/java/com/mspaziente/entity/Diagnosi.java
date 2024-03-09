@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "diagnosi")
 public class Diagnosi {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_diagnosi")
     private Integer idDiagnosi;
 

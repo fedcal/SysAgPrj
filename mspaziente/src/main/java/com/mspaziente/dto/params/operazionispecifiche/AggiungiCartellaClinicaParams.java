@@ -1,0 +1,12 @@
+package com.mspaziente.dto.params.operazionispecifiche;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
+public class AggiungiCartellaClinicaParams {
+    @Schema(description = "Gruppo sanguigno",type = "string")
+    private String gruppoSanguigno;
+    @Schema(description = "Id del paziente relativo",type = "integer")
+    private Integer idPaziente;
+}

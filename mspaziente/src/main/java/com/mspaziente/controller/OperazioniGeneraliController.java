@@ -45,8 +45,8 @@ public class OperazioniGeneraliController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.getAllPazienti()));
     }
 
-    @Operation(summary = "Lista pazienti",
-            description = "Lista pazienti",
+    @Operation(summary = "Lista pazienti filtrata",
+            description = "Lista pazienti filtrata",
             operationId = "msPazienteInfoPazienti")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista trovata"),

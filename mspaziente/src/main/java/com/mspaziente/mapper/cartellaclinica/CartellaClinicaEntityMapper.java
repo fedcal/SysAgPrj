@@ -8,8 +8,8 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper
-public interface CartellaClinicaMapper {
-    CartellaClinicaMapper INSTANCE = Mappers.getMapper(CartellaClinicaMapper.class);
+public interface CartellaClinicaEntityMapper {
+    CartellaClinicaEntityMapper INSTANCE = Mappers.getMapper(CartellaClinicaEntityMapper.class);
 
     CartellaClinica toEntity(CartellaClinicaDto dto);
     List<CartellaClinica> toEntity(List<CartellaClinicaDto> dto);

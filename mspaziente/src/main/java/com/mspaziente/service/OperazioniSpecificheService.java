@@ -3,28 +3,39 @@ package com.mspaziente.service;
 import com.mspaziente.dto.CartellaClinicaDto;
 import com.mspaziente.dto.DiagnosiDto;
 import com.mspaziente.dto.output.CartellaClinicaOutputDto;
-import com.mspaziente.dto.params.operazionispecifiche.FindCartellaClinica;
+import com.mspaziente.dto.params.operazionispecifiche.AggiungiCartellaClinicaParams;
+import com.mspaziente.dto.params.operazionispecifiche.AggiuntaDiagnosiParams;
+import com.mspaziente.dto.params.operazionispecifiche.FindCartellaClinicaParams;
 import com.mspaziente.dto.relationentities.*;
+import com.mspaziente.entity.CartellaClinica;
 import com.mspaziente.entity.Diagnosi;
+import com.mspaziente.entity.Paziente;
 import com.mspaziente.entity.relationentities.*;
 import com.mspaziente.esito.EsitoMessaggiRequestContextHolder;
 import com.mspaziente.esito.Messaggio;
 import com.mspaziente.esito.constants.EsitoOperazioneEnum;
 import com.mspaziente.esito.constants.SeveritaMessaggioEnum;
 import com.mspaziente.exception.EsitoRuntimeException;
+import com.mspaziente.mapper.cartellaclinica.CartellaClinicaDtoMapper;
+import com.mspaziente.mapper.cartellaclinica.CartellaClinicaEntityMapper;
 import com.mspaziente.mapper.diagnosi.DiagnosiDtoMapper;
+import com.mspaziente.mapper.diagnosi.DiagnosiEntityMapper;
 import com.mspaziente.mapper.relationentities.malattiacartella.MalattiaCartellaDtoMapper;
 import com.mspaziente.mapper.relationentities.medicinalecartella.MedicinaleCartellaDtoMapper;
 import com.mspaziente.mapper.relationentities.medicinaleprescrizione.MedicinalePrescrizioneDtoMapper;
 import com.mspaziente.mapper.relationentities.medicinalesottoministrazione.MedicinaleSottoministrazioneDtoMapper;
 import com.mspaziente.mapper.relationentities.operazionecartella.OperazioneCartellaDtoMapper;
+import com.mspaziente.repository.CartellaClinicaRepository;
 import com.mspaziente.repository.DiagnosiRepository;
+import com.mspaziente.repository.PazienteRepository;
 import com.mspaziente.repository.relationentities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OperazioniSpecificheService {
@@ -42,8 +53,12 @@ public class OperazioniSpecificheService {
     private MedicinaleSottoministrazioneRepository medicinaleSottoministrazioneRepository;
     @Autowired
     private OperazioneCartellaRepository operazioneCartellaRepository;
+    @Autowired
+    private PazienteRepository pazienteRepository;
+    @Autowired
+    private CartellaClinicaRepository cartellaClinicaRepository;
 
-    public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinica params) {
+    public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinicaParams params) {
         checkParams(params);
         CartellaClinicaOutputDto cartellaClinicaDto = null;
 
@@ -130,7 +145,7 @@ public class OperazioniSpecificheService {
 
     }
 
-    private void checkParams(FindCartellaClinica params) {
+    private void checkParams(FindCartellaClinicaParams params) {
         if(params.getIdCartellaClinica() == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -139,5 +154,85 @@ public class OperazioniSpecificheService {
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    public CartellaClinicaDto aggiungiCartellaClinica(AggiungiCartellaClinicaParams params) {
+        checkParams(params);
+        Optional<Paziente> findPaziente = pazienteRepository.findById(params.getIdPaziente());
+        if(!findPaziente.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Paziente non trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiCartellaClinica");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        if(findPaziente.get().getCartellaClinica().getIdCartellaClinica()!=null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Il paziente selezionato ha già una cartella clinica associata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiCartellaClinica");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+        CartellaClinicaDto cartellaClinicaSave = new CartellaClinicaDto();
+        cartellaClinicaSave.setGruppoSanguigno(params.getGruppoSanguigno());
+        cartellaClinicaSave = CartellaClinicaDtoMapper.INSTANCE.toDto(cartellaClinicaRepository.save(CartellaClinicaEntityMapper.INSTANCE.toEntity(cartellaClinicaSave)));
+
+        findPaziente.get().getCartellaClinica().setIdCartellaClinica(cartellaClinicaSave.getIdCartellaClinica());
+        pazienteRepository.save(findPaziente.get());
+
+        return cartellaClinicaSave;
+    }
+
+    private void checkParams(AggiungiCartellaClinicaParams params) {
+        if(params.getIdPaziente()==null && params.getGruppoSanguigno().isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire entrambi i parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiCartellaClinica");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public DiagnosiDto aggiungiDiagnosi(AggiuntaDiagnosiParams params) {
+        checkParams(params);
+
+        Optional<CartellaClinica> findCartella = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
+
+        if(!findCartella.isPresent()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna cartella clinica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiDiagnosi");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        DiagnosiDto diagnosiDto = new DiagnosiDto();
+        diagnosiDto.setCartellaClinica(CartellaClinicaDtoMapper.INSTANCE.toDto(findCartella.get()));
+        diagnosiDto.setTipoDiagnosi(params.getTipoDiagnosi());
+        diagnosiDto.setDescrizione(params.getDescrizione());
+
+        try{
+            DiagnosiDto diagnosiSave = DiagnosiDtoMapper.INSTANCE.toDto(diagnosiRepository.save(DiagnosiEntityMapper.INSTANCE.toEntity(diagnosiDto)));
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiDiagnosi");
+            return diagnosiSave;
+        }catch (Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna cartella clinica salvata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiDiagnosi");
+            throw  new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void checkParams(AggiuntaDiagnosiParams params) {
+        if(params.getIdCartellaClinica()==null && !StringUtils.hasLength(params.getDescrizione()) && !StringUtils.hasLength(params.getTipoDiagnosi())){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire tutti i parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiDiagnosi");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
     }
 }

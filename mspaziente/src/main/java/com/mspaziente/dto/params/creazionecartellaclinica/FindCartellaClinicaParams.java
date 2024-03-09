@@ -1,4 +1,4 @@
-package com.mspaziente.dto.params.operazionispecifiche;
+package com.mspaziente.dto.params.creazionecartellaclinica;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

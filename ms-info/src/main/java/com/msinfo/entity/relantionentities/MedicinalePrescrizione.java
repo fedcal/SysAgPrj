@@ -1,6 +1,7 @@
 package com.msinfo.entity.relantionentities;
 
 import com.msinfo.entity.Medicinale;
+import com.msinfo.entity.VisitaMedica;
 import com.msinfo.entity.medici.Medico;
 import com.msinfo.entity.pazienti.CartellaClinica;
 import jakarta.persistence.*;
@@ -26,4 +27,8 @@ public class MedicinalePrescrizione {
     @ManyToOne
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
+
+    @ManyToOne
+    @JoinColumn(name = "id_visita",referencedColumnName = "id_visita_medica")
+    private VisitaMedica visitaMedica;
 }

@@ -28,7 +28,7 @@ public class GlobalControllerAdvice {
         esito.setMessaggi(esitoMessaggiRequestContextHolder.getMessaggi());
 
         GenericResponseDto<Void> responseDto = new GenericResponseDto<>();
-        responseDto. setEsito(esito);
+        responseDto.setEsito(esito);
 
         return new ResponseEntity<>(responseDto, e.getReturnStatus());
     }

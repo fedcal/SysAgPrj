@@ -1,6 +1,7 @@
 package com.mspaziente.entity;
 
 import com.mspaziente.entity.relationentities.MedicinaleCartella;
+import com.mspaziente.entity.relationentities.MedicinalePrescrizione;
 import com.mspaziente.entity.relationentities.MedicinaleSottoministrazione;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,4 +31,7 @@ public class Medicinale {
 
     @OneToMany(mappedBy = "medicinale")
     private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
+
+    @OneToMany(mappedBy = "medicinale")
+    private Set<MedicinalePrescrizione> medicinalePrescrizioneSet;
 }

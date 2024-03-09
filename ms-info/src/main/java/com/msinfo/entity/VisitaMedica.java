@@ -1,5 +1,6 @@
 package com.msinfo.entity;
 
+import com.msinfo.entity.relantionentities.MedicinalePrescrizione;
 import com.msinfo.entity.relantionentities.VisitaPrescrizione;
 import com.msinfo.entity.relantionentities.VisitaSottoministrazioneInfermiere;
 import com.msinfo.entity.relantionentities.VisitaSottoministrazioneMedico;
@@ -34,4 +35,7 @@ public class VisitaMedica {
 
     @OneToMany(mappedBy = "visitaMedica")
     private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
+
+    @OneToMany(mappedBy = "visitaMedica")
+    private Set<MedicinalePrescrizione> medicinalePrescrizione;
 }

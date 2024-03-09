@@ -1,5 +1,6 @@
 package com.mspaziente.entity.visitamedica;
 
+import com.mspaziente.entity.relationentities.MedicinalePrescrizione;
 import com.mspaziente.entity.relationentities.VisitaPrescrizione;
 import com.mspaziente.entity.relationentities.VisitaSottoministrazioneInfermiere;
 import com.mspaziente.entity.relationentities.VisitaSottoministrazioneMedico;
@@ -34,4 +35,7 @@ public class VisitaMedica {
 
     @OneToMany(mappedBy = "visitaMedica")
     private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
+
+    @OneToMany(mappedBy = "visitaMedica")
+    private Set<MedicinalePrescrizione> medicinalePrescrizione;
 }

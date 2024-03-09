@@ -3,6 +3,7 @@ package com.mspaziente.entity.relationentities;
 import com.mspaziente.entity.CartellaClinica;
 import com.mspaziente.entity.Medicinale;
 import com.mspaziente.entity.Medico;
+import com.mspaziente.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,4 +27,8 @@ public class MedicinalePrescrizione {
     @ManyToOne
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
+
+    @ManyToOne
+    @JoinColumn(name = "id_visita",referencedColumnName = "id_visita_medica")
+    private VisitaMedica visitaMedica;
 }

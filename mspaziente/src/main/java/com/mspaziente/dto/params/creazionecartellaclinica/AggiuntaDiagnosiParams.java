@@ -1,7 +1,6 @@
-package com.mspaziente.dto.params.operazionispecifiche;
+package com.mspaziente.dto.params.creazionecartellaclinica;
 
 import lombok.Data;
-import org.springframework.data.repository.query.Param;
 
 @Data
 public class AggiuntaDiagnosiParams {

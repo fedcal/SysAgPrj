@@ -3,11 +3,10 @@ package com.mspaziente.controller;
 import com.mspaziente.constants.WebConstants;
 import com.mspaziente.dto.CartellaClinicaDto;
 import com.mspaziente.dto.DiagnosiDto;
+import com.mspaziente.dto.operazione.RefertoOperazioneDto;
 import com.mspaziente.dto.output.CartellaClinicaOutputDto;
 import com.mspaziente.dto.params.creazionecartellaclinica.*;
-import com.mspaziente.dto.relationentities.MalattiaCartellaDto;
-import com.mspaziente.dto.relationentities.MedicinaleCartellaDto;
-import com.mspaziente.dto.relationentities.MedicinalePrescrizioneDto;
+import com.mspaziente.dto.relationentities.*;
 import com.mspaziente.esito.EsitoMessaggiRequestContextHolder;
 import com.mspaziente.esito.GenericResponseDto;
 import com.mspaziente.service.OperazioniSpecificheService;
@@ -55,7 +54,7 @@ public class CartellaClinicaCreazioneController {
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggingi-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<CartellaClinicaDto>> aggiungiCartellaClinica (@ParameterObject AggiungiCartellaClinicaParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiCartellaClinica(params)));
     }
@@ -69,7 +68,7 @@ public class CartellaClinicaCreazioneController {
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggingi-diagnosi-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-diagnosi-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<DiagnosiDto>> aggiungiDiagnosi (@ParameterObject AggiuntaDiagnosiParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiDiagnosi(params)));
     }
@@ -84,7 +83,7 @@ public class CartellaClinicaCreazioneController {
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggingi-malattia-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-malattia-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MalattiaCartellaDto>> aggiungiMalattia (@ParameterObject AggiungiMalattiaParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiMalattia(params)));
     }
@@ -98,7 +97,7 @@ public class CartellaClinicaCreazioneController {
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggingi-medicinale-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-medicinale-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicinaleCartellaDto>> aggiungiMedicinale (@ParameterObject AggiungiMedicinaleParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiMedicinale(params)));
     }
@@ -113,17 +112,67 @@ public class CartellaClinicaCreazioneController {
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggingi-prescrizione-medicinale-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-prescrizione-medicinale-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<MedicinalePrescrizioneDto>> aggiungiPrescrizioneMedicinale (@ParameterObject AggiungiPrescrizioneMedicinaleParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiPrescrizioneMedicinale(params)));
     }
 
     //aggiunta medicinale sottoministrazione
+    @Operation(summary = "Aggiungi prescrizione medicinale a una cartella clinica",
+            description = "Aggiungi prescrizione medicinale a una cartella clinica",
+            operationId = "msPazienteAggiungiPrescrizioneMedicinaleCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-medicinale-prescrizione-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<MedicinaleSottoministrazioneDto>> aggiungiMedicinalePrescrizione (@ParameterObject AggiungiMedicinaleSottoministrazioneParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiMedicinalePrescrizione(params)));
+    }
 
     // aggiunta operazione cartella
 
-    //aggiunta operazione prescrizione
+    @Operation(summary = "Aggiungi operazione a una cartella clinica",
+            description = "Aggiungi operazione a una cartella clinica",
+            operationId = "msPazienteAggiungiOperazioneMedicinaleCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-operazione-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<OperazioneCartellaDto>> aggiungiOperazione (@ParameterObject AggiungiOperazioneCartellaParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiOperazione(params)));
+    }
 
+    // Aggiungi referto operazione
+    @Operation(summary = "Aggiungi referto operazione",
+            description = "Aggiungi referto operazione",
+            operationId = "msPazienteAggiungiRefertoOperazione")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-referto-operazione",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<RefertoOperazioneDto>> aggiungiRefertoOperazione (@ParameterObject AggiungiRefertoOperazioneParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiRefertoOperazione(params)));
+    }
+
+    //aggiunta operazione prescrizione
+    @Operation(summary = "Aggiungi operazione prescrizione a una cartella clinica",
+            description = "Aggiungi operazione prescrizione a una cartella clinica",
+            operationId = "msPazienteAggiuntaOperazionePrescrizioneCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione operazionne aggiunto"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-operazione-prescrizione-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<OperazionePrescrizioneDto>> aggiungiOperazionePrescrizione (@ParameterObject AggiuntaOperazionePrescrizione params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiOperazionePrescrizione(params)));
+    }
     //aggiunta visita medica cartella
 
     //aggiunta visita prescrizione

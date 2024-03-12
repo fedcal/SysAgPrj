@@ -9,6 +9,6 @@ public class AggiungiRefertoOperazioneParams {
     private String tipologia;
     @Schema(description = "Descrizione referto operazionne",type = "string")
     private String descrizione;
-    @Schema(description = "Data referto",type = "strinng")
+    @Schema(description = "Data referto",type = "string")
     private String dataReferto;
 }

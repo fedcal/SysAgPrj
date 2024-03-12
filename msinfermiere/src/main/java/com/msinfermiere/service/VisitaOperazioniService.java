@@ -92,20 +92,11 @@ public class VisitaOperazioniService {
         if(StringUtils.hasLength(params.getNomeMedico())&&StringUtils.hasLength(params.getCognomeMedico())){
             visitaPrescrizioneList = visitaPrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
-        if(StringUtils.hasLength(params.getNomePaziente())&&StringUtils.hasLength(params.getCognomePaziente())){
-            visitaPrescrizioneList = visitaPrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getNomeMedico())){
             visitaPrescrizioneList = visitaPrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             visitaPrescrizioneList = visitaPrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            visitaPrescrizioneList = visitaPrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            visitaPrescrizioneList = visitaPrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
         }
         return visitaPrescrizioneList;
 
@@ -187,18 +178,11 @@ public class VisitaOperazioniService {
     private List<VisitaSottoministrazioneInfermiere> findMedicinaleSottoministrazioneByString(FiltraVisiteSottoministrateInfermieriParams params) {
         List<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiereList = new ArrayList<>();
 
-        if(StringUtils.hasLength(params.getNomePaziente()) && StringUtils.hasLength(params.getCognomePaziente())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
+
         if(StringUtils.hasLength(params.getNomeInfermiere())&& StringUtils.hasLength(params.getCognomeInfermiere())){
             visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeAndCognomeInfermiere(params.getNomeInfermiere(),params.getCognomeInfermiere());
         }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
+
         if(StringUtils.hasLength(params.getNomeInfermiere())){
             visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeInfermiere(params.getNomeInfermiere());
         }

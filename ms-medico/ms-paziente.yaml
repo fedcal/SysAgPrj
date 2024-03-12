@@ -6,10 +6,988 @@ servers:
   - url: http://localhost:8083
     description: Generated server url
 paths:
+  /ms-pazienti/paziente-operazioni-generali/modifica-paziente:
+    post:
+      tags:
+        - MsPazientiOperazioniGeneraliController
+      summary: Modifica paziente
+      description: Modifica paziente
+      operationId: msPazienteModificaPaziente
+      parameters:
+        - name: idPaziente
+          in: query
+          description: Id del paziente da modificare
+          required: false
+          schema:
+            type: integer
+            description: Id del paziente da modificare
+        - name: nuvoNome
+          in: query
+          description: Nuovo nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nuovo nome del paziente
+        - name: nuovoCognome
+          in: query
+          description: Nuovo cognome del paziente
+          required: false
+          schema:
+            type: integer
+            description: Nuovo cognome del paziente
+        - name: nuovaDataNascita
+          in: query
+          description: Nuova data di nascita del paziente
+          required: false
+          schema:
+            type: integer
+            description: Nuova data di nascita del paziente
+        - name: nuovoLuogoNascita
+          in: query
+          description: Nuovo luogo di nascita del paziente
+          required: false
+          schema:
+            type: integer
+            description: Nuovo luogo di nascita del paziente
+        - name: nuovaProvinciaNascita
+          in: query
+          description: Nuova provincia di nascita del paziente
+          required: false
+          schema:
+            type: integer
+            description: Nuova provincia di nascita del paziente
+        - name: idContattoRiferimento
+          in: query
+          description: Id del nuovo contatto di riferimento
+          required: false
+          schema:
+            type: integer
+            description: Id del nuovo contatto di riferimento
+        - name: idReparto
+          in: query
+          description: Id del nuovo reparto
+          required: false
+          schema:
+            type: integer
+            description: Id del nuovo reparto
+        - name: idCartellaClinica
+          in: query
+          description: Id della nuova cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id della nuova cartella clinica
+      responses:
+        '200':
+          description: Paziente modificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+  /ms-pazienti/paziente-operazioni-generali/aggiunta-paziente:
+    post:
+      tags:
+        - MsPazientiOperazioniGeneraliController
+      summary: Aggiungi paziente
+      description: Aggiungi paziente
+      operationId: msPazienteAggiungiPaziente
+      parameters:
+        - name: idContattoRiferimento
+          in: query
+          description: Id contatto di riferimento
+          required: false
+          schema:
+            type: integer
+            description: Id contatto di riferimento
+        - name: idReparto
+          in: query
+          description: Id reparto
+          required: false
+          schema:
+            type: integer
+            description: Id reparto
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
+        - name: dataNascita
+          in: query
+          description: Data di nascita del paziente
+          required: false
+          schema:
+            type: string
+            description: Data di nascita del paziente
+        - name: luogoNascita
+          in: query
+          description: Luogo di nascita
+          required: false
+          schema:
+            type: string
+            description: Luogo di nascita
+        - name: provinciaNascita
+          in: query
+          description: Provincia di nascita
+          required: false
+          schema:
+            type: string
+            description: Provincia di nascita
+      responses:
+        '200':
+          description: Paziente aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+  /ms-pazienti/paziente-operazioni-specifiche/trova-cartella:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Visualizza cartella clinica
+      description: Visualizza cartella clinica
+      operationId: msPazienteVisualizzaCartellaClinica
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idPaziente
+          in: query
+          description: Id paziente
+          required: false
+          schema:
+            type: integer
+            description: Id paziente
+      responses:
+        '200':
+          description: Cartella clinica trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '404':
+          description: Cartella clinica non trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-visita-sottoministrazione-medico:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi visita sottoministrazione da parte di un medico a una cartella clinica
+      description: Aggiungi visita sottoministrazione da parte di un medico a una cartella clinica
+      operationId: msPazienteAggiuntaVisitaSottoministrazioneMedicoCartellaClinca
+      parameters:
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+      responses:
+        '200':
+          description: Sottoministrazione visita da parte di un medico aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneMedicoDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneMedicoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneMedicoDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-visita-sottoministrazione-infermiere:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi sottoministrazione visita da parte di un'infermiere a una cartella clinica
+      description: Aggiungi sottoministrazione visita da parte di un'infermiere a una cartella clinica
+      operationId: msPazienteAggiuntaVisitaSottoministrazioneInfermiereCartellaClinca
+      parameters:
+        - name: idInfermiere
+          in: query
+          description: Id innfermiere
+          required: false
+          schema:
+            type: integer
+            description: Id innfermiere
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+      responses:
+        '200':
+          description: Sottoministrazione visita da parte di un infermiere aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-visita-medica-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi visita medica a una cartella clinica
+      description: Aggiungi visita medica a una cartella clinica
+      operationId: msPazienteAggiuntaVisitaMedicaCartellaClinca
+      parameters:
+        - name: idVisitaMedica
+          in: query
+          description: Id visita medica
+          required: false
+          schema:
+            type: integer
+            description: Id visita medica
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idReferto
+          in: query
+          description: Id referto
+          required: false
+          schema:
+            type: integer
+            description: Id referto
+      responses:
+        '200':
+          description: Visita medica aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaMedicaCartellaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaMedicaCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaMedicaCartellaDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-referto-visita-medica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi referto visita medica
+      description: Aggiungi referto visita medica
+      operationId: msPazienteAggiungiRefertoVisitaMedica
+      parameters:
+        - name: descrizione
+          in: query
+          description: Descrizione referto
+          required: false
+          schema:
+            type: string
+            description: Descrizione referto
+        - name: tipologia
+          in: query
+          description: Tipologia referto
+          required: false
+          schema:
+            type: string
+            description: Tipologia referto
+        - name: dataReferto
+          in: query
+          description: Data referto
+          required: false
+          schema:
+            type: string
+            description: Data referto
+      responses:
+        '200':
+          description: Referto visita medica aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoVisitaMedicaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoVisitaMedicaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoVisitaMedicaDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-referto-operazione:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi referto operazione
+      description: Aggiungi referto operazione
+      operationId: msPazienteAggiungiRefertoOperazione
+      parameters:
+        - name: tipologia
+          in: query
+          description: Tipologia referto operazione
+          required: false
+          schema:
+            type: string
+            description: Tipologia referto operazione
+        - name: descrizione
+          in: query
+          description: Descrizione referto operazionne
+          required: false
+          schema:
+            type: string
+            description: Descrizione referto operazionne
+        - name: dataReferto
+          in: query
+          description: Data referto
+          required: false
+          schema:
+            type: string
+            description: Data referto
+      responses:
+        '200':
+          description: Referto aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoOperazioneDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoOperazioneDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRefertoOperazioneDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-prescrizione-visita-medica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi prescrizione visita medica a una cartella clinica
+      description: Aggiungi prescrizione visita medica a una cartella clinica
+      operationId: msPazienteAggiuntaPrescrizioneVisitaMedicaCartellaClinca
+      parameters:
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinnica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinnica
+      responses:
+        '200':
+          description: Prescrizione visita aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaPrescrizioneDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaPrescrizioneDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaPrescrizioneDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-prescrizione-operazione-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi prescrizione operazione a una cartella clinica
+      description: Aggiungi prescrizione operazione a una cartella clinica
+      operationId: msPazienteAggiuntaPrescrizioneOperazioneCartellaClinca
+      parameters:
+        - name: idOperazione
+          in: query
+          description: Id operazione
+          required: false
+          schema:
+            type: integer
+            description: Id operazione
+        - name: idCartella
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+      responses:
+        '200':
+          description: Prescrizione operazionne aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazionePrescrizioneDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazionePrescrizioneDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazionePrescrizioneDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-prescrizione-medicinale-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi prescrizione medicinale a una cartella clinica
+      description: Aggiungi prescrizione medicinale a una cartella clinica
+      operationId: msPazienteAggiungiPrescrizioneMedicinaleCartellaClinca
+      parameters:
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+        - name: idMedicinale
+          in: query
+          description: Id medicinale
+          required: false
+          schema:
+            type: integer
+            description: Id medicinale
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idVisita
+          in: query
+          description: Id visita
+          required: false
+          schema:
+            type: integer
+            description: Id visita
+      responses:
+        '200':
+          description: Prescrizione medicinale aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinalePrescrizioneDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinalePrescrizioneDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinalePrescrizioneDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-operazione-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi operazione a una cartella clinica
+      description: Aggiungi operazione a una cartella clinica
+      operationId: msPazienteAggiungiOperazioneCartellaClinca
+      parameters:
+        - name: idOperazioneMedica
+          in: query
+          description: Id operazione medica
+          required: false
+          schema:
+            type: integer
+            description: Id operazione medica
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idMedico
+          in: query
+          description: Id medico
+          required: false
+          schema:
+            type: integer
+            description: Id medico
+        - name: idReferoOperazione
+          in: query
+          description: Id referto operazione
+          required: false
+          schema:
+            type: integer
+            description: Id referto operazione
+      responses:
+        '200':
+          description: Operazione aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazioneCartellaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazioneCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoOperazioneCartellaDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-medicinale-prescrizione-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi prescrizione medicinale a una cartella clinica
+      description: Aggiungi prescrizione medicinale a una cartella clinica
+      operationId: msPazienteAggiungiPrescrizioneMedicinaleCartellaClinca_1
+      parameters:
+        - name: idInfermiere
+          in: query
+          description: Id infermiere
+          required: false
+          schema:
+            type: integer
+            description: Id infermiere
+        - name: idMedicinale
+          in: query
+          description: Id medicinale
+          required: false
+          schema:
+            type: integer
+            description: Id medicinale
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+      responses:
+        '200':
+          description: Prescrizione medicinale aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleSottoministrazioneDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleSottoministrazioneDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleSottoministrazioneDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-medicinale-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi medicinale a una cartella clinica
+      description: Aggiungi medicinale a una cartella clinica
+      operationId: msPazienteAggiungiMedicinaleCartellaClinca
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idMedicinale
+          in: query
+          description: Id medicinale
+          required: false
+          schema:
+            type: integer
+            description: Id medicinale
+      responses:
+        '200':
+          description: Medicinale aggiunto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleCartellaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleCartellaDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-malattia-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi malattia a una cartella clinica
+      description: Aggiungi malattia a una cartella clinica
+      operationId: msPazienteAggiungiMalattiaCartellaClinca
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idMalattia
+          in: query
+          description: Id malattia
+          required: false
+          schema:
+            type: integer
+            description: Id malattia
+      responses:
+        '200':
+          description: Malattia aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaCartellaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaCartellaDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-diagnosi-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi diagnosi a una cartella clinica
+      description: Aggiungi diagnosi a una cartella clinica
+      operationId: msPazienteAggiungiDiagnosiCartellaClinca
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: tipoDiagnosi
+          in: query
+          description: Tipo diagnosi
+          required: false
+          schema:
+            type: string
+            description: Tipo diagnosi
+        - name: descrizione
+          in: query
+          description: Descrizionne diagnosi
+          required: false
+          schema:
+            type: string
+            description: Descrizionne diagnosi
+      responses:
+        '200':
+          description: Diagnosi aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoDiagnosiDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoDiagnosiDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoDiagnosiDto'
+  /ms-pazienti/paziente-operazioni-specifiche/aggiungi-cartella-clinica:
+    get:
+      tags:
+        - MsPazienteCartellaClinicaCreazioneController
+      summary: Aggiungi cartella clinica
+      description: Aggiungi cartella clinica
+      operationId: msPazienteAggiungiCartellaClinica
+      parameters:
+        - name: gruppoSanguigno
+          in: query
+          description: Gruppo sanguigno
+          required: false
+          schema:
+            type: string
+            description: Gruppo sanguigno
+        - name: idPaziente
+          in: query
+          description: Id del paziente relativo
+          required: false
+          schema:
+            type: integer
+            description: Id del paziente relativo
+      responses:
+        '200':
+          description: Cartella clinica aggiunta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+  /ms-pazienti/paziente-operazioni-generali/lista-pazienti:
+    get:
+      tags:
+        - MsPazientiOperazioniGeneraliController
+      summary: Lista pazienti
+      description: Lista pazienti
+      operationId: msPazienteListaPazienti
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /ms-pazienti/paziente-operazioni-generali/info-paziente:
+    get:
+      tags:
+        - MsPazientiOperazioniGeneraliController
+      summary: Lista pazienti filtrata
+      description: Lista pazienti filtrata
+      operationId: msPazienteInfoPazienti
+      parameters:
+        - name: idPaziente
+          in: query
+          description: Id del paziente
+          required: false
+          schema:
+            type: integer
+            description: Id del paziente
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
+        - name: dataNascita
+          in: query
+          description: Data di nascita
+          required: false
+          schema:
+            type: string
+            description: Data di nascita
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
   /ms-pazienti/messagistica/ricevi-medico:
     get:
       tags:
-        - pazienti-messaggistica-controller
+        - MsPazientiMessaggisticaController
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
       operationId: msPazienteRiceviMessaggioMedico
@@ -54,7 +1032,7 @@ paths:
   /ms-pazienti/messagistica/ricevi-infermiere:
     get:
       tags:
-        - pazienti-messaggistica-controller
+        - MsPazientiMessaggisticaController
       summary: Ricevi messaggio dal robot infermiere
       description: Ricevi messaggio dal robot infermiere
       operationId: msPazienteRiceviMessaggioInfermiere
@@ -99,29 +1077,16 @@ paths:
   /ms-pazienti/messagistica/invio-medico:
     get:
       tags:
-        - pazienti-messaggistica-controller
+        - MsPazientiMessaggisticaController
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
       operationId: msPazienteInvioMessaggioMedico
       parameters:
-        - name: messaggio
+        - name: messaggioParamsDto
           in: query
-          description: Messaggio da inviare
-          required: false
+          required: true
           schema:
-            type: string
-            description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
-        - name: livelloUrgenza
-          in: query
-          description: Livello di urgenza del messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+            $ref: '#/components/schemas/MessaggioParamsDto'
       responses:
         '200':
           description: Messaggio inviato
@@ -144,29 +1109,16 @@ paths:
   /ms-pazienti/messagistica/invio-infermiere:
     get:
       tags:
-        - pazienti-messaggistica-controller
+        - MsPazientiMessaggisticaController
       summary: Invio messaggio al robot infermiere
       description: Invio messaggio al robot infermiere
       operationId: msPazienteInvioMessaggioInfermiere
       parameters:
-        - name: messaggio
+        - name: messaggioDto
           in: query
-          description: Messaggio da inviare
-          required: false
+          required: true
           schema:
-            type: string
-            description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
-        - name: livelloUrgenza
-          in: query
-          description: Livello di urgenza del messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+            $ref: '#/components/schemas/MessaggioParamsDto'
       responses:
         '200':
           description: Messaggio inviato
@@ -186,8 +1138,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-pazienti/paziente-operazioni-generali/elimina-paziente/{id}:
+    delete:
+      tags:
+        - MsPazientiOperazioniGeneraliController
+      summary: Elimina paziente
+      description: Elimina paziente
+      operationId: msPazienteEliminaPazienti
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
 components:
   schemas:
+    ContattoRiferimentoDto:
+      type: object
+      properties:
+        idContatto:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
     Esito:
       type: object
       properties:
@@ -203,13 +1200,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Messaggio'
-    GenericResponseDtoString:
+    GenericResponseDtoPazienteDto:
       type: object
       properties:
         esito:
           $ref: '#/components/schemas/Esito'
         payload:
+          $ref: '#/components/schemas/PazienteDto'
+    MedicoDto:
+      type: object
+      properties:
+        idMedico:
+          type: integer
+          format: int32
+        nome:
           type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
     Messaggio:
       type: object
       properties:
@@ -232,4 +1243,431 @@ components:
         nome:
           type: string
         valore:
+          type: string
+    PazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    ProfiloDto:
+      type: object
+      properties:
+        idProfilo:
+          type: integer
+          format: int32
+        tipo:
+          type: string
+        descrizione:
+          type: string
+    RepartoDto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizione:
+          type: string
+        alaReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/MedicoDto'
+    CartellaClinicaDto:
+      type: object
+      properties:
+        idCartellaClinica:
+          type: integer
+          format: int32
+        gruppoSanguigno:
+          type: string
+    CartellaClinicaOutputDto:
+      type: object
+      properties:
+        diagnosi:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosiDto'
+        malattie:
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartellaDto'
+        medicinali:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartellaDto'
+        medicinaliPrescritti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+        medicinaliSottoministrti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+        operazioni:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartellaDto'
+    DiagnosiDto:
+      type: object
+      properties:
+        idDiagnosi:
+          type: integer
+          format: int32
+        tipoDiagnosi:
+          type: string
+        descrizione:
+          type: string
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoCartellaClinicaOutputDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartellaClinicaOutputDto'
+    InfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    MalattiaCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        malattia:
+          $ref: '#/components/schemas/MalattiaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MalattiaDto:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    MedicinaleCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MedicinaleDto:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dosaggio:
+          type: string
+    MedicinalePrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MedicinaleSottoministrazioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    OperazioneCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        refertoOperazione:
+          $ref: '#/components/schemas/RefertoOperazioneDto'
+    OperazioneMedicaDto:
+      type: object
+      properties:
+        idOperazioneMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        tipologia:
+          type: string
+    RefertoOperazioneDto:
+      type: object
+      properties:
+        idReferto:
+          type: integer
+          format: int32
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+        dataReferto:
+          type: string
+    GenericResponseDtoVisitaSottoministrazioneMedicoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+    VisitaMedicaDto:
+      type: object
+      properties:
+        idVisitaMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+    VisitaSottoministrazioneMedicoDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoVisitaSottoministrazioneInfermiereDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+    VisitaSottoministrazioneInfermiereDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoVisitaMedicaCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/VisitaMedicaCartellaDto'
+    RefertoVisitaMedicaDto:
+      type: object
+      properties:
+        idReferto:
+          type: integer
+          format: int32
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+        dataReferto:
+          type: string
+    VisitaMedicaCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        refertoVisitaMedica:
+          $ref: '#/components/schemas/RefertoVisitaMedicaDto'
+    GenericResponseDtoRefertoVisitaMedicaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/RefertoVisitaMedicaDto'
+    GenericResponseDtoRefertoOperazioneDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/RefertoOperazioneDto'
+    GenericResponseDtoVisitaPrescrizioneDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/VisitaPrescrizioneDto'
+    VisitaPrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoOperazionePrescrizioneDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/OperazionePrescrizioneDto'
+    OperazionePrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+    GenericResponseDtoMedicinalePrescrizioneDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+    GenericResponseDtoOperazioneCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/OperazioneCartellaDto'
+    GenericResponseDtoMedicinaleSottoministrazioneDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+    GenericResponseDtoMedicinaleCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinaleCartellaDto'
+    GenericResponseDtoMalattiaCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MalattiaCartellaDto'
+    GenericResponseDtoDiagnosiDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/DiagnosiDto'
+    GenericResponseDtoCartellaClinicaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoListPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PazienteDto'
+    MessaggioParamsDto:
+      type: object
+      properties:
+        messaggio:
+          type: string
+          description: Messaggio da inviare
+          example: Ciao
+        livelloUrgenza:
+          type: string
+          description: Livello di urgenza del messaggio
+          example: LOW
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
           type: string

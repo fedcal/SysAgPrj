@@ -17,22 +17,13 @@ public interface MedicinalePrescrizioneRepository extends JpaRepository<Medicina
     List<MedicinalePrescrizione> findByIdCartella(@Param("idCartella") Integer idCartellaClinica);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.idMedico = :idMedico")
     List<MedicinalePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
-    @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.idPaziente = :idPaziente")
-    List<MedicinalePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
-    @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente " +
-            "AND op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<MedicinalePrescrizione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,
-                                                              @Param("cognomePaziente") String cognomePaziente);
+
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.nome = :nomeMedico " +
             "AND op.medico.cognome = :cognomeMedico")
     List<MedicinalePrescrizione> findByNomeAndCognomeMedico(@Param("nomeMedico") String nomeMedico,
                                                             @Param("cognomeMedico") String cognomeMedico);
-    @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<MedicinalePrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medicinale.nome = :nomeMedicinale")
     List<MedicinalePrescrizione> findByNomeMedicinale(@Param("nomeMedicinale") String nomeMedicinale);
-    @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente ")
-    List<MedicinalePrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.cognome = :cognomeMedico")
     List<MedicinalePrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.nome = :nomeMedico")

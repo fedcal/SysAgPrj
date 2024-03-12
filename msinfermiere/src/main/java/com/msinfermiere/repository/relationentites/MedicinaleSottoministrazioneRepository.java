@@ -32,11 +32,6 @@ public interface MedicinaleSottoministrazioneRepository extends JpaRepository<Me
     List<MedicinaleSottoministrazione> findByNomeAndCognomeMedico(@Param("nomeMedico")String nomeMedico,@Param("cognomeMedico") String cognomeMedico);
 
     @Query("SELECT medPresc FROM MedicinalePrescrizione medPresc WHERE " +
-            "medPresc.cartellaClinica.paziente.nome = :nomePaziente AND "+
-            "medPresc.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<MedicinaleSottoministrazione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,@Param("cognomePaziente") String cognomePaziente);
-
-    @Query("SELECT medPresc FROM MedicinalePrescrizione medPresc WHERE " +
             "medPresc.medico.nome = :nomeMedico")
     List<MedicinaleSottoministrazione> findByNomeMedico(@Param("nomeMedico") String nomeMedico);
 
@@ -44,11 +39,4 @@ public interface MedicinaleSottoministrazioneRepository extends JpaRepository<Me
             "medPresc.medico.cognome = :cognomeMedico")
     List<MedicinaleSottoministrazione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
 
-    @Query("SELECT medPresc FROM MedicinalePrescrizione medPresc WHERE " +
-            "medPresc.cartellaClinica.paziente.nome = :nomePaziente")
-    List<MedicinaleSottoministrazione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
-
-    @Query("SELECT medPresc FROM MedicinalePrescrizione medPresc WHERE " +
-            "medPresc.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<MedicinaleSottoministrazione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 }

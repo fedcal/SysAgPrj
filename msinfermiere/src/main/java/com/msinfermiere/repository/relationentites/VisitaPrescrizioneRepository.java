@@ -27,19 +27,9 @@ public interface VisitaPrescrizioneRepository extends JpaRepository<VisitaPrescr
             "visitaPrescrizione.medico.cognome = :cognomeMedico")
     List<VisitaPrescrizione> findByNomeAndCognomeMedico(@Param("nomeMedico") String nomeMedico,@Param("cognomeMedico") String cognomeMedico);
     @Query("SELECT visitaPrescrizione FROM VisitaPrescrizione visitaPrescrizione WHERE " +
-            "visitaPrescrizione.cartellaClinica.paziente.nome = :nomePaziente AND "+
-            "visitaPrescrizione.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaPrescrizione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,@Param("cognomePaziente") String cognomePaziente);
-    @Query("SELECT visitaPrescrizione FROM VisitaPrescrizione visitaPrescrizione WHERE " +
             "visitaPrescrizione.medico.nome = :nomeMedico")
     List<VisitaPrescrizione> findByNomeMedico(@Param("nomeMedico") String nomeMedico);
     @Query("SELECT visitaPrescrizione FROM VisitaPrescrizione visitaPrescrizione WHERE " +
             "visitaPrescrizione.medico.cognome = :cognomeMedico")
     List<VisitaPrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
-    @Query("SELECT visitaPrescrizione FROM VisitaPrescrizione visitaPrescrizione WHERE " +
-            "visitaPrescrizione.cartellaClinica.paziente.nome = :nomePaziente")
-    List<VisitaPrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
-    @Query("SELECT visitaPrescrizione FROM VisitaPrescrizione visitaPrescrizione WHERE " +
-            "visitaPrescrizione.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaPrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 }

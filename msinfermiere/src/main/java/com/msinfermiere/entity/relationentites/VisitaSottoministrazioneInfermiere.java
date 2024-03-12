@@ -12,7 +12,7 @@ import lombok.Data;
 @Table(name = "visita_sottoministrazione_infermiere")
 public class VisitaSottoministrazioneInfermiere {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 

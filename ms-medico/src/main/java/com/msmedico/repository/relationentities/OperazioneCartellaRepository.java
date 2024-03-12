@@ -17,8 +17,6 @@ public interface OperazioneCartellaRepository extends JpaRepository<OperazioneCa
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.idCartellaClinica = :idCartellaClinica")
     List<OperazioneCartella> findByIdCartellaClinica(@Param("idCartellaClinica") Integer idCartellaClinica);
 
-    @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.paziente.idPaziente = :idPaziente")
-    List<OperazioneCartella> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.medico.idMedico = :idMedico")
     List<OperazioneCartella> findByIdMedico(@Param("idMedico") Integer idMedico);
 
@@ -28,16 +26,6 @@ public interface OperazioneCartellaRepository extends JpaRepository<OperazioneCa
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.operazioneMedica.nome = :nomeOperazione")
     List<OperazioneCartella> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);
 
-    @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.paziente.nome = :nomePaziente " +
-            "AND oc.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<OperazioneCartella> findByNomePazienteAndCognomePaziente(@Param("nomePaziente") String nomePaziente,
-                                                                  @Param("cognomePaziente") String cognomePaziente);
-
-    @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.paziente.nome = :nomePaziente")
-    List<OperazioneCartella> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
-
-    @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<OperazioneCartella> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.medico.nome = :nomeMedico " +
             "AND oc.medico.cognome = :cognomeMedico")

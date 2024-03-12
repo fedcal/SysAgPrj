@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "paziente")
 public class Paziente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_paziente")
     private Integer idPaziente;
 
@@ -41,6 +41,7 @@ public class Paziente {
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
-    @OneToOne(mappedBy = "paziente")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cartella_clinica", referencedColumnName = "id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 }

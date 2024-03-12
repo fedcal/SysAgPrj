@@ -203,10 +203,46 @@ public class CartellaClinicaCreazioneController {
     }
 
     //aggiunta visita prescrizione
+    @Operation(summary = "Aggiungi prescrizione visita a una cartella clinica",
+            description = "Aggiungi prescrizione visita a una cartella clinica",
+            operationId = "msPazienteAggiuntaPrescrizioneVisitaCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prescrizione visita aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-prescrizione-visita-medica",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaPrescrizioneDto>> aggiungiPrescrizioneVisita (@ParameterObject AggiungiVisitaPrescrizione params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiPrescrizioneVisita(params)));
+    }
 
     //aggiunta visita sottoministrazione infermiere
+    @Operation(summary = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+            description = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+            operationId = "msPazienteAggiuntaVisitaSottoministrazioneInfermiereCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sottoministrazione visita da parte di un infermiere aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-visita-sottoministrazione-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneInfermiereDto>> aggiungiVisitaSottoministrazioneInfermiere (@ParameterObject AggiungiVisitaSottoministrazioneInfermiereParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiVisitaSottoministrazioneInfermiere(params)));
+    }
 
     //aggiungi visita sottoministrazione medico
+    @Operation(summary = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+            description = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+            operationId = "msPazienteAggiuntaVisitaSottoministrazioneMedicoCartellaClinca")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sottoministrazione visita da parte di un medico aggiunta"),
+            @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value ="/aggiungi-visita-sottoministrazione-medico",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneMedicoDto>> aggiungiVisitaSottoministrazioneMedico (@ParameterObject AggiungiVisitaSottoministrazioneMedicoParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiVisitaSottoministrazioneMedico(params)));
+    }
 
 
 }

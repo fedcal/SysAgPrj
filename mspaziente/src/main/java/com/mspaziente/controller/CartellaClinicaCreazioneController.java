@@ -136,9 +136,9 @@ public class CartellaClinicaCreazioneController {
 
     @Operation(summary = "Aggiungi operazione a una cartella clinica",
             description = "Aggiungi operazione a una cartella clinica",
-            operationId = "msPazienteAggiungiOperazioneMedicinaleCartellaClinca")
+            operationId = "msPazienteAggiungiOperazioneCartellaClinca")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
+            @ApiResponse(responseCode = "200", description = "Operazione aggiunta"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
@@ -152,7 +152,7 @@ public class CartellaClinicaCreazioneController {
             description = "Aggiungi referto operazione",
             operationId = "msPazienteAggiungiRefertoOperazione")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
+            @ApiResponse(responseCode = "200", description = "Referto aggiunto"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
@@ -162,24 +162,24 @@ public class CartellaClinicaCreazioneController {
     }
 
     //aggiunta operazione prescrizione
-    @Operation(summary = "Aggiungi operazione prescrizione a una cartella clinica",
-            description = "Aggiungi operazione prescrizione a una cartella clinica",
-            operationId = "msPazienteAggiuntaOperazionePrescrizioneCartellaClinca")
+    @Operation(summary = "Aggiungi prescrizione operazione a una cartella clinica",
+            description = "Aggiungi prescrizione operazione a una cartella clinica",
+            operationId = "msPazienteAggiuntaPrescrizioneOperazioneCartellaClinca")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Prescrizione operazionne aggiunto"),
+            @ApiResponse(responseCode = "200", description = "Prescrizione operazionne aggiunta"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/aggiungi-operazione-prescrizione-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/aggiungi-prescrizione-operazione-cartella-clinica",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<OperazionePrescrizioneDto>> aggiungiOperazionePrescrizione (@ParameterObject AggiuntaOperazionePrescrizioneParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiOperazionePrescrizione(params)));
     }
     //aggiunta visita medica cartella
-    @Operation(summary = "Aggiungi operazione prescrizione a una cartella clinica",
-            description = "Aggiungi operazione prescrizione a una cartella clinica",
-            operationId = "msPazienteAggiuntaOperazionePrescrizioneCartellaClinca")
+    @Operation(summary = "Aggiungi visita medica a una cartella clinica",
+            description = "Aggiungi visita medica a una cartella clinica",
+            operationId = "msPazienteAggiuntaVisitaMedicaCartellaClinca")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Prescrizione operazionne aggiunto"),
+            @ApiResponse(responseCode = "200", description = "Visita medica aggiunta"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
@@ -193,7 +193,7 @@ public class CartellaClinicaCreazioneController {
             description = "Aggiungi referto visita medica",
             operationId = "msPazienteAggiungiRefertoVisitaMedica")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Referto visita medica aggiunta"),
+            @ApiResponse(responseCode = "200", description = "Referto visita medica aggiunto"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
@@ -203,22 +203,22 @@ public class CartellaClinicaCreazioneController {
     }
 
     //aggiunta visita prescrizione
-    @Operation(summary = "Aggiungi prescrizione visita a una cartella clinica",
-            description = "Aggiungi prescrizione visita a una cartella clinica",
-            operationId = "msPazienteAggiuntaPrescrizioneVisitaCartellaClinca")
+    @Operation(summary = "Aggiungi prescrizione visita medica a una cartella clinica",
+            description = "Aggiungi prescrizione visita medica a una cartella clinica",
+            operationId = "msPazienteAggiuntaPrescrizioneVisitaMedicaCartellaClinca")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Prescrizione visita aggiunta"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/aggiungi-prescrizione-visita-medica",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<VisitaPrescrizioneDto>> aggiungiPrescrizioneVisita (@ParameterObject AggiungiVisitaPrescrizione params){
+    public ResponseEntity<GenericResponseDto<VisitaPrescrizioneDto>> aggiungiPrescrizioneVisita (@ParameterObject AggiungiVisitaPrescrizioneParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniSpecificheService.aggiungiPrescrizioneVisita(params)));
     }
 
     //aggiunta visita sottoministrazione infermiere
-    @Operation(summary = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
-            description = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+    @Operation(summary = "Aggiungi sottoministrazione visita da parte di un'infermiere a una cartella clinica",
+            description = "Aggiungi sottoministrazione visita da parte di un'infermiere a una cartella clinica",
             operationId = "msPazienteAggiuntaVisitaSottoministrazioneInfermiereCartellaClinca")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sottoministrazione visita da parte di un infermiere aggiunta"),
@@ -231,8 +231,8 @@ public class CartellaClinicaCreazioneController {
     }
 
     //aggiungi visita sottoministrazione medico
-    @Operation(summary = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
-            description = "Aggiungi visita sottoministrazione da parte di un'infermiere a una cartella clinica",
+    @Operation(summary = "Aggiungi visita sottoministrazione da parte di un medico a una cartella clinica",
+            description = "Aggiungi visita sottoministrazione da parte di un medico a una cartella clinica",
             operationId = "msPazienteAggiuntaVisitaSottoministrazioneMedicoCartellaClinca")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sottoministrazione visita da parte di un medico aggiunta"),

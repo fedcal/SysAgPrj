@@ -102,8 +102,26 @@ public class OperazioniSpecificheService {
     public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinicaParams params) {
         checkParams(params);
         CartellaClinicaOutputDto cartellaClinicaDto = null;
+        Integer idCartellaClinica = null;
 
-        List<Diagnosi> diagnosiList = diagnosiRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        Optional<Paziente> findPaziente = Optional.empty();
+        if(params.getIdPaziente()!=null){
+            findPaziente = pazienteRepository.findById(params.getIdPaziente());
+            if(findPaziente.isPresent()){
+                idCartellaClinica = findPaziente.get().getCartellaClinica().getIdCartellaClinica();
+            }else{
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                        .codMsg("Nessun paziente trovato.").build());
+                esitoMessaggiRequestContextHolder.setOperationId("findCartellaClinica");
+                throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }
+        }
+        if(idCartellaClinica==null){
+            idCartellaClinica = params.getIdCartellaClinica();
+        }
+
+        List<Diagnosi> diagnosiList = diagnosiRepository.findByIdCartellaClinica(idCartellaClinica);
         if(!diagnosiList.isEmpty()){
             List<DiagnosiDto> diagnosiDto = DiagnosiDtoMapper.INSTANCE.toDto(diagnosiList);
             if(cartellaClinicaDto==null){
@@ -114,7 +132,7 @@ public class OperazioniSpecificheService {
             }
         }
 
-        List<MalattiaCartella> malattiaCartellaList = malattiaCartellaRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        List<MalattiaCartella> malattiaCartellaList = malattiaCartellaRepository.findByIdCartellaClinica(idCartellaClinica);
 
         if(!malattiaCartellaList.isEmpty()){
             List<MalattiaCartellaDto> malattiaCartellaDto = MalattiaCartellaDtoMapper.INSTANCE.toDto(malattiaCartellaList);
@@ -126,7 +144,7 @@ public class OperazioniSpecificheService {
             }
         }
 
-        List<MedicinaleCartella> medicinaleCartellaList = medicinaleCartellaRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        List<MedicinaleCartella> medicinaleCartellaList = medicinaleCartellaRepository.findByIdCartellaClinica(idCartellaClinica);
         if(!medicinaleCartellaList.isEmpty()){
             List<MedicinaleCartellaDto> medicinaleCartellaDto = MedicinaleCartellaDtoMapper.INSTANCE.toDto(medicinaleCartellaList);
             if(cartellaClinicaDto==null){
@@ -137,7 +155,7 @@ public class OperazioniSpecificheService {
             }
         }
 
-        List<MedicinalePrescrizione> medicinalePrescrizioneList = medicinalePrescrizioneRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        List<MedicinalePrescrizione> medicinalePrescrizioneList = medicinalePrescrizioneRepository.findByIdCartellaClinica(idCartellaClinica);
         if(!medicinalePrescrizioneList.isEmpty()){
             List<MedicinalePrescrizioneDto> medicinalePrescrizioneDto = MedicinalePrescrizioneDtoMapper.INSTANCE.toDto(medicinalePrescrizioneList);
 
@@ -149,7 +167,7 @@ public class OperazioniSpecificheService {
             }
         }
 
-        List<MedicinaleSottoministrazione> medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        List<MedicinaleSottoministrazione> medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByIdCartellaClinica(idCartellaClinica);
         if(!medicinaleSottoministrazioneList.isEmpty()){
             List<MedicinaleSottoministrazioneDto> medicinalePrescrizioneDto = MedicinaleSottoministrazioneDtoMapper.INSTANCE.toDto(medicinaleSottoministrazioneList);
 
@@ -161,7 +179,7 @@ public class OperazioniSpecificheService {
             }
         }
 
-        List<OperazioneCartella> operazioneCartellaList = operazioneCartellaRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+        List<OperazioneCartella> operazioneCartellaList = operazioneCartellaRepository.findByIdCartellaClinica(idCartellaClinica);
         if(!medicinaleSottoministrazioneList.isEmpty()){
             List<OperazioneCartellaDto> operazioneCartellaDto = OperazioneCartellaDtoMapper.INSTANCE.toDto(operazioneCartellaList);
 
@@ -187,10 +205,10 @@ public class OperazioniSpecificheService {
     }
 
     private void checkParams(FindCartellaClinicaParams params) {
-        if(params.getIdCartellaClinica() == null){
+        if(params.getIdCartellaClinica() == null && params.getIdPaziente()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Inserire entrambi i parametro di ricerca.").build());
+                    .codMsg("Inserire almeno unn parametro di ricerca.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findCartellaClinica");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
@@ -734,7 +752,7 @@ public class OperazioniSpecificheService {
         }
     }
 
-    public VisitaPrescrizioneDto aggiungiPrescrizioneVisita(AggiungiVisitaPrescrizione params) {
+    public VisitaPrescrizioneDto aggiungiPrescrizioneVisita(AggiungiVisitaPrescrizioneParams params) {
         checkParams(params);
         Optional<CartellaClinica> findCartellaClinica = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
         if(findCartellaClinica.isEmpty()){
@@ -780,7 +798,7 @@ public class OperazioniSpecificheService {
         }
     }
 
-    private void checkParams(AggiungiVisitaPrescrizione params) {
+    private void checkParams(AggiungiVisitaPrescrizioneParams params) {
         if(params.getIdCartellaClinica()==null && params.getIdVisita()==null && params.getIdMedico()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

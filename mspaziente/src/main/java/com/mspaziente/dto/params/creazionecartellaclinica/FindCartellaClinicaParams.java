@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class FindCartellaClinicaParams {
-    @Schema(description = "Messaggio da inviare",type = "integer",example = "1")
+    @Schema(description = "Id cartella clinica",type = "integer")
     private Integer idCartellaClinica;
+    @Schema(description = "Id paziente",type = "integer")
+    private Integer idPaziente;
 }

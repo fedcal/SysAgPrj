@@ -22,21 +22,10 @@ public interface VisitaSottoministrazioneInfermiereRepository extends JpaReposit
             "medSott.cartellaClinica.idCartellaClinica = :idCartellaClinica")
     List<VisitaSottoministrazioneInfermiere> findByIdCartellaClinica(@Param("idCartellaClinica") Integer idCartellaClinica);
     @Query("SELECT medSott FROM VisitaSottoministrazioneInfermiere medSott WHERE " +
-            "medSott.cartellaClinica.paziente.nome = :nomePaziente AND " +
-            "medSott.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaSottoministrazioneInfermiere> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,
-                                                                          @Param("cognomePaziente") String cognomePaziente);
-    @Query("SELECT medSott FROM VisitaSottoministrazioneInfermiere medSott WHERE " +
             "medSott.infermiere.nome = :nomeInfermiere AND " +
             "medSott.infermiere.cognome = :cognomeInfermiere")
     List<VisitaSottoministrazioneInfermiere> findByNomeAndCognomeInfermiere(@Param("nomeInfermiere") String nomeInfermiere,
                                                                             @Param("cognomeInfermiere") String cognomeInfermiere);
-    @Query("SELECT medSott FROM VisitaSottoministrazioneInfermiere medSott WHERE " +
-            "medSott.cartellaClinica.paziente.nome = :nomePaziente")
-    List<VisitaSottoministrazioneInfermiere> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
-    @Query("SELECT medSott FROM VisitaSottoministrazioneInfermiere medSott WHERE " +
-            "medSott.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaSottoministrazioneInfermiere> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 
     @Query("SELECT medSott FROM VisitaSottoministrazioneInfermiere medSott WHERE " +
             "medSott.infermiere.nome = :nomeInfermiere")

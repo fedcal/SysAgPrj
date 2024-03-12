@@ -20,14 +20,6 @@ public interface OperazionePrescrizioneRepository extends JpaRepository<Operazio
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.idMedico = :idMedico")
     List<OperazionePrescrizione> findByIdMedico(@Param("idMedico") Integer idMedico);
 
-    @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.idPaziente = :idPaziente")
-    List<OperazionePrescrizione> findByIdPaziente(@Param("idPaziente") Integer idPaziente);
-
-    @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente " +
-            "AND op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<OperazionePrescrizione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,
-                                                              @Param("cognomePaziente") String cognomePaziente);
-
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.nome = :nomeMedico " +
             "AND op.medico.cognome = :cognomeMedico")
     List<OperazionePrescrizione> findByNomeAndCognomeMedico(@Param("nomeMedico") String nomeMedico,
@@ -35,12 +27,6 @@ public interface OperazionePrescrizioneRepository extends JpaRepository<Operazio
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.medico.cognome = :cognomeMedico")
     List<OperazionePrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
-
-    @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente")
-    List<OperazionePrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
-
-    @Query("SELECT op FROM OperazionePrescrizione op WHERE op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<OperazionePrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
 
     @Query("SELECT op FROM OperazionePrescrizione op WHERE op.operazioneMedica.nome = :nomeOperazione ")
     List<OperazionePrescrizione> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);

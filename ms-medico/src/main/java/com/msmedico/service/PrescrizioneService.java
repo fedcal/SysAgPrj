@@ -108,27 +108,15 @@ public class PrescrizioneService {
         if(params.getIdCartella()!=null){
             return operazionePrescrizioneRepository.findByIdCartella(params.getIdCartella());
         }
-        if(params.getIdPaziente()!=null){
-            return operazionePrescrizioneRepository.findByIdPaziente(params.getIdPaziente());
-        }
         return new ArrayList<>();
     }
 
     private List<OperazionePrescrizione> findOperazioneByString(PrescrizioneOperazioneInfoParams params) {
-        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
-            return operazionePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
             return operazionePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
         if (StringUtils.hasLength(params.getNomeOperazione())){
             return operazionePrescrizioneRepository.findByNomeOperazione(params.getNomeOperazione());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            return operazionePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            return operazionePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             return operazionePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
@@ -326,27 +314,15 @@ public class PrescrizioneService {
         if(params.getIdMedico()!=null){
             return medicinalePrescrizioneRepository.findByIdMedico(params.getIdMedico());
         }
-        if(params.getIdPaziente()!=null){
-            return medicinalePrescrizioneRepository.findByIdPaziente(params.getIdPaziente());
-        }
         return new ArrayList<>();
     }
 
     private List<MedicinalePrescrizione> findMedicinalePrescrizioneByString(PrescrizioneMedicinaleInfoParams params) {
-        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
-            return medicinalePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
             return medicinalePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
         if (StringUtils.hasLength(params.getNomeMedicinale())){
             return medicinalePrescrizioneRepository.findByNomeMedicinale(params.getNomeMedicinale());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            return medicinalePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            return medicinalePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             return medicinalePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
@@ -514,20 +490,11 @@ public class PrescrizioneService {
     }
 
     private List<VisitaPrescrizione> findListVisitaPrescrizione(PrescrizioneVisitaInfoParams params) {
-        if(StringUtils.hasLength(params.getCognomePaziente()) && StringUtils.hasLength(params.getNomePaziente())){
-            return visitaPrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getCognomeMedico()) && StringUtils.hasLength(params.getNomeMedico())){
             return visitaPrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
         if(StringUtils.hasLength(params.getNomeVisita())){
             return visitaPrescrizioneRepository.findByNomeVisita(params.getNomeVisita());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            return visitaPrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            return visitaPrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             return visitaPrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
@@ -543,9 +510,6 @@ public class PrescrizioneService {
         }
         if(params.getIdVisita()!=null){
             return visitaPrescrizioneRepository.findbyIdVisita(params.getIdVisita());
-        }
-        if(params.getIdPaziente()!=null){
-            return visitaPrescrizioneRepository.findbyIdPaziente(params.getIdPaziente());
         }
         return new ArrayList<>();
     }

@@ -97,20 +97,11 @@ public class MedicinaleOperazioniService {
         if(StringUtils.hasLength(params.getNomeMedico())&&StringUtils.hasLength(params.getCognomeMedico())){
             medicinalePrescrizione = medicinalePrescrizioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
-        if(StringUtils.hasLength(params.getNomePaziente())&&StringUtils.hasLength(params.getCognomePaziente())){
-            medicinalePrescrizione = medicinalePrescrizioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getNomeMedico())){
             medicinalePrescrizione = medicinalePrescrizioneRepository.findByNomeMedico(params.getNomeMedico());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             medicinalePrescrizione = medicinalePrescrizioneRepository.findByCognomeMedico(params.getCognomeMedico());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            medicinalePrescrizione = medicinalePrescrizioneRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            medicinalePrescrizione = medicinalePrescrizioneRepository.findByCognomePaziente(params.getCognomePaziente());
         }
         return medicinalePrescrizione;
     }
@@ -191,20 +182,11 @@ public class MedicinaleOperazioniService {
         if(StringUtils.hasLength(params.getNomeMedico())&&StringUtils.hasLength(params.getCognomeMedico())){
             medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByNomeAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
         }
-        if(StringUtils.hasLength(params.getNomePaziente())&&StringUtils.hasLength(params.getCognomePaziente())){
-            medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByNomeAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
         if(StringUtils.hasLength(params.getNomeMedico())){
             medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByNomeMedico(params.getNomeMedico());
         }
         if(StringUtils.hasLength(params.getCognomeMedico())){
             medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByCognomeMedico(params.getCognomeMedico());
-        }
-        if(StringUtils.hasLength(params.getNomePaziente())){
-            medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(StringUtils.hasLength(params.getCognomePaziente())){
-            medicinaleSottoministrazioneList = medicinaleSottoministrazioneRepository.findByCognomePaziente(params.getCognomePaziente());
         }
         return medicinaleSottoministrazioneList;
     }

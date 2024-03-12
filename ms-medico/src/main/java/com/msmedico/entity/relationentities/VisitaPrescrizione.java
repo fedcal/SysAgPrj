@@ -11,7 +11,7 @@ import lombok.Data;
 @Table(name = "medicinale_prescrizione")
 public class VisitaPrescrizione {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 

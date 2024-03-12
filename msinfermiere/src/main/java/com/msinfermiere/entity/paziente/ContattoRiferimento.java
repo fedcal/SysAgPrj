@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "contatto_riferimento")
 public class ContattoRiferimento {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contatto")
     private Integer idContatto;
 

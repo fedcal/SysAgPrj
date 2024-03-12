@@ -116,21 +116,6 @@ public class VisualizzaStatoService {
         List<CartellaClinica> cartellaClinicaFindList = new ArrayList<>();
         List<CartellaClinicaDto> cartellaClinicaReturn = new ArrayList<>();
 
-        if(params.getNome()!=null && params.getCognome()!=null){
-            cartellaClinicaFindList = cartellaClinicaRepository.findByNomePazienteAndCognomePaziente(params.getNome(),params.getCognome());
-        }
-        if(params.getIdCartellaClinica()!=null){
-            cartellaClinicaFindId = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
-        }
-        if(params.getIdPaziente()!=null){
-            cartellaClinicaFindId = cartellaClinicaRepository.findByPazienteId(params.getIdPaziente());
-        }
-        if(params.getNome()!=null && params.getCognome()==null){
-            cartellaClinicaFindList = cartellaClinicaRepository.findByNomePaziente(params.getNome());
-        }
-        if(params.getCognome()!=null && params.getNome()==null){
-            cartellaClinicaFindList = cartellaClinicaRepository.findByCognomePaziente(params.getCognome());
-        }
 
         if(!cartellaClinicaFindId.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -193,15 +178,6 @@ public class VisualizzaStatoService {
         if(params.getNomeOperazione()!=null){
             return operazioneCartellaRepository.findByNomeOperazione(params.getNomeOperazione());
         }
-        if(params.getNomePaziente()!=null && params.getCognomePaziente()!=null){
-            return operazioneCartellaRepository.findByNomePazienteAndCognomePaziente(params.getNomePaziente(),params.getCognomePaziente());
-        }
-        if(params.getNomePaziente()!=null && params.getCognomePaziente()==null){
-            return operazioneCartellaRepository.findByNomePaziente(params.getNomePaziente());
-        }
-        if(params.getNomePaziente()==null && params.getCognomePaziente()!=null){
-            return operazioneCartellaRepository.findByCognomePaziente(params.getCognomePaziente());
-        }
 
         if(params.getNomeMedico()!=null && params.getCognomeMedico()!=null){
             return operazioneCartellaRepository.findByNomeMedicoAndCognomeMedico(params.getNomeMedico(),params.getCognomeMedico());
@@ -224,9 +200,6 @@ public class VisualizzaStatoService {
         }
         if(params.getIdCartellaClinica()!=null){
             return operazioneCartellaRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
-        }
-        if(params.getIdPaziente()!=null){
-            return operazioneCartellaRepository.findByIdPaziente(params.getIdPaziente());
         }
         if(params.getIdMedico()!=null){
             return operazioneCartellaRepository.findByIdMedico(params.getIdMedico());

@@ -9,7 +9,7 @@ import com.msmedico.esito.constants.EsitoOperazioneEnum;
 import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import com.msmedico.exception.EsitoRuntimeException;
 import com.msmedico.msinfermiere.api.InfermieriMessaggisticaControllerApi;
-import com.msmedico.mspaziente.api.PazientiMessaggisticaControllerApi;
+import com.msmedico.mspaziente.api.MsPazientiMessaggisticaControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class MessaggisticaService {
     @Autowired
     private InfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
     @Autowired
-    private PazientiMessaggisticaControllerApi pazientiMessaggisticaControllerApi;
+    private MsPazientiMessaggisticaControllerApi pazientiMessaggisticaControllerApi;
     public String invioMessaggioInfermiere(MessaggioParamsDto messaggioDto) {
         GenericResponseDto<String> invioMessaggio = genericResponseConverter.convertGenericResponse(
                 messaggisticaControllerApiInfermiere.msInfermiereRiceviMessaggioMedico(messaggioDto.getMessaggio(),messaggioDto.getLivelloUrgenza()),String.class);

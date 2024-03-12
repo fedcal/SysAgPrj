@@ -10,10 +10,6 @@ import java.util.List;
 
 @Repository
 public interface VisitaPrescrizioneRepository extends JpaRepository<VisitaPrescrizione,Integer> {
-    @Query("SELECT op FROM VisitaPrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente " +
-            "AND op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaPrescrizione> findByNomeAndCognomePaziente(@Param("nomePaziente") String nomePaziente,
-                                                          @Param("cognomePaziente") String cognomePaziente);
 
     @Query("SELECT op FROM VisitaPrescrizione op WHERE op.medico.nome = :nomeMedico " +
             "AND op.medico.cognome = :cognomeMedico")
@@ -21,10 +17,6 @@ public interface VisitaPrescrizioneRepository extends JpaRepository<VisitaPrescr
                                                         @Param("cognomeMedico") String cognomeMedico);
     @Query("SELECT op FROM VisitaPrescrizione op WHERE op.visitaMedica.nome = :nomeVisita")
     List<VisitaPrescrizione> findByNomeVisita(@Param("nomeVisita") String nomeVisita);
-    @Query("SELECT op FROM VisitaPrescrizione op WHERE op.cartellaClinica.paziente.cognome = :cognomePaziente")
-    List<VisitaPrescrizione> findByCognomePaziente(@Param("cognomePaziente") String cognomePaziente);
-    @Query("SELECT op FROM VisitaPrescrizione op WHERE op.cartellaClinica.paziente.nome = :nomePaziente")
-    List<VisitaPrescrizione> findByNomePaziente(@Param("nomePaziente") String nomePaziente);
     @Query("SELECT op FROM VisitaPrescrizione op WHERE op.medico.cognome = :cognomeMedico")
     List<VisitaPrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
     @Query("SELECT op FROM VisitaPrescrizione op WHERE op.medico.nome = :nomeMedico")
@@ -35,6 +27,4 @@ public interface VisitaPrescrizioneRepository extends JpaRepository<VisitaPrescr
     List<VisitaPrescrizione> findbyIdCartella(@Param("idCartella") Integer idCartella);
     @Query("SELECT op FROM VisitaPrescrizione op WHERE op.visitaMedica.idVisitaMedica = :idVisita")
     List<VisitaPrescrizione> findbyIdVisita(@Param("idVisita") Integer idVisita);
-    @Query("SELECT op FROM VisitaPrescrizione op WHERE op.cartellaClinica.paziente.idPaziente = :idPaziente")
-    List<VisitaPrescrizione> findbyIdPaziente(@Param("idPaziente") Integer idPaziente);
 }

@@ -34,6 +34,9 @@ import com.mspaziente.mapper.relationentities.medicinalesottoministrazione.Medic
 import com.mspaziente.mapper.relationentities.operazionecartella.OperazioneCartellaDtoMapper;
 import com.mspaziente.mapper.relationentities.operazioneprescrizione.OperazionePrescrizioneDtoMapper;
 import com.mspaziente.mapper.relationentities.visitamedicacartella.VisitaMedicaCartellaDtoMapper;
+import com.mspaziente.mapper.relationentities.visitaprescrizione.VisitaPrescrizioneDtoMapper;
+import com.mspaziente.mapper.relationentities.visitasottoministrazioneinfermiere.VisitaSottoministrazioneInfermiereDtoMapper;
+import com.mspaziente.mapper.relationentities.visitasottoministrazionemedico.VisitaSottoministrazioneMedicoDtoMapper;
 import com.mspaziente.mapper.visitamedica.refertovisitamedica.RefertoVisitaMedicaDtoMapper;
 import com.mspaziente.repository.*;
 import com.mspaziente.repository.operazione.OperazioneMedicaRepository;
@@ -89,6 +92,12 @@ public class OperazioniSpecificheService {
     private RefertoVisitaMedicaRepository refertoVisitaMedicaRepository;
     @Autowired
     private VisitaMedicaCartellaRepository visitaMedicaCartellaRepository;
+    @Autowired
+    private VisitaPrescrizioneRepository visitaPrescrizioneRepository;
+    @Autowired
+    private VisitaSottoministrazioneInfermiereRepository visitaSottoministrazioneInfermiereRepository;
+    @Autowired
+    private VisitaSottoministrazioneMedicoRepository visitaSottoministrazioneMedicoRepository;
 
     public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinicaParams params) {
         checkParams(params);
@@ -721,6 +730,173 @@ public class OperazioniSpecificheService {
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire tutti i parametri.").build());
             esitoMessaggiRequestContextHolder.setOperationId("aggiungiRefertoVisitaMedica");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public VisitaPrescrizioneDto aggiungiPrescrizioneVisita(AggiungiVisitaPrescrizione params) {
+        checkParams(params);
+        Optional<CartellaClinica> findCartellaClinica = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
+        if(findCartellaClinica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna cartella clinica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Medico> findMedico = medicoRepository.findById(params.getIdMedico());
+        if(findMedico.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun medico trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<VisitaMedica> findVisitaMedica = visitaMedicaRepository.findById(params.getIdVisita());
+        if(findVisitaMedica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita medica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        VisitaPrescrizione visitaPrescrizioneSave = new VisitaPrescrizione();
+
+        visitaPrescrizioneSave.setCartellaClinica(findCartellaClinica.get());
+        visitaPrescrizioneSave.setMedico(findMedico.get());
+        visitaPrescrizioneSave.setVisitaMedica(findVisitaMedica.get());
+
+        try {
+            return VisitaPrescrizioneDtoMapper.INSTANCE.toDto(visitaPrescrizioneRepository.save(visitaPrescrizioneSave));
+        }catch (Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita prescrizione salvata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void checkParams(AggiungiVisitaPrescrizione params) {
+        if(params.getIdCartellaClinica()==null && params.getIdVisita()==null && params.getIdMedico()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire tutti i parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public VisitaSottoministrazioneInfermiereDto aggiungiVisitaSottoministrazioneInfermiere(AggiungiVisitaSottoministrazioneInfermiereParams params) {
+        checkParams(params);
+
+        Optional<CartellaClinica> findCartellaClinica = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
+        if(findCartellaClinica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna cartella clinica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<VisitaMedica> findVisitaMedica = visitaMedicaRepository.findById(params.getIdVisita());
+        if(findVisitaMedica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita medica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Infermiere> findInfermiere = infermiereRepository.findById(params.getIdInfermiere());
+        if(findInfermiere.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun infermiere trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        VisitaSottoministrazioneInfermiere visitaSottoministrazioneInfermiere = new VisitaSottoministrazioneInfermiere();
+        visitaSottoministrazioneInfermiere.setCartellaClinica(findCartellaClinica.get());
+        visitaSottoministrazioneInfermiere.setVisitaMedica(findVisitaMedica.get());
+        visitaSottoministrazioneInfermiere.setInfermiere(findInfermiere.get());
+
+        try {
+            return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(visitaSottoministrazioneInfermiereRepository.save(visitaSottoministrazioneInfermiere));
+        }catch (Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita sottoministrazione salvata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void checkParams(AggiungiVisitaSottoministrazioneInfermiereParams params) {
+        if(params.getIdCartellaClinica()==null && params.getIdVisita()==null && params.getIdInfermiere()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire tutti i parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneInfermiere");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public VisitaSottoministrazioneMedicoDto aggiungiVisitaSottoministrazioneMedico(AggiungiVisitaSottoministrazioneMedicoParams params) {
+        checkParams(params);
+        Optional<CartellaClinica> findCartellaClinica = cartellaClinicaRepository.findById(params.getIdCartellaClinica());
+        if(findCartellaClinica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna cartella clinica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Medico> findMedico = medicoRepository.findById(params.getIdMedico());
+        if(findMedico.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessun medico trovato.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<VisitaMedica> findVisitaMedica = visitaMedicaRepository.findById(params.getIdVisita());
+        if(findVisitaMedica.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita medica trovata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        VisitaSottoministrazioneMedico visitaSottoministrazioneMedico = new VisitaSottoministrazioneMedico();
+        visitaSottoministrazioneMedico.setMedico(findMedico.get());
+        visitaSottoministrazioneMedico.setCartellaClinica(findCartellaClinica.get());
+        visitaSottoministrazioneMedico.setVisitaMedica(findVisitaMedica.get());
+
+        try {
+            return VisitaSottoministrazioneMedicoDtoMapper.INSTANCE.toDto(visitaSottoministrazioneMedicoRepository.save(visitaSottoministrazioneMedico));
+        }catch (Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Nessuna visita sottoministrazione da parte di un medico salvata.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiVisitaSottoministrazioneMedico");
+            throw  new EsitoRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void checkParams(AggiungiVisitaSottoministrazioneMedicoParams params) {
+        if(params.getIdCartellaClinica()==null && params.getIdVisita()==null && params.getIdMedico()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire tutti i parametri.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("aggiungiPrescrizioneVisita");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }

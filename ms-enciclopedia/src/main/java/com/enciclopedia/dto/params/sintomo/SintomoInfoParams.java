@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class SintomoInfoParams {
-    @Schema(description = "Id sintomo",type = "integer",example = "2")
+    @Schema(description = "Id sintomo",type = "integer")
     private Integer idSintomo;
 
-    @Schema(description = "Nome sintomo",type = "string",example = "Abulia")
+    @Schema(description = "Nome sintomo",type = "string")
     private String nomeSintomo;
 }

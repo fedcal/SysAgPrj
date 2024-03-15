@@ -7,11 +7,11 @@ import lombok.Data;
 
 import java.util.Set;
 @Data
-@Table(name = "referto_operazione")
+@Table(name = "operazione_medica")
 @Entity
 public class OperazioneMedica {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_operazione_medica")
     private Integer idOperazioneMedica;
 

@@ -89,11 +89,11 @@ public class MalattiaService {
             MalattiaDto malattiaToSave = malattiaDto.get();
             if (params.getNuovoNome()!= null){
                 malattiaToSave.setNome(params.getNuovoNome());
-                serviceConverter.addMalattia(malattiaToSave);
-            }else if(params.getNuovaDescrizione()!=null){
-                malattiaToSave.setDescrizione(params.getNuovaDescrizione());
-                serviceConverter.addMalattia(malattiaToSave);
             }
+            if(params.getNuovaDescrizione()!=null){
+                malattiaToSave.setDescrizione(params.getNuovaDescrizione());
+            }
+            serviceConverter.addMalattia(malattiaToSave);
             return malattiaToSave;
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);

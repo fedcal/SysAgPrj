@@ -11,13 +11,15 @@ import lombok.*;
 public class SintomoMalattia {
     @Id
     @Column(name="id_relazione")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idRelazione;
 
-    @Column(name = "id_malattia")
-    private Integer idMalattia;
+    @ManyToOne
+    @JoinColumn(name = "id_malattia",referencedColumnName="id_malattia")
+    private Malattia idMalattia;
 
-    @Column(name = "id_sintomo")
-    private Integer idSintomo;
+    @ManyToOne
+    @JoinColumn(name = "id_sintomo",referencedColumnName="id_sintomo")
+    private Sintomo idSintomo;
 
 }

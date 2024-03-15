@@ -1,14 +1,17 @@
 package com.msinfo.entity;
 
+import com.msinfo.entity.relantionentities.OperazioneCartella;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 @Entity
-@Table(name = "operazione_cartella")
+@Table(name = "referto_operazione")
 public class RefertoOperazione {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_referto")
     private Integer idReferto;
 

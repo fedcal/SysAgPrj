@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS diagnosi(id_diagnosi INT PRIMARY KEY AUTO_INCREMENT, 
 FOREIGN KEY (id_cartella_clinica) REFERENCES cartella_clinica(id_cartella_clinica) ON DELETE CASCADE);
 
 -- REFERTO VISITA MEDICA
-CREATE TABLE IF NOT EXISTS referto_visita_medica(id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
+CREATE TABLE IF NOT EXISTS referto_visita_medica(id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto VARCHAR(100));
 
 -- REFERTO OPERAZIONE
-CREATE TABLE IF NOT EXISTS referto_operazione (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
+CREATE TABLE IF NOT EXISTS referto_operazione (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto VARCHAR(100));
 
 -- REFERTO OPERAZIONE SPECIALISTA
 CREATE TABLE IF NOT EXISTS referto_operazione_specialista (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);

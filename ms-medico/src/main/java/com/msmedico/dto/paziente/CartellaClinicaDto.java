@@ -10,7 +10,6 @@ import java.util.Set;
 public class CartellaClinicaDto {
     private Integer idCartellaClinica;
     private String gruppoSanguigno;
-    private PazienteDto paziente;
     private Set<DiagnosiDto> diagnosi;
     private Set<MalattiaCartellaDto> malattiaCartella;
     private Set<VisitaMedicaCartellaDto> visitaMedicaCartella;

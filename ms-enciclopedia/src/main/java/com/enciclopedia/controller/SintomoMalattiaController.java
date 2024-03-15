@@ -3,6 +3,7 @@ package com.enciclopedia.controller;
 import com.enciclopedia.constants.WebContstants;
 import com.enciclopedia.dto.SintomoMalattiaDto;
 import com.enciclopedia.dto.output.SintomoMalattiaOutput;
+import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaAddParams;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaChangeParams;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaParams;
 import com.enciclopedia.esito.EsitoMessaggiRequestContextHolder;
@@ -54,7 +55,7 @@ public class SintomoMalattiaController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> addSintomoMalattia(@ParameterObject SintomoMalattiaParams params){
+    public ResponseEntity<GenericResponseDto<SintomoMalattiaDto>> addSintomoMalattia(@ParameterObject SintomoMalattiaAddParams params){
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         esitoMessaggiRequestContextHolder.setOperationId("addSintomo");
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(service.addRelazione(params)));

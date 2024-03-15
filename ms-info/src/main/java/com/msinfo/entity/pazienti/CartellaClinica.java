@@ -11,16 +11,12 @@ import java.util.Set;
 @Table(name = "cartella_clinica")
 public class CartellaClinica {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cartella_clinica")
     private Integer idCartellaClinica;
 
     @Column(name = "gruppo_sanguigno")
     private String gruppoSanguigno;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_paziente", referencedColumnName = "id_paziente")
-    private Paziente paziente;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="cartellaClinica")
     private Set<Diagnosi> diagnosi;

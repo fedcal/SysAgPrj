@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "visita_medica")
 public class VisitaMedica {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_visita_medica")
     private Integer idVisitaMedica;
 
@@ -35,7 +35,4 @@ public class VisitaMedica {
 
     @OneToMany(mappedBy = "visitaMedica")
     private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
-
-    @OneToMany(mappedBy = "visitaMedica")
-    private Set<MedicinalePrescrizione> medicinalePrescrizione;
 }

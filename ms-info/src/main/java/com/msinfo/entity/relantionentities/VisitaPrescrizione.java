@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "medicinale_prescrizione")
+@Table(name = "visita_prescrizione")
 public class VisitaPrescrizione {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 

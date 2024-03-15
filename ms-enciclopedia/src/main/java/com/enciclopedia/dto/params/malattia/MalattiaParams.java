@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class MalattiaParams {
-    @Schema(description = "Nome malattia",type = "string",example = "Acalasia")
+    @Schema(description = "Nome malattia",type = "string")
     private String nome;
 
-    @Schema(description = "Descrizione malattia",type = "string",example = "Acalasia")
+    @Schema(description = "Descrizione malattia",type = "string")
     private String descrizione;
 }

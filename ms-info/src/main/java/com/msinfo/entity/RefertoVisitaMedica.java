@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 public class RefertoVisitaMedica {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_referto")
     private Integer idReferto;
 
@@ -17,7 +17,6 @@ public class RefertoVisitaMedica {
 
     @Column(name = "descrizione")
     private String descrizione;
-
 
     @Column(name = "data_referto")
     private String dataReferto;

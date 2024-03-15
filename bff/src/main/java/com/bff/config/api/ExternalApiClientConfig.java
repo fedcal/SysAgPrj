@@ -39,6 +39,14 @@ public class ExternalApiClientConfig {
 
     @Primary
     @Bean
+    public com.bff.mspaziente.invoker.ApiClient msPazienteApiClient() {
+        com.bff.mspaziente.invoker.ApiClient apiClient = new com.bff.mspaziente.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8083");
+        return apiClient;
+    }
+
+    @Primary
+    @Bean
     public com.bff.enciclopedia.invoker.ApiClient msEnciclopediaApiClient() {
         com.bff.enciclopedia.invoker.ApiClient apiClient = new com.bff.enciclopedia.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8085");

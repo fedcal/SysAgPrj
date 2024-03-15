@@ -18,7 +18,7 @@ import java.util.Set;
 public class Sintomo {
     @Id
     @Column(name="id_sintomo")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idSintomo;
 
     @Column(name="nome")
@@ -26,5 +26,8 @@ public class Sintomo {
 
     @Column(name="descrizione")
     private String descrizione;
+
+    @OneToMany(mappedBy = "idSintomo")
+    Set<SintomoMalattia> sintomoMalattia;
 
 }

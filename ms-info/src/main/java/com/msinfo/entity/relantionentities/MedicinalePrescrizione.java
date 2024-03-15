@@ -12,7 +12,7 @@ import lombok.Data;
 @Table(name = "medicinale_prescrizione")
 public class MedicinalePrescrizione {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
@@ -28,7 +28,4 @@ public class MedicinalePrescrizione {
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 
-    @ManyToOne
-    @JoinColumn(name = "id_visita",referencedColumnName = "id_visita_medica")
-    private VisitaMedica visitaMedica;
 }

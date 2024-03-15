@@ -5,15 +5,15 @@ import lombok.Data;
 
 @Data
 public class SintomoChangeParams {
-    @Schema(description = "Id sintomo",type = "integer",example = "1")
+    @Schema(description = "Id sintomo",type = "integer")
     private Integer idSintomo;
 
-    @Schema(description = "Nome sintomo",type = "string",example = "Abulia")
+    @Schema(description = "Nome sintomo",type = "string")
     private String nomeSintomo;
 
-    @Schema(description = "Nuova descrizione",type = "string",example = "Abulia")
+    @Schema(description = "Nuova descrizione",type = "string")
     private String descrizioneNuova;
 
-    @Schema(description = "Nuovo nome",type = "string",example = "Abulia")
+    @Schema(description = "Nuovo nome",type = "string")
     private String nomeSintomoNuovo;
 }

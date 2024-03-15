@@ -2,6 +2,7 @@ package com.enciclopedia.service;
 
 import com.enciclopedia.dto.SintomoMalattiaDto;
 import com.enciclopedia.dto.output.SintomoMalattiaOutput;
+import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaAddParams;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaChangeParams;
 import com.enciclopedia.dto.params.sintomomalattia.SintomoMalattiaParams;
 import com.enciclopedia.entity.relationship.SintomoMalattia;
@@ -46,22 +47,23 @@ public class SintomoMalattiaService {
         return SintomoMalattiaDtoMapper.INSTANCE.toDto(repository.findAll());
     }
 
-    public SintomoMalattiaDto addRelazione(SintomoMalattiaParams params) {
+    public SintomoMalattiaDto addRelazione(SintomoMalattiaAddParams params) {
+        checkParams(params);
         List<SintomoMalattia> listaSintomo = repository.findBySintomo(params.getIdSintomo());
         SintomoMalattia toSave = new SintomoMalattia();
-        toSave.setIdMalattia(params.getIdMalattia());
-        toSave.setIdSintomo(params.getIdSintomo());
+        toSave.setIdMalattia(malattiaRepository.findById(params.getIdMalattia()).get());
+        toSave.setIdSintomo(sintomoRepository.findById(params.getIdSintomo()).get());
         if(listaSintomo.isEmpty()) {
             return SintomoMalattiaDtoMapper.INSTANCE.toDto(repository.save(toSave));
         }else{
             AtomicBoolean isPresent = new AtomicBoolean(false);
             listaSintomo.stream().forEach(e->{
-                if(e.getIdMalattia() == params.getIdMalattia() && e.getIdSintomo() == params.getIdSintomo())
+                if(e.getIdMalattia().getIdMalattia() == params.getIdMalattia() && e.getIdSintomo().getIdSintomo() == params.getIdSintomo())
                     isPresent.set(true);
             });
             if (isPresent.get()){
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-                esitoMessaggiRequestContextHolder.setOperationId("addSintomoaddSintomo");
+                esitoMessaggiRequestContextHolder.setOperationId("addRelazione");
                 throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
             }else{
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
@@ -70,8 +72,18 @@ public class SintomoMalattiaService {
         }
     }
 
+    private void checkParams(SintomoMalattiaAddParams params) {
+        if(params.getIdMalattia()==null && params.getIdSintomo()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserisci tutti i parametri").build());
+            esitoMessaggiRequestContextHolder.setOperationId("addRelazione");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public SintomoMalattiaOutput infoRelazione(SintomoMalattiaParams params) {
-        if(params.getIdRelazione()==null || params.getIdSintomo() == null && params.getIdMalattia() == null){
+        if(params.getIdRelazione()==null && params.getIdSintomo() == null && params.getIdMalattia() == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserisci l'id della relazione da cancellare o l'id del sintomo + l'id della malattia").build());
@@ -91,9 +103,9 @@ public class SintomoMalattiaService {
             SintomoMalattiaOutput sintomoMalattiaOutput = new SintomoMalattiaOutput();
             sintomoMalattiaOutput.setIdRelazione(sintomoMalattiaFind.get().getIdRelazione());
             sintomoMalattiaOutput.setSintomoDto(SintomoDtoMapper.INSTANCE.toDto(
-                    sintomoRepository.findById(params.getIdSintomo()).get()));
+                    sintomoRepository.findById(sintomoMalattiaFind.get().getIdSintomo().getIdSintomo()).get()));
             sintomoMalattiaOutput.setMalattiaDto(MalattiaDtoMapper.INSTANCE.toDto(
-                    malattiaRepository.findById(params.getIdMalattia()).get()
+                    malattiaRepository.findById(sintomoMalattiaFind.get().getIdMalattia().getIdMalattia()).get()
             ));
 
             return sintomoMalattiaOutput;
@@ -107,7 +119,7 @@ public class SintomoMalattiaService {
     }
 
     public String deleteSintomoRelation(SintomoMalattiaParams params) {
-        if(params.getIdRelazione()==null || params.getIdSintomo() == null && params.getIdMalattia() == null){
+        if(params.getIdRelazione()==null && params.getIdSintomo() == null && params.getIdMalattia() == null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserisci l'id della relazione da cancellare o l'id del sintomo + l'id della malattia").build());
@@ -153,10 +165,10 @@ public class SintomoMalattiaService {
 
         if(sintomoMalattiaFind.isPresent()){
             if(params.getNewIdMalattia()!=null){
-                sintomoMalattiaFind.get().setIdMalattia(params.getNewIdMalattia());
+                sintomoMalattiaFind.get().setIdMalattia(malattiaRepository.findById(params.getNewIdMalattia()).get());
             }
             if(params.getNewIdSitnomo()!=null){
-                sintomoMalattiaFind.get().setIdSintomo(params.getNewIdSitnomo());
+                sintomoMalattiaFind.get().setIdSintomo(sintomoRepository.findById(params.getNewIdSitnomo()).get());
             }
             return SintomoMalattiaDtoMapper.INSTANCE.toDto(repository.save(sintomoMalattiaFind.get()));
         }else{

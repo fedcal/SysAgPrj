@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity
 public class Infermiere {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_infermiere")
     private Integer idInfermiere;
 

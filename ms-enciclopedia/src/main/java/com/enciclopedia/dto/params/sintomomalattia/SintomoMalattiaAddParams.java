@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class SintomoMalattiaParams {
-    @Schema(description = "Id relazione",type = "integer")
-    private Integer idRelazione;
-
+public class SintomoMalattiaAddParams {
     @Schema(description = "Id sintomo",type = "integer")
     private Integer idSintomo;
 

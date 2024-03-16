@@ -37,7 +37,7 @@ public class Paziente {
     @JoinColumn(name = "id_reparto", referencedColumnName = "id_reparto")
     private Reparto reparto;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 

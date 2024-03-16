@@ -1,7 +1,9 @@
 package com.msinfo.controller;
 
 import com.msinfo.constants.WebConstants;
+import com.msinfo.dto.ContattoRiferimentoDto;
 import com.msinfo.dto.PazienteDto;
+import com.msinfo.dto.params.paziente.AddContattoPazienteParams;
 import com.msinfo.dto.params.paziente.AddPazienteParams;
 import com.msinfo.dto.params.paziente.ModificaPazienteParams;
 import com.msinfo.dto.params.paziente.SearchPazienteParams;
@@ -87,6 +89,18 @@ public class PazienteController {
     @PutMapping(value ="/modify",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<PazienteDto>> modifyPaziente(@ParameterObject ModificaPazienteParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.modificaPaziente(params)));
+    }
+
+    @Operation(summary = "Aggiungere un contatto di un paziente",
+            description = "Restituisce il dto del contatto del paziente aggiunto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "400", description = "Operazione non andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PostMapping(value ="/aggiungi-contatto",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ContattoRiferimentoDto>> addPazienteContatto(@ParameterObject AddContattoPazienteParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.addPazienteContatto(params)));
     }
 
 

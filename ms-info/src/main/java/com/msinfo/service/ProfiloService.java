@@ -74,7 +74,7 @@ public class ProfiloService {
         return ProfiloDtoMapper.INSTANCE.toDto(profiloRepository.save(ProfiloEntityMapper.INSTANCE.toEntity(profiloAdd)));
     }
 
-    private ProfiloDto checkProfiloExists(String tipo, Integer id) {
+    private void checkProfiloExists(String tipo, Integer id) {
         Optional<Profilo> findProfilo;
         if(tipo!=null){
             findProfilo = profiloRepository.findByTipo(tipo);
@@ -88,8 +88,6 @@ public class ProfiloService {
                     .codMsg("Profilo già presente.").build());
             esitoMessaggiRequestContextHolder.setOperationId("aggiuntaProfilo");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
-        }else{
-            return ProfiloDtoMapper.INSTANCE.toDto(findProfilo.get());
         }
     }
 
@@ -101,7 +99,15 @@ public class ProfiloService {
             esitoMessaggiRequestContextHolder.setOperationId("modifcaProfilo");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
-        ProfiloDto profiloModificato = checkProfiloExists(null,params.getIdProfilo());
+        Optional<Profilo> findProfilo = profiloRepository.findById(params.getIdProfilo());
+        if(findProfilo.isEmpty()){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.WARNING)
+                    .codMsg("Profilo non presente.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("modifcaProfilo");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+        ProfiloDto profiloModificato =  ProfiloDtoMapper.INSTANCE.toDto(findProfilo.get());
         if(params.getNuovoTipo()!=null){
             profiloModificato.setTipo(params.getNuovoTipo());
         }

@@ -6,19 +6,19 @@ import lombok.Data;
 
 @Data
 public class SearchPazienteParams {
-    @Schema(description = "Id del paziente", example = "1",type = "integer")
+    @Schema(description = "Id del paziente",type = "integer")
     private Integer idPaziente;
 
-    @Schema(description = "Nome del paziente", example = "Federico",type = "string")
+    @Schema(description = "Nome del paziente",type = "string")
     private String nome;
 
-    @Schema(description = "Cognome del paziente", example = "Calò",type = "string")
+    @Schema(description = "Cognome del paziente",type = "string")
     private String cognome;
 
-    @Schema(description = "Data di nascita del paziente nel formato: aaaa/mm/dd", example = "1998/05/07",type = "string")
+    @Schema(description = "Data di nascita del paziente nel formato: aaaa/mm/dd",type = "string")
     private String dataNascita;
 
-    @Schema(description = "Nome del reparto del paziente", example = "Medicina Generale",type = "string")
+    @Schema(description = "Nome del reparto del paziente",type = "string")
     private String nomeReparto;
 
     @Schema(description = "Contatto di riferimento del paziente",type = "integer")

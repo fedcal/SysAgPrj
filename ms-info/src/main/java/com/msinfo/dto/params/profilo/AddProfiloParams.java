@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class AddProfiloParams {
-    @Schema(description = "Tipo del profilo da aggiungere",type = "string",example = "Medico")
+    @Schema(description = "Tipo del profilo da aggiungere",type = "string")
     private String tipo;
 
-    @Schema(description = "Tipo del profilo da aggiungere",type = "string",example = "Medico presente nella struttura")
+    @Schema(description = "Tipo del profilo da aggiungere",type = "string")
     private String descrizione;
 }

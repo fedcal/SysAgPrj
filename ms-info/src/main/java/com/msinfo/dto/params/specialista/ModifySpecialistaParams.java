@@ -6,21 +6,21 @@ import lombok.Data;
 
 @Data
 public class ModifySpecialistaParams {
-    @Schema(description = "Id dello specialista da modificare",type = "integer",example = "1")
+    @Schema(description = "Id dello specialista da modificare",type = "integer")
     private Integer idSpecialista;
 
-    @Schema(description = "Nuovo nome dello specialista",type = "string",example = "Mario")
+    @Schema(description = "Nuovo nome dello specialista",type = "string")
     private String nuovoNome;
 
-    @Schema(description = "Nuovo cognome dello specialista",type = "string",example = "Rossi")
+    @Schema(description = "Nuovo cognome dello specialista",type = "string")
     private String nuovoCognome;
 
-    @Schema(description = "Nuova specializzazione dello specialista",type = "string",example = "Laringoiatra")
+    @Schema(description = "Nuova specializzazione dello specialista",type = "string")
     private String nuovaSpecializzazione;
 
-    @Schema(description = "Nuovo turno dello specialista",type = "string",example = "Mer. 8:00-18:00")
+    @Schema(description = "Nuovo turno dello specialista",type = "string")
     private String nuovoTurno;
 
-    @Schema(description = "Nuovo profilo dello specialista",type = "integer",example = "1")
+    @Schema(description = "Nuovo profilo dello specialista",type = "integer")
     private Integer nuovoProfilo;
 }

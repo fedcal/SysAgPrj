@@ -102,12 +102,14 @@ public class RepartoService {
             reparto = repartoRepository.findByNomeReparto(params.getNomeReparto());
         }
 
+        params.setIdReparto(reparto.get().getIdReparto());
+
         if(reparto.isPresent()){
             try {
-                repartoRepository.delete(reparto.get());
+                repartoRepository.deleteById(params.getIdReparto());
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
                 return "Reparto eliminato";
-            }catch (EsitoRuntimeException e){
+            }catch (IllegalArgumentException  e){
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
                 esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                         .codMsg("Reparto non eliminato.").build());

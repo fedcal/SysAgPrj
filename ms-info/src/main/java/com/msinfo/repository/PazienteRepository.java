@@ -29,4 +29,6 @@ public interface PazienteRepository extends JpaRepository<Paziente,Integer> {
 
     @Query("select pa from Paziente pa where pa.nome = :nome and pa.cognome = :cognome")
     List<Paziente> findByNomeAndCognome(@Param("nome") String nome,@Param("cognome") String cognome);
+    @Query("select pa from Paziente pa where pa.reparto.nomeReparto = :nomeReparto")
+    List<Paziente> findByNomeReparto(@Param("nomeReparto") String nomeReparto);
 }

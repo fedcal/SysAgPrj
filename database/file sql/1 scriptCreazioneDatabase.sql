@@ -41,7 +41,7 @@ FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE);
 CREATE TABLE IF NOT EXISTS cartella_clinica(id_cartella_clinica INT PRIMARY KEY AUTO_INCREMENT, gruppo_sanguigno VARCHAR(3));
 
 -- PAZIENTE 
-CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita DATE,
+CREATE TABLE IF NOT EXISTS paziente (id_paziente INT PRIMARY KEY AUTO_INCREMENT, id_reparto INT, nome VARCHAR(30), cognome VARCHAR(30), data_nascita VARCHAR(255),
 luogo_nascita VARCHAR(50),  provincia_nascita VARCHAR(50), contatto_riferimento INT, tipo_account INT, id_cartella_clinica INT,
 FOREIGN KEY (id_reparto) REFERENCES reparto(id_reparto) ON DELETE CASCADE,
 FOREIGN KEY (contatto_riferimento) REFERENCES contatto_riferimento(id_contatto) ON DELETE CASCADE,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS referto_visita_medica(id_referto INT PRIMARY KEY AUTO
 CREATE TABLE IF NOT EXISTS referto_operazione (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto VARCHAR(100));
 
 -- REFERTO OPERAZIONE SPECIALISTA
-CREATE TABLE IF NOT EXISTS referto_operazione_specialista (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto DATE);
+CREATE TABLE IF NOT EXISTS referto_operazione_specialista (id_referto INT PRIMARY KEY AUTO_INCREMENT, tipologia VARCHAR(30), descrizione VARCHAR(100), data_referto VARCHAR(255));
 
 -- MEDICINALE
 CREATE TABLE IF NOT EXISTS medicinale (id_medicinale INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30), descrizione VARCHAR(100), dosaggio VARCHAR(30));

@@ -21,7 +21,4 @@ public class ContattoRiferimento {
 
     @Column(name = "numero_cellulare")
     private String numeroCellulare;
-
-    @OneToOne(mappedBy = "contattoRiferimento")
-    private Paziente paziente;
 }

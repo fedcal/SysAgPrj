@@ -6,21 +6,21 @@ import lombok.Data;
 
 @Data
 public class ModificaRepartoParams {
-    @Schema(description = "Id del reparto che bisogna modificare",type = "integer",example = "1")
+    @Schema(description = "Id del reparto che bisogna modificare",type = "integer")
     private Integer idRepartoRicerca;
 
-    @Schema(description = "Nome del reparto che bisogna modificare",type = "string",example = "Chirurgia")
+    @Schema(description = "Nome del reparto che bisogna modificare",type = "string")
     private String nomeRepartoRicerca;
 
-    @Schema(description = "Nome del nuovo reparto",type = "string",example = "Chirurgia2")
+    @Schema(description = "Nome del nuovo reparto",type = "string")
     private String nomeRepartoNuovo;
 
-    @Schema(description = "Nuova descrizione del reparto",type = "string",example = "Chirurgia estetica 2")
+    @Schema(description = "Nuova descrizione del reparto",type = "string")
     private String descrizioneNuovo;
 
-    @Schema(description = "La nuova ala del reparto",type = "string",example = "Piano terra, ala Est")
+    @Schema(description = "La nuova ala del reparto",type = "string")
     private String alaRepartoNuovo;
 
-    @Schema(description = "Capo del nuovo reparto",type = "integer",example = "1")
+    @Schema(description = "Capo del nuovo reparto",type = "integer")
     private Integer capoRepartoNuovo;
 }

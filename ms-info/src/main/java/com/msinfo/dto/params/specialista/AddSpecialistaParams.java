@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Data
 public class AddSpecialistaParams {
-    @Schema(description = "Nome dello specialista da inserire",type = "string",example = "Mario")
+    @Schema(description = "Nome dello specialista da inserire",type = "string")
     private String nome;
 
-    @Schema(description = "Cognome dello specialista da inserire",type = "string",example = "Rossi")
+    @Schema(description = "Cognome dello specialista da inserire",type = "string")
     private String cognome;
 
-    @Schema(description = "Specializzazione dello specialista da inserire",type = "string",example = "Anestesia")
+    @Schema(description = "Specializzazione dello specialista da inserire",type = "string")
     private String specializzazione;
 
-    @Schema(description = "Turno dello specialista da inserire",type = "string",example = "Lun.. 15:00-00:00")
+    @Schema(description = "Turno dello specialista da inserire",type = "string")
     private String turno;
 
-    @Schema(description = "Profilo dello specialista da inserire",type = "integer",example = "1")
+    @Schema(description = "Profilo dello specialista da inserire",type = "integer")
     private Integer profilo;
 }

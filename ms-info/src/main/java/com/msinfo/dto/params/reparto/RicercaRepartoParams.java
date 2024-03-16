@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class RicercaRepartoParams {
-    @Schema(description = "Id del reparto",type = "integer",example = "1")
+    @Schema(description = "Id del reparto",type = "integer")
     private Integer idReparto;
 
-    @Schema(description = "Nome del reparto",type = "string",example = "Chirurgia")
+    @Schema(description = "Nome del reparto",type = "string")
     private String nomeReparto;
 }

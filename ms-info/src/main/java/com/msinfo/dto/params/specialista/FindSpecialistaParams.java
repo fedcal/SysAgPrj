@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 public class FindSpecialistaParams {
-    @Schema(description = "Id dello specialista da trovare",type = "integer",example = "1")
+    @Schema(description = "Id dello specialista da trovare",type = "integer")
     private Integer idSpecialista;
 
-    @Schema(description = "Nome dello specialista da trovare",type = "string",example = "Mario")
+    @Schema(description = "Nome dello specialista da trovare",type = "string")
     private String nome;
 
-    @Schema(description = "Cognome dello specialista da trovare",type = "string",example = "Rossi")
+    @Schema(description = "Cognome dello specialista da trovare",type = "string")
     private String cognome;
 }

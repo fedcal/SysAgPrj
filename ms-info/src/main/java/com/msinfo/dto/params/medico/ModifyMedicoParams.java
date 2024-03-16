@@ -6,18 +6,18 @@ import lombok.Data;
 
 @Data
 public class ModifyMedicoParams {
-    @Schema(description = "Id del medico da modificare",type = "integer",example = "1")
+    @Schema(description = "Id del medico da modificare",type = "integer")
     private Integer idMedico;
 
-    @Schema(description = "Nuovo nome",type = "string",example = "Roberto")
+    @Schema(description = "Nuovo nome",type = "string")
     private String nuovoNome;
 
-    @Schema(description = "Nuovo cognome",type = "string",example = "Benigni")
+    @Schema(description = "Nuovo cognome",type = "string")
     private String nuovoCognome;
 
-    @Schema(description = "Nuovo turno",type = "string",example = "Lun. 08:30-16:30")
+    @Schema(description = "Nuovo turno",type = "string")
     private String nuovoTurno;
 
-    @Schema(description = "Nuovo profilo",type = "integer",example = "1")
+    @Schema(description = "Nuovo profilo",type = "integer")
     private Integer nuovoProfilo;
 }

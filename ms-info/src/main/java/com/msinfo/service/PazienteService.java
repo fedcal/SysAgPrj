@@ -3,6 +3,7 @@ package com.msinfo.service;
 import com.msinfo.dto.ContattoRiferimentoDto;
 import com.msinfo.dto.PazienteDto;
 import com.msinfo.dto.RepartoDto;
+import com.msinfo.dto.params.paziente.AddContattoPazienteParams;
 import com.msinfo.dto.params.paziente.AddPazienteParams;
 import com.msinfo.dto.params.paziente.ModificaPazienteParams;
 import com.msinfo.dto.params.paziente.SearchPazienteParams;
@@ -86,6 +87,14 @@ public class PazienteService {
 
         if(StringUtils.hasLength(params.getDataNascita())){
             pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByDataNascita(params.getDataNascita()));
+        }
+
+        if(StringUtils.hasLength(params.getNomeReparto())){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByNomeReparto(params.getNomeReparto()));
+        }
+
+        if(params.getContattoRiferimentoDto()!=null){
+            pazienteDtoList = PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findByIdContatto(params.getContattoRiferimentoDto()));
         }
 
         if(params.getContattoRiferimentoDto()!=null){
@@ -199,7 +208,8 @@ public class PazienteService {
         if(params.getContattoRiferimentoId()!=null){
             Optional<ContattoRiferimento> contattoRiferimentoFind = contattoRiferimentoRepository.findById(params.getContattoRiferimentoId());
             if(contattoRiferimentoFind.isPresent()) {
-                returnDto.setContattoRiferimento(ContattoRiferimentoDtoMapper.INTERFACE.toDto(contattoRiferimentoFind.get()));
+                ContattoRiferimentoDto contattoRiferimentoDto = ContattoRiferimentoDtoMapper.INTERFACE.toDto(contattoRiferimentoFind.get());
+                returnDto.setContattoRiferimento(contattoRiferimentoDto);
             }else{
                 esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
                 esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -330,5 +340,25 @@ public class PazienteService {
             return PazienteDtoMapper.INSTANCE.toDto(findPaziente.get());
         }
 
+    }
+
+    public ContattoRiferimentoDto addPazienteContatto(AddContattoPazienteParams params) {
+        checkParams(params);
+        ContattoRiferimento contattoRiferimento = new ContattoRiferimento();
+        contattoRiferimento.setNome(params.getNome());
+        contattoRiferimento.setCognome(params.getCognome());
+        contattoRiferimento.setNumeroCellulare(params.getNumeroCellulare());
+
+        return ContattoRiferimentoDtoMapper.INTERFACE.toDto(contattoRiferimentoRepository.save(contattoRiferimento));
+    }
+
+    private void checkParams(AddContattoPazienteParams params) {
+        if(params.getCognome()==null && params.getNome()==null && params.getNumeroCellulare()==null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire tutti i parametri").build());
+            esitoMessaggiRequestContextHolder.setOperationId("addPazienteContatto");
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
     }
 }

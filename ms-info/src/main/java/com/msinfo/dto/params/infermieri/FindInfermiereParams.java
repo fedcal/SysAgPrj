@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class FindInfermiereParams {
-    @Schema(description = "Id infermiere da eliminare",type = "integer",example = "1")
+    @Schema(description = "Id infermiere da eliminare",type = "integer")
     private Integer idInfermiere;
 
-    @Schema(description = "Nome infermiere da eliminare",type = "string",example = "Francesco")
+    @Schema(description = "Nome infermiere da eliminare",type = "string")
     private String nomeInfermiere;
 
-    @Schema(description = "Cognome infermiere da eliminare",type = "string",example = "De Ceglie")
+    @Schema(description = "Cognome infermiere da eliminare",type = "string")
     private String cognomeInfermiere;
 }

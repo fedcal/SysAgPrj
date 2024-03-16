@@ -63,7 +63,7 @@ public class ProfiloController {
     }
 
 
-    @Operation(summary = "Aggiunta profilo",
+    @Operation(summary = "Modifica profilo",
             description = "Restituisce il profilo mdoficato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),

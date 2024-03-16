@@ -20,9 +20,6 @@ public interface OperazioneCartellaRepository extends JpaRepository<OperazioneCa
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.medico.idMedico = :idMedico")
     List<OperazioneCartella> findByIdMedico(@Param("idMedico") Integer idMedico);
 
-    @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.refertoOperazione.idReferto = :idReferto")
-    List<OperazioneCartella> findByIdReferto(@Param("idReferto") Integer idReferto);
-
     @Query("SELECT oc FROM OperazioneCartella oc WHERE oc.operazioneMedica.nome = :nomeOperazione")
     List<OperazioneCartella> findByNomeOperazione(@Param("nomeOperazione") String nomeOperazione);
 

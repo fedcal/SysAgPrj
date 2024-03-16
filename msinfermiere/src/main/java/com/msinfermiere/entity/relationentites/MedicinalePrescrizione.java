@@ -27,9 +27,5 @@ public class MedicinalePrescrizione {
     @ManyToOne
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
-
-    @ManyToOne
-    @JoinColumn(name = "id_visita",referencedColumnName = "id_visita_medica")
-    private VisitaMedica visitaMedica;
 }
 

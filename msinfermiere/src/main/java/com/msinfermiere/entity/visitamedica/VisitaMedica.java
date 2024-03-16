@@ -35,7 +35,4 @@ public class VisitaMedica {
 
     @OneToMany(mappedBy = "visitaMedica")
     private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
-
-    @OneToMany(mappedBy = "visitaMedica")
-    private Set<MedicinalePrescrizione> medicinalePrescrizione;
 }

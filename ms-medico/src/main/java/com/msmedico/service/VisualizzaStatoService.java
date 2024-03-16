@@ -204,9 +204,6 @@ public class VisualizzaStatoService {
         if(params.getIdMedico()!=null){
             return operazioneCartellaRepository.findByIdMedico(params.getIdMedico());
         }
-        if(params.getIdReferto()!=null){
-            return operazioneCartellaRepository.findByIdReferto(params.getIdReferto());
-        }
 
         return  new ArrayList<>();
     }

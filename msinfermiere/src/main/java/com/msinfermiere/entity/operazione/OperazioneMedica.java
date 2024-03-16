@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-@Table(name = "referto_operazione")
+@Table(name = "operazione_medica")
 @Entity
 public class OperazioneMedica {
     @Id

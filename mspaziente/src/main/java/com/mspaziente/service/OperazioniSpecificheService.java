@@ -439,7 +439,6 @@ public class OperazioniSpecificheService {
         medicinalePrescrizione.setMedicinale(findMedicinale.get());
         medicinalePrescrizione.setCartellaClinica(findCartellaClinica.get());
         medicinalePrescrizione.setMedico(findMedico.get());
-        medicinalePrescrizione.setVisitaMedica(findVisitaMedica.get());
 
         try{
             return MedicinalePrescrizioneDtoMapper.INSTANCE.toDto(medicinalePrescrizioneRepository.save(medicinalePrescrizione));
@@ -559,7 +558,6 @@ public class OperazioniSpecificheService {
         operazioneCartellaSave.setOperazioneMedica(findOperazioneMedica.get());
         operazioneCartellaSave.setCartellaClinica(findCartellaClinica.get());
         operazioneCartellaSave.setMedico(findMedico.get());
-        operazioneCartellaSave.setRefertoOperazione(findRefertoOperazione.get());
 
         try{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);

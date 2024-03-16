@@ -12,5 +12,4 @@ public class OperazioneCartellaDto {
     private OperazioneMedicaDto operazioneMedica;
     private CartellaClinicaDto cartellaClinica;
     private MedicoDto medico;
-    private RefertoOperazioneDto refertoOperazione;
 }

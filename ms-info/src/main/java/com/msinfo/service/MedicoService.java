@@ -55,16 +55,12 @@ public class MedicoService {
     public List<MedicoDto> findMedico(FindMedicoParams params) {
         List<MedicoDto> listaMedico = new ArrayList<>();
 
-        Optional<Medico> findMedico = medicoRepository.findById(params.getIdMedico());
-        if(findMedico.isPresent()){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Nessun medico trovato.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("findMedico");
-            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
-        }else{
+        Optional<Medico> findMedico = Optional.empty();
+        if(params.getIdMedico()!=null){
+            findMedico = medicoRepository.findById(params.getIdMedico());
             listaMedico.add(MedicoDtoMapper.INSTANCE.toDto(findMedico.get()));
         }
+
 
         List<Medico> listFindMedico = new ArrayList<>();
         if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome())){
@@ -75,14 +71,14 @@ public class MedicoService {
             listFindMedico = medicoRepository.findByCognome(params.getCognome());
         }
 
-        if(listFindMedico.isEmpty()){
+        if(listFindMedico.isEmpty() && findMedico.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessun medico trovato.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findMedico");
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }else{
-            listaMedico = MedicoDtoMapper.INSTANCE.toDto(listFindMedico);
+            listaMedico.addAll(MedicoDtoMapper.INSTANCE.toDto(listFindMedico));
         }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);

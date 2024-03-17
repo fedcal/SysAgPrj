@@ -114,7 +114,7 @@ public class InfermieriService {
     }
 
     public InfermiereDto modifyInfermiere(ModifyInfermiereParams params) {
-        if(params.getIdInfermiere()!=null){
+        if(params.getIdInfermiere()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire l'id dell'infermiere da modificare.").build());
@@ -181,8 +181,9 @@ public class InfermieriService {
             }
         }
 
-        infermiereRepository.save(InfermiereEnityMapper.INSTANCE.toEntity(infermiereDto));
-
+        infermiereDto = InfermiereDtoMapper.INSTANCE.toDto(infermiereRepository.save(InfermiereEnityMapper.INSTANCE.toEntity(infermiereDto)));
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("addInfermiere");
         return infermiereDto;
     }
 }

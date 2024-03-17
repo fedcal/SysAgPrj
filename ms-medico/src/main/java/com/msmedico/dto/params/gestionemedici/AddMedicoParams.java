@@ -5,15 +5,15 @@ import lombok.Data;
 
 @Data
 public class AddMedicoParams {
-    @Schema(description = "Nome del medico da aggiungere",type = "string",example = "Roberto")
+    @Schema(description = "Nome del medico da aggiungere",type = "string")
     private String nome;
 
-    @Schema(description = "Cognome del medico da aggiungere",type = "string",example = "Benigni")
+    @Schema(description = "Cognome del medico da aggiungere",type = "string")
     private String cognome;
 
-    @Schema(description = "Turno del medico da aggiungere",type = "string",example = "Lun. 08:30-16:30")
+    @Schema(description = "Turno del medico da aggiungere",type = "string")
     private String turno;
 
-    @Schema(description = "Profilo del medico da aggiungere",type = "integer",example = "1")
+    @Schema(description = "Profilo del medico da aggiungere",type = "integer")
     private Integer profilo;
 }

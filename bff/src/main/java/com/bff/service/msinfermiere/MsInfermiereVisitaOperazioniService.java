@@ -1,6 +1,5 @@
 package com.bff.service.msinfermiere;
 
-import com.bff.controller.msinfermiere.VisitaOperazioniController;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisitePrescrizioniParams;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisiteSottoministrateInfermieriParams;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.SomministraVisitaParams;
@@ -50,7 +49,7 @@ public class MsInfermiereVisitaOperazioniService {
 
     public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteSottoministrateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
         GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponseList(
-                visitaOperazioniControllerApi.msInfermiereListaVisiteSottoministrateInfermierieFiltrate(params.getIdSottoministrazione(),
+                visitaOperazioniControllerApi.msInfermiereListaVisiteEffettuateInfermierieFiltrata(params.getIdSottoministrazione(),
                         params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica(), params.getNomeInfermiere(),
                         params.getCognomeInfermiere(), params.getNomeVisita(), params.getNomePaziente(), params.getCognomePaziente()),
                 VisitaSottoministrazioneInfermiereDto.class);
@@ -60,7 +59,7 @@ public class MsInfermiereVisitaOperazioniService {
 
     public VisitaSottoministrazioneInfermiereDto somministraMedicinale(SomministraVisitaParams params) {
         GenericResponseDto<VisitaSottoministrazioneInfermiereDto> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponse(
-                visitaOperazioniControllerApi.msInfermiereSomministraVisitaInfermiere(params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica()), VisitaSottoministrazioneInfermiereDto.class);
+                visitaOperazioniControllerApi.msInfermiereEffettuaVisitaInfermiere(params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica()), VisitaSottoministrazioneInfermiereDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(allVisiteSottoministrateInfermieriFiltrate.getEsito().getMessaggi());
         return allVisiteSottoministrateInfermieriFiltrate.getPayload();
     }

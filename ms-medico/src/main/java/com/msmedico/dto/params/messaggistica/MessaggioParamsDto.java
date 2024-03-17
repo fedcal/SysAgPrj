@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class MessaggioParamsDto {
-    @Schema(description = "Messaggio da inviare",type = "string",example = "Ciao")
+    @Schema(description = "Messaggio da inviare",type = "string")
     private String messaggio;
-    @Schema(description = "Livello di urgenza del messaggio",type = "string",example = "LOW")
+    @Schema(description = "Livello di urgenza del messaggio",type = "string")
     private String livelloUrgenza;
 }

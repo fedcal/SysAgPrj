@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Bff applicativo robot medici",
+				title = "Applicativo robot medici: BFF",
 				version = "1.0.0",
 				description = "Strato applicativo tramite il quale si fa interfacciare i vari " +
 						"microservizi BE con l'applicativo FE",
 				contact = @Contact(
-						name = "Federico Calò",
+						name = "Federico Calò (matricola 678191)",
 						email = "f.calo29@studenti.uniba.it",
 						url = "https://www.federicocalo.dev"
 				)

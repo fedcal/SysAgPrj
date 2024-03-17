@@ -1,19 +1,19 @@
-package com.msinfermiere.entity;
+package com.msmedico.entity;
 
-import com.msinfermiere.entity.account.Profilo;
-import com.msinfermiere.entity.relationentites.RepartoMedico;
+import com.msmedico.entity.account.Profilo;
+import com.msmedico.entity.relationentities.MedicinaleSottoministrazione;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
 @Data
-@Table(name = "medico")
+@Table(name = "infermiere")
 @Entity
-public class Medico {
+public class Infermiere {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_medico")
-    private Integer idMedico;
+    @Column(name = "id_infermiere")
+    private Integer idInfermiere;
 
     @Column(name = "nome")
     private String nome;
@@ -24,11 +24,9 @@ public class Medico {
     @Column(name = "turno")
     private String turno;
 
-
     @ManyToOne
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<RepartoMedico> repartoMedicoSet;
+    @OneToMany(mappedBy = "infermiere")
+    private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
 }

@@ -28,4 +28,7 @@ public interface MedicinalePrescrizioneRepository extends JpaRepository<Medicina
     List<MedicinalePrescrizione> findByCognomeMedico(@Param("cognomeMedico") String cognomeMedico);
     @Query("SELECT op FROM MedicinalePrescrizione op WHERE op.medico.nome = :nomeMedico")
     List<MedicinalePrescrizione> findByNomeMedico(@Param("nomeMedico") String nomeMedico);
+
+    @Query("SELECT medicinalePre FROM MedicinalePrescrizione  medicinalePre WHERE medicinalePre.cartellaClinica.idCartellaClinica = :idCartellaClinica")
+    List<MedicinalePrescrizione> findByIdCartellaClinica(@Param("idCartellaClinica")Integer idCartellaClinica);
 }

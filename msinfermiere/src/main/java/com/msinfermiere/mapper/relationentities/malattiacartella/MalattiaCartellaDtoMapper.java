@@ -10,6 +10,6 @@ import java.util.List;
 public interface MalattiaCartellaDtoMapper {
     MalattiaCartellaDtoMapper INSTANCE = Mappers.getMapper(MalattiaCartellaDtoMapper.class);
 
-    MalattiaCartellaDto toEntity(MalattiaCartella entity);
-    List<MalattiaCartellaDto> toEntity(List<MalattiaCartella> entity);
+    MalattiaCartellaDto toDto(MalattiaCartella entity);
+    List<MalattiaCartellaDto> toDto(List<MalattiaCartella> entity);
 }

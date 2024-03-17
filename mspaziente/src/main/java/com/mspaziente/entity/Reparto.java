@@ -21,7 +21,7 @@ public class Reparto {
     @Column(name = "ala_reparto")
     private String alaReparto;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "capo_reparto", referencedColumnName = "id_medico")
     private Medico capoReparto;
 }

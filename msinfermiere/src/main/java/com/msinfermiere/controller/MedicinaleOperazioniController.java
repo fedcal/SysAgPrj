@@ -57,7 +57,7 @@ public class MedicinaleOperazioniController {
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-prescrizioni-medicin ali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/lista-prescrizioni-medicinali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicinalePrescrizioneDto>>> getPrescrizioniMedicinaliFiltrati (@ParameterObject FiltraMedicinalePrescrizioniParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getPrescrizioniMedicinaliFiltrati(params)));
     }

@@ -1,47 +1,46 @@
-package com.msinfermiere.service;
+package com.msmedico.service;
 
-import com.msinfermiere.dto.output.CartellaClinicaOutputDto;
-import com.msinfermiere.dto.params.FindCartellaClinicaParams;
-import com.msinfermiere.dto.params.PazienteFiltratiParams;
-import com.msinfermiere.dto.paziente.DiagnosiDto;
-import com.msinfermiere.dto.paziente.PazienteDto;
-import com.msinfermiere.dto.relationentities.*;
-import com.msinfermiere.entity.paziente.Diagnosi;
-import com.msinfermiere.entity.paziente.Paziente;
-import com.msinfermiere.entity.relationentites.*;
-import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
-import com.msinfermiere.esito.Messaggio;
-import com.msinfermiere.esito.constants.EsitoOperazioneEnum;
-import com.msinfermiere.esito.constants.SeveritaMessaggioEnum;
-import com.msinfermiere.exception.EsitoRuntimeException;
-import com.msinfermiere.mapper.paziente.diagnosi.DiagnosiDtoMapper;
-import com.msinfermiere.mapper.paziente.paziente.PazienteDtoMapper;
-import com.msinfermiere.mapper.relationentities.malattiacartella.MalattiaCartellaDtoMapper;
-import com.msinfermiere.mapper.relationentities.medicinalecartella.MedicinaleCartellaDtoMapper;
-import com.msinfermiere.mapper.relationentities.medicinaleprescrizione.MedicinalePrescrizioneDtoMapper;
-import com.msinfermiere.mapper.relationentities.medicinalesottoministrazione.MedicinaleSottoministrazioneDtoMapper;
-import com.msinfermiere.mapper.relationentities.operazionecartella.OperazioneCartellaDtoMapper;
-import com.msinfermiere.repository.paziente.DiagnosiRepository;
-import com.msinfermiere.repository.paziente.PazienteRepository;
-import com.msinfermiere.repository.relationentites.*;
+
+
+import com.msmedico.dto.output.CartellaClinicaOutputDto;
+import com.msmedico.dto.params.paziente.FindCartellaClinicaPazienteParams;
+import com.msmedico.dto.params.paziente.FindPazienteParams;
+import com.msmedico.dto.paziente.DiagnosiDto;
+import com.msmedico.dto.paziente.PazienteDto;
+import com.msmedico.dto.relationentities.MalattiaCartellaDto;
+import com.msmedico.dto.relationentities.MedicinaleCartellaDto;
+import com.msmedico.dto.relationentities.MedicinalePrescrizioneDto;
+import com.msmedico.dto.relationentities.OperazioneCartellaDto;
+import com.msmedico.entity.paziente.Diagnosi;
+import com.msmedico.entity.paziente.Paziente;
+import com.msmedico.entity.relationentities.*;
+import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
+import com.msmedico.esito.Messaggio;
+import com.msmedico.esito.constants.EsitoOperazioneEnum;
+import com.msmedico.esito.constants.SeveritaMessaggioEnum;
+import com.msmedico.exception.EsitoRuntimeException;
+import com.msmedico.mapper.paziente.diagnosi.DiagnosiDtoMapper;
+import com.msmedico.mapper.paziente.paziente.PazienteDtoMapper;
+import com.msmedico.mapper.relationentities.malattiacartella.MalattiaCartellaDtoMapper;
+import com.msmedico.mapper.relationentities.medicinalecartella.MedicinaleCartellaDtoMapper;
+import com.msmedico.mapper.relationentities.medicinaleprescrizione.MedicinalePrescrizioneDtoMapper;
+import com.msmedico.mapper.relationentities.medicinalesottoministrazione.MedicinaleSottoministrazioneDtoMapper;
+import com.msmedico.mapper.relationentities.operazionecartella.OperazioneCartellaDtoMapper;
+import com.msmedico.mspaziente.model.MedicinaleSottoministrazioneDto;
+import com.msmedico.repository.paziente.DiagnosiRepository;
+import com.msmedico.repository.paziente.PazienteRepository;
+import com.msmedico.repository.relationentities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PazienteService {
-    @Autowired
-    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
-
-    @Autowired
-    private PazienteRepository pazienteRepository;
-
     @Autowired
     private DiagnosiRepository diagnosiRepository;
     @Autowired
@@ -50,15 +49,19 @@ public class PazienteService {
     private MalattiaCartellaRepository malattiaCartellaRepository;
     @Autowired
     private MedicinaleCartellaRepository medicinaleCartellaRepository;
-
     @Autowired
     private MedicinaleSottoministrazioneRepository medicinaleSottoministrazioneRepository;
     @Autowired
     private OperazioneCartellaRepository operazioneCartellaRepository;
+    @Autowired
+    private PazienteRepository pazienteRepository;
 
+    @Autowired
+    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     public List<PazienteDto> getAllPazienti() {
-        List<Paziente> findAll = pazienteRepository.findAll();
-        if(findAll.isEmpty()){
+        List<Paziente> pazienti = pazienteRepository.findAll();
+
+        if(pazienti.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Lista paziente vuota.").build());
@@ -67,51 +70,56 @@ public class PazienteService {
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
-            return PazienteDtoMapper.INSTANCE.toDto(findAll);
+            List<PazienteDto> pazienteDto = PazienteDtoMapper.INSTANCE.toDto(pazienti);
+            return pazienteDto;
         }
     }
 
-    public List<PazienteDto> getPazientiFiltrati(PazienteFiltratiParams params) {
+    public List<PazienteDto> findInfoPazienti(FindPazienteParams params) {
         checkParams(params);
-        List<Paziente> findListPaziente = new ArrayList<>();
+        List<Paziente> findPaziente = new ArrayList<>();
 
         if(params.getIdPaziente()!=null){
-            findListPaziente = Arrays.asList(pazienteRepository.findById(params.getIdPaziente()).get());
+            Optional<Paziente> findById = pazienteRepository.findById(params.getIdPaziente());
+            if(findById.isPresent()){
+                findPaziente.add(findById.get());
+            }
         }
+
+        if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome()) && StringUtils.hasLength(params.getDataNascita())){
+            findPaziente.addAll(pazienteRepository.findByNomeAndCognomeAndData(params.getNome(),params.getCognome(),params.getDataNascita()));
+        }
+
         if(StringUtils.hasLength(params.getNome()) && StringUtils.hasLength(params.getCognome())){
-            findListPaziente = pazienteRepository.findByNomeAndCognomePaziente(params.getNome(),params.getCognome());
+            findPaziente.addAll(pazienteRepository.findByNomeAndCognome(params.getNome(),params.getCognome()));
         }
+
         if(StringUtils.hasLength(params.getNome())){
-            findListPaziente = pazienteRepository.findByNomePaziente(params.getNome());
+            findPaziente.addAll(pazienteRepository.findByNome(params.getNome()));
         }
+
         if(StringUtils.hasLength(params.getCognome())){
-            findListPaziente = pazienteRepository.findByCognomePaziente(params.getCognome());
+            findPaziente.addAll(pazienteRepository.findByCognome(params.getCognome()));
         }
-        if(findListPaziente.isEmpty()){
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
-            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Nessun paziente trovato.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("getPazientiFiltrati");
-            throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
-        }else{
 
-            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-            esitoMessaggiRequestContextHolder.setOperationId("getPazientiFiltrati");
-            return PazienteDtoMapper.INSTANCE.toDto(findListPaziente);
+        if(StringUtils.hasLength(params.getDataNascita())){
+            findPaziente.addAll(pazienteRepository.findByDataNascita(params.getDataNascita()));
         }
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
+        return PazienteDtoMapper.INSTANCE.toDto(findPaziente);
     }
-
-    private void checkParams(PazienteFiltratiParams params) {
-        if(params.getIdPaziente()!=null && !StringUtils.hasLength(params.getNome()) && !StringUtils.hasLength(params.getCognome())){
+    private void checkParams(FindPazienteParams params) {
+        if(params.getIdPaziente()==null && !StringUtils.hasLength(params.getNome()) && !StringUtils.hasLength(params.getCognome()) && !StringUtils.hasLength(params.getDataNascita())){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Inserire almeno un parametro di ricerca.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("getPazientiFiltrati");
+            esitoMessaggiRequestContextHolder.setOperationId("findInfoPazienti");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
     }
 
-    public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinicaParams params) {
+    public CartellaClinicaOutputDto findCartellaClinica(FindCartellaClinicaPazienteParams params) {
         checkParams(params);
         CartellaClinicaOutputDto cartellaClinicaDto = null;
         Integer idCartellaClinica = null;
@@ -214,8 +222,7 @@ public class PazienteService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
     }
-
-    private void checkParams(FindCartellaClinicaParams params) {
+    private void checkParams(FindCartellaClinicaPazienteParams params) {
         if(params.getIdCartellaClinica() == null && params.getIdPaziente()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

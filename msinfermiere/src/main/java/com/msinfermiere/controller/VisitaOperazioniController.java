@@ -61,7 +61,7 @@ public class VisitaOperazioniController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/lista-prescrizioni-filtrata",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaPrescrizioneDto>>> getAllVisitePrescrizioniFiltrate (FiltraVisitePrescrizioniParams params){
+    public ResponseEntity<GenericResponseDto<List<VisitaPrescrizioneDto>>> getAllVisitePrescrizioniFiltrate (@ParameterObject FiltraVisitePrescrizioniParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getVisitePrescrizioniFiltrata(params)));
     }
 
@@ -89,7 +89,7 @@ public class VisitaOperazioniController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/lista-visite-sottoministrate-filtrate",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieriFiltrate (FiltraVisiteSottoministrateInfermieriParams params){
+    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieriFiltrate (@ParameterObject FiltraVisiteSottoministrateInfermieriParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteSottoministrateInfermieriFiltrate(params)));
     }
 

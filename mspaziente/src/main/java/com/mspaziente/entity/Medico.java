@@ -27,7 +27,7 @@ public class Medico {
     private String turno;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 

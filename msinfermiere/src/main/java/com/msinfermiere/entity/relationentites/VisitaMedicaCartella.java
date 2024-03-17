@@ -23,7 +23,7 @@ public class VisitaMedicaCartella {
     @JoinColumn(name = "id_visita_medica",referencedColumnName="id_visita_medica")
     private VisitaMedica visitaMedica;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_referto", referencedColumnName = "id_referto")
     private RefertoVisitaMedica refertoVisitaMedica;
 }

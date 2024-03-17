@@ -29,19 +29,19 @@ public class Paziente {
     @Column(name = "provinciaNascita")
     private String provinciaNascita;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "contatto_riferimento", referencedColumnName = "id_contatto")
     private ContattoRiferimento contattoRiferimento;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_reparto", referencedColumnName = "id_reparto")
     private Reparto reparto;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_cartella_clinica", referencedColumnName = "id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 }

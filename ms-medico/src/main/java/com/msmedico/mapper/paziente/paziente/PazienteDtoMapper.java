@@ -12,5 +12,5 @@ public interface PazienteDtoMapper {
     PazienteDtoMapper INSTANCE = Mappers.getMapper(PazienteDtoMapper.class);
 
     PazienteDto toDto(Paziente entity);
-    List<PazienteDto> toDto(List<PazienteDto> entities);
+    List<PazienteDto> toDto(List<Paziente> entities);
 }

@@ -1,7 +1,9 @@
 package com.msinfermiere.mapper.relationentities.medicinalecartella;
 
 import com.msinfermiere.dto.MedicinaleDto;
+import com.msinfermiere.dto.relationentities.MedicinaleCartellaDto;
 import com.msinfermiere.entity.Medicinale;
+import com.msinfermiere.entity.relationentites.MedicinaleCartella;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,6 +12,6 @@ import java.util.List;
 public interface MedicinaleCartellaDtoMapper {
     MedicinaleCartellaDtoMapper INSTANCE = Mappers.getMapper(MedicinaleCartellaDtoMapper.class);
 
-    MedicinaleDto toDto(Medicinale dto);
-    List<MedicinaleDto> toDto(List<Medicinale> dto);
+    MedicinaleCartellaDto toDto(MedicinaleCartella dto);
+    List<MedicinaleCartellaDto> toDto(List<MedicinaleCartella> dto);
 }

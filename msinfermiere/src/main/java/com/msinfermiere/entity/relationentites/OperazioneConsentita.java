@@ -18,7 +18,7 @@ public class OperazioneConsentita {
     @JoinColumn(name = "tipo_account")
     private Profilo profilo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "operazione")
     private OperazioneAccount operazioneAccount;
 }

@@ -28,7 +28,7 @@ public class OperazioneCartella {
     @JoinColumn(name = "id_medico",referencedColumnName = "id_medico")
     private Medico medico;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_referto", referencedColumnName = "id_referto")
     private RefertoOperazione refertoOperazione;
 }

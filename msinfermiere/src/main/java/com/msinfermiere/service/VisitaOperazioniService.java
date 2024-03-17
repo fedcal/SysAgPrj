@@ -137,7 +137,7 @@ public class VisitaOperazioniService {
         }
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteSottoministrateInfermieri() {
+    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteEffettuateInfermieri() {
 
         List<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere = visitaSottoministrazioneInfermiereRepository.findAll();
         if(visitaSottoministrazioneInfermiere.isEmpty()){
@@ -153,7 +153,7 @@ public class VisitaOperazioniService {
         }
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteSottoministrateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
+    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteEffettuateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
         checkParams(params);
 
         List<VisitaSottoministrazioneInfermiere> findById = findMedicinaleSottoministrazioneById(params);
@@ -230,7 +230,7 @@ public class VisitaOperazioniService {
         }
     }
 
-    public VisitaSottoministrazioneInfermiereDto somministraVisita(SomministraVisitaParams params) {
+    public VisitaSottoministrazioneInfermiereDto effettuaVisita(SomministraVisitaParams params) {
         checkParams(params);
 
         Optional<VisitaMedica> findVisitaMedica = visitaMedicaRepository.findById(params.getIdVisita());

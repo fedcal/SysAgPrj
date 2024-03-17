@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFERMIERI+"/medicinnali")
+@RequestMapping(value = WebConstants.REST_CONTEX_BFF + WebConstants.REST_CONTEX_INFERMIERI+"/medicinali")
 @Tag(name = "Microservizio infermieri", description = "ms-infermieri")
 public class MedicinaleOperazioniController {
     @Autowired
@@ -55,13 +55,13 @@ public class MedicinaleOperazioniController {
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-prescrizioni-medicin ali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/lista-prescrizioni-medicinali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicinalePrescrizioneDto>>> getPrescrizioniMedicinaliFiltrati (@ParameterObject FiltraMedicinalePrescrizioniParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniInfermiereService.getPrescrizioniMedicinaliFiltrati(params)));
     }
 
-    @Operation(summary = "Lista sottoministrazione medicinali infermiere",
-            description = "Lista sottoministrazione medicinali infermiere")
+    @Operation(summary = "Lista somministrazione medicinali infermiere",
+            description = "Lista somministrazione medicinali infermiere")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -73,8 +73,8 @@ public class MedicinaleOperazioniController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniInfermiereService.getAllMedicinaleSottoministrazioni()));
     }
 
-    @Operation(summary = "Lista sottoministrazione medicinali filtrata",
-            description = "Lista sottoministrazione medicinali filtrata")
+    @Operation(summary = "Lista somministrazione medicinali filtrata",
+            description = "Lista somministrazione medicinali filtrata")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
@@ -89,7 +89,7 @@ public class MedicinaleOperazioniController {
     @Operation(summary = "Somministra medicinale",
             description = "Somministra medicinale")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Aggiunta sottoministrazione medicinali"),
+            @ApiResponse(responseCode = "200", description = "Aggiunta somministrazione medicinali"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })

@@ -121,19 +121,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoVisitaEffettuataInfermiereDto'
         '400':
           description: Errore elaborazione
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoVisitaEffettuataInfermiereDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoVisitaEffettuataInfermiereDto'
   /ms-infermiere/operazioni-medicinali/somministrazione-medicinale:
     post:
       tags:
@@ -382,25 +382,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '400':
           description: Errore elaborazione
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '404':
           description: Lista non trovata
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
   /ms-infermiere/operazioni-visite/lista-visite-effettuate-filtrate:
     get:
       tags:
@@ -478,25 +478,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '400':
           description: Errore elaborazione
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '404':
           description: Lista non trovata
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoListVisitaSottoministrazioneInfermiereDto'
+                $ref: '#/components/schemas/GenericResponseDtoListVisitaEffettuataInfermiereDto'
   /ms-infermiere/operazioni-visite/lista-prescrizioni:
     get:
       tags:
@@ -1010,7 +1010,7 @@ paths:
   /ms-infermiere/messagistica/ricevi-paziente:
     get:
       tags:
-        - MsInfermieriInfermieriMessaggisticaController
+        - MsInfermieriMessaggisticaController
       summary: Ricevi messaggio dal robot paziente
       description: Ricevi messaggio dal robot paziente
       operationId: msInfermiereRiceviMessaggioPaziente
@@ -1055,7 +1055,7 @@ paths:
   /ms-infermiere/messagistica/ricevi-meidco:
     get:
       tags:
-        - MsInfermieriInfermieriMessaggisticaController
+        - MsInfermieriMessaggisticaController
       summary: Ricevi messaggio dal robot medico
       description: Ricevi messaggio dal robot medico
       operationId: msInfermiereRiceviMessaggioMedico
@@ -1100,7 +1100,7 @@ paths:
   /ms-infermiere/messagistica/invio-paziente:
     get:
       tags:
-        - MsInfermieriInfermieriMessaggisticaController
+        - MsInfermieriMessaggisticaController
       summary: Invio messaggio al robot paziente
       description: Invio messaggio al robot paziente
       operationId: msInfermiereInvioMessaggioPaziente
@@ -1145,7 +1145,7 @@ paths:
   /ms-infermiere/messagistica/invio-medico:
     get:
       tags:
-        - MsInfermieriInfermieriMessaggisticaController
+        - MsInfermieriMessaggisticaController
       summary: Invio messaggio al robot medico
       description: Invio messaggio al robot medico
       operationId: msInfermiereInvioMessaggioMedico
@@ -1379,7 +1379,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+            $ref: '#/components/schemas/VisitaEffettuataMedicoDto'
         medicinaleCartella:
           uniqueItems: true
           type: array
@@ -1407,13 +1407,13 @@ components:
           type: string
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    GenericResponseDtoVisitaSottoministrazioneInfermiereDto:
+    GenericResponseDtoVisitaEffettuataInfermiereDto:
       type: object
       properties:
         esito:
           $ref: '#/components/schemas/Esito'
         payload:
-          $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+          $ref: '#/components/schemas/VisitaEffettuataInfermiereDto'
     MalattiaCartellaDto:
       type: object
       properties:
@@ -1600,6 +1600,30 @@ components:
           $ref: '#/components/schemas/MedicoDto'
         reparto:
           $ref: '#/components/schemas/RepartoDto'
+    VisitaEffettuataInfermiereDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    VisitaEffettuataMedicoDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
     VisitaMedicaCartellaDto:
       type: object
       properties:
@@ -1633,32 +1657,8 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+            $ref: '#/components/schemas/VisitaEffettuataMedicoDto'
     VisitaPrescrizioneDto:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/MedicoDto'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedicaDto'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneInfermiereDto:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        infermiere:
-          $ref: '#/components/schemas/InfermiereDto'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedicaDto'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneMedicoDto:
       type: object
       properties:
         idRelazione:
@@ -1756,7 +1756,7 @@ components:
           $ref: '#/components/schemas/ProfiloDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    GenericResponseDtoListVisitaSottoministrazioneInfermiereDto:
+    GenericResponseDtoListVisitaEffettuataInfermiereDto:
       type: object
       properties:
         esito:
@@ -1764,7 +1764,7 @@ components:
         payload:
           type: array
           items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+            $ref: '#/components/schemas/VisitaEffettuataInfermiereDto'
     GenericResponseDtoListVisitaPrescrizioneDto:
       type: object
       properties:

@@ -1,7 +1,6 @@
 package com.msinfermiere.entity.relationentites;
 
-import com.msinfermiere.entity.Infermiere;
-import com.msinfermiere.entity.Medicinale;
+import com.msinfermiere.entity.Medico;
 import com.msinfermiere.entity.paziente.CartellaClinica;
 import com.msinfermiere.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
@@ -9,16 +8,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "visita_sottoministrazione_infermiere")
-public class VisitaSottoministrazioneInfermiere {
+@Table(name = "visita_sottoministrazione_medico")
+public class VisitaEffettuataMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
     @ManyToOne
-    @JoinColumn(name = "id_infermiere",referencedColumnName="id_infermiere")
-    private Infermiere infermiere;
+    @JoinColumn(name = "id_medico",referencedColumnName="id_medico")
+    private Medico medico;
 
     @ManyToOne
     @JoinColumn(name = "id_visita",referencedColumnName="id_visita_medica")

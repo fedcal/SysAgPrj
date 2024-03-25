@@ -3,12 +3,12 @@ package com.msinfermiere.service;
 import com.msinfermiere.dto.params.visiteoperazioni.FiltraVisitePrescrizioniParams;
 import com.msinfermiere.dto.params.visiteoperazioni.FiltraVisiteSottoministrateInfermieriParams;
 import com.msinfermiere.dto.params.visiteoperazioni.SomministraVisitaParams;
+import com.msinfermiere.dto.relationentities.VisitaEffettuataInfermiereDto;
 import com.msinfermiere.dto.relationentities.VisitaPrescrizioneDto;
-import com.msinfermiere.dto.relationentities.VisitaSottoministrazioneInfermiereDto;
 import com.msinfermiere.entity.Infermiere;
 import com.msinfermiere.entity.paziente.CartellaClinica;
 import com.msinfermiere.entity.relationentites.VisitaPrescrizione;
-import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneInfermiere;
+import com.msinfermiere.entity.relationentites.VisitaEffettuataInfermiere;
 import com.msinfermiere.entity.visitamedica.VisitaMedica;
 import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfermiere.esito.Messaggio;
@@ -16,7 +16,7 @@ import com.msinfermiere.esito.constants.EsitoOperazioneEnum;
 import com.msinfermiere.esito.constants.SeveritaMessaggioEnum;
 import com.msinfermiere.exception.EsitoRuntimeException;
 import com.msinfermiere.mapper.relationentities.visitaprescrizione.VisitaPrescrizioneDtoMapper;
-import com.msinfermiere.mapper.relationentities.visitasottoministrzioneinfermiere.VisitaSottoministrazioneInfermiereDtoMapper;
+import com.msinfermiere.mapper.relationentities.visitaeffettuatainfermiere.VisitaEffettuataInfermiereDtoMapper;
 import com.msinfermiere.repository.InfermiereRepository;
 import com.msinfermiere.repository.paziente.CartellaClinicaRepository;
 import com.msinfermiere.repository.relationentites.VisitaPrescrizioneRepository;
@@ -137,10 +137,10 @@ public class VisitaOperazioniService {
         }
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteEffettuateInfermieri() {
+    public List<VisitaEffettuataInfermiereDto> getAllVisiteEffettuateInfermieri() {
 
-        List<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere = visitaSottoministrazioneInfermiereRepository.findAll();
-        if(visitaSottoministrazioneInfermiere.isEmpty()){
+        List<VisitaEffettuataInfermiere> visitaEffettuataInfermiere = visitaSottoministrazioneInfermiereRepository.findAll();
+        if(visitaEffettuataInfermiere.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessuna visita sottoministrata da nessun infermiere.").build());
@@ -149,15 +149,15 @@ public class VisitaOperazioniService {
         }else{
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
             esitoMessaggiRequestContextHolder.setOperationId("getAllVisiteSottoministrateInfermieri");
-            return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(visitaSottoministrazioneInfermiere);
+            return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(visitaEffettuataInfermiere);
         }
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteEffettuateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
+    public List<VisitaEffettuataInfermiereDto> getAllVisiteEffettuateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
         checkParams(params);
 
-        List<VisitaSottoministrazioneInfermiere> findById = findMedicinaleSottoministrazioneById(params);
-        List<VisitaSottoministrazioneInfermiere> findByString = findMedicinaleSottoministrazioneByString(params);
+        List<VisitaEffettuataInfermiere> findById = findMedicinaleSottoministrazioneById(params);
+        List<VisitaEffettuataInfermiere> findByString = findMedicinaleSottoministrazioneByString(params);
 
         if(findByString.isEmpty() && findById.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
@@ -167,50 +167,50 @@ public class VisitaOperazioniService {
             throw  new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
         if(!findById.isEmpty()){
-            return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(findById);
+            return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(findById);
         }
         if(!findByString.isEmpty()){
-            return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(findByString);
+            return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(findByString);
         }
         return new ArrayList<>();
     }
 
-    private List<VisitaSottoministrazioneInfermiere> findMedicinaleSottoministrazioneByString(FiltraVisiteSottoministrateInfermieriParams params) {
-        List<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiereList = new ArrayList<>();
+    private List<VisitaEffettuataInfermiere> findMedicinaleSottoministrazioneByString(FiltraVisiteSottoministrateInfermieriParams params) {
+        List<VisitaEffettuataInfermiere> visitaEffettuataInfermiereList = new ArrayList<>();
 
 
         if(StringUtils.hasLength(params.getNomeInfermiere())&& StringUtils.hasLength(params.getCognomeInfermiere())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeAndCognomeInfermiere(params.getNomeInfermiere(),params.getCognomeInfermiere());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeAndCognomeInfermiere(params.getNomeInfermiere(),params.getCognomeInfermiere());
         }
 
         if(StringUtils.hasLength(params.getNomeInfermiere())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeInfermiere(params.getNomeInfermiere());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeInfermiere(params.getNomeInfermiere());
         }
         if(StringUtils.hasLength(params.getCognomeInfermiere())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByCognomeInfermiere(params.getCognomeInfermiere());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByCognomeInfermiere(params.getCognomeInfermiere());
         }
         if(StringUtils.hasLength(params.getNomeVisita())){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeVisita(params.getNomeInfermiere());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeVisita(params.getNomeInfermiere());
         }
 
-        return visitaSottoministrazioneInfermiereList;
+        return visitaEffettuataInfermiereList;
     }
 
-    private List<VisitaSottoministrazioneInfermiere> findMedicinaleSottoministrazioneById(FiltraVisiteSottoministrateInfermieriParams params) {
-        List<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiereList = new ArrayList<>();
+    private List<VisitaEffettuataInfermiere> findMedicinaleSottoministrazioneById(FiltraVisiteSottoministrateInfermieriParams params) {
+        List<VisitaEffettuataInfermiere> visitaEffettuataInfermiereList = new ArrayList<>();
         if(params.getIdVisita()!=null){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdVisita(params.getIdVisita());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdVisita(params.getIdVisita());
         }
         if(params.getIdSottoministrazione()!=null){
-            visitaSottoministrazioneInfermiereList = Arrays.asList(visitaSottoministrazioneInfermiereRepository.findById(params.getIdSottoministrazione()).get());
+            visitaEffettuataInfermiereList = Arrays.asList(visitaSottoministrazioneInfermiereRepository.findById(params.getIdSottoministrazione()).get());
         }
         if(params.getIdInfermiere()!=null){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdInfemiere(params.getIdInfermiere());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdInfemiere(params.getIdInfermiere());
         }
         if(params.getIdCartellaClinica()!=null){
-            visitaSottoministrazioneInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
         }
-        return visitaSottoministrazioneInfermiereList;
+        return visitaEffettuataInfermiereList;
     }
 
     private void checkParams(FiltraVisiteSottoministrateInfermieriParams params) {
@@ -230,7 +230,7 @@ public class VisitaOperazioniService {
         }
     }
 
-    public VisitaSottoministrazioneInfermiereDto effettuaVisita(SomministraVisitaParams params) {
+    public VisitaEffettuataInfermiereDto effettuaVisita(SomministraVisitaParams params) {
         checkParams(params);
 
         Optional<VisitaMedica> findVisitaMedica = visitaMedicaRepository.findById(params.getIdVisita());
@@ -248,13 +248,13 @@ public class VisitaOperazioniService {
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
 
-        VisitaSottoministrazioneInfermiere visitaSottoministrazioneInfermiere = new VisitaSottoministrazioneInfermiere();
+        VisitaEffettuataInfermiere visitaEffettuataInfermiere = new VisitaEffettuataInfermiere();
 
-        visitaSottoministrazioneInfermiere.setVisitaMedica(findVisitaMedica.get());
-        visitaSottoministrazioneInfermiere.setInfermiere(findInfermiere.get());
-        visitaSottoministrazioneInfermiere.setCartellaClinica(findCartellaClinica.get());
+        visitaEffettuataInfermiere.setVisitaMedica(findVisitaMedica.get());
+        visitaEffettuataInfermiere.setInfermiere(findInfermiere.get());
+        visitaEffettuataInfermiere.setCartellaClinica(findCartellaClinica.get());
 
-        return VisitaSottoministrazioneInfermiereDtoMapper.INSTANCE.toDto(visitaSottoministrazioneInfermiereRepository.save(visitaSottoministrazioneInfermiere));
+        return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(visitaSottoministrazioneInfermiereRepository.save(visitaEffettuataInfermiere));
     }
 
     private void checkParams(SomministraVisitaParams params) {

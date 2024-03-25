@@ -6,7 +6,7 @@ import com.msinfermiere.dto.visitamedica.VisitaMedicaDto;
 import lombok.Data;
 
 @Data
-public class VisitaSottoministrazioneMedicoDto {
+public class VisitaEffettuataMedicoDto {
     private Integer idRelazione;
     private MedicoDto medico;
     private VisitaMedicaDto visitaMedica;

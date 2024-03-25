@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/messagistica")
-@Tag(name ="MsInfermieriInfermieriMessaggisticaController")
+@Tag(name ="MsInfermieriMessaggisticaController")
 public class InfermieriMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;

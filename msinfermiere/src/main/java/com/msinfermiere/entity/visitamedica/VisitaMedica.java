@@ -1,9 +1,8 @@
 package com.msinfermiere.entity.visitamedica;
 
-import com.msinfermiere.entity.relationentites.MedicinalePrescrizione;
 import com.msinfermiere.entity.relationentites.VisitaPrescrizione;
-import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneInfermiere;
-import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneMedico;
+import com.msinfermiere.entity.relationentites.VisitaEffettuataInfermiere;
+import com.msinfermiere.entity.relationentites.VisitaEffettuataMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,8 +30,8 @@ public class VisitaMedica {
     private Set<VisitaPrescrizione> visitaPrescrizione;
 
     @OneToMany(mappedBy = "visitaMedica")
-    private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
+    private Set<VisitaEffettuataMedico> visitaSottoministrazioneMedico;
 
     @OneToMany(mappedBy = "visitaMedica")
-    private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
+    private Set<VisitaEffettuataInfermiere> visitaEffettuataInfermiere;
 }

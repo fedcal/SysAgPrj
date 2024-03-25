@@ -1,23 +1,23 @@
-package com.msmedico.entity.relationentities;
+package com.msinfermiere.entity.relationentites;
 
-import com.msmedico.entity.Medico;
-import com.msmedico.entity.paziente.CartellaClinica;
-import com.msmedico.entity.visitamedica.VisitaMedica;
+import com.msinfermiere.entity.Infermiere;
+import com.msinfermiere.entity.paziente.CartellaClinica;
+import com.msinfermiere.entity.visitamedica.VisitaMedica;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "visita_sottoministrazione_medico")
-public class VisitaSottoministrazioneMedico {
+@Table(name = "visita_sottoministrazione_infermiere")
+public class VisitaEffettuataInfermiere {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
     @ManyToOne
-    @JoinColumn(name = "id_medico",referencedColumnName="id_medico")
-    private Medico medico;
+    @JoinColumn(name = "id_infermiere",referencedColumnName="id_infermiere")
+    private Infermiere infermiere;
 
     @ManyToOne
     @JoinColumn(name = "id_visita",referencedColumnName="id_visita_medica")

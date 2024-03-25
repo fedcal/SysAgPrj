@@ -5,7 +5,7 @@ import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisitePrescrizioni
 import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisiteSottoministrateInfermieriParams;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.SomministraVisitaParams;
 import com.bff.dto.msinfermiere.relationentities.VisitaPrescrizioneDto;
-import com.bff.dto.msinfermiere.relationentities.VisitaSottoministrazioneInfermiereDto;
+import com.bff.dto.msinfermiere.relationentities.VisitaEffettuataInfermiereDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.msinfermiere.MsInfermiereVisitaOperazioniService;
@@ -73,7 +73,7 @@ public class VisitaOperazioniController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/lista-visite-effettuate",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieri (){
+    public ResponseEntity<GenericResponseDto<List<VisitaEffettuataInfermiereDto>>> getAllVisiteSottoministrateInfermieri (){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteSottoministrateInfermieri()));
     }
 
@@ -87,7 +87,7 @@ public class VisitaOperazioniController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value ="/lista-visite-effettuate-filtrate",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieriFiltrate (FiltraVisiteSottoministrateInfermieriParams params){
+    public ResponseEntity<GenericResponseDto<List<VisitaEffettuataInfermiereDto>>> getAllVisiteSottoministrateInfermieriFiltrate (FiltraVisiteSottoministrateInfermieriParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteSottoministrateInfermieriFiltrate(params)));
     }
 
@@ -100,7 +100,7 @@ public class VisitaOperazioniController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value ="/effettua-visita-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneInfermiereDto>> somministraMedicinale (@ParameterObject SomministraVisitaParams params){
+    public ResponseEntity<GenericResponseDto<VisitaEffettuataInfermiereDto>> somministraMedicinale (@ParameterObject SomministraVisitaParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.somministraMedicinale(params)));
     }
 }

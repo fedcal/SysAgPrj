@@ -76,7 +76,6 @@ public class RepartoController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(repartoService.modificaReparto(params)));
     }
 
-    //TODO Aggiungere /add
     @Operation(summary = "Modifica informazioni reparto",
             description = "Restituisce il reparto modificato")
     @ApiResponses(value = {

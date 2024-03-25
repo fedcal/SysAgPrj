@@ -2,7 +2,7 @@ package com.msinfermiere.entity;
 
 import com.msinfermiere.entity.account.Profilo;
 import com.msinfermiere.entity.relationentites.MedicinaleSottoministrazione;
-import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneInfermiere;
+import com.msinfermiere.entity.relationentites.VisitaEffettuataInfermiere;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -34,5 +34,5 @@ public class Infermiere {
     private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
 
     @OneToMany(mappedBy = "infermiere")
-    private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazione;
+    private Set<VisitaEffettuataInfermiere> visitaSottoministrazione;
 }

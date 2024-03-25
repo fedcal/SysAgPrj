@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: 'Applicativo robot medici: Ms-medico'
+  description: Strato applicativo tramite il quale si espongono al bff tutti quei path e controller dedicati al recupero di informazioni di medici. Inoltre attraverso questo microservizio i medici possono scambiare messaggi con i pazienti e gli infermieri, oltre a prescrivere medicinali e a visitare i pazienti.
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8081
-    description: Generated server url
+    description: Ambiente locale
 paths:
   /ms-medico/gestione-medici/modify:
     put:
@@ -21,8 +26,6 @@ paths:
           schema:
             type: integer
             description: Id del medico da modificare
-            example: 1
-          example: 1
         - name: nuovoNome
           in: query
           description: Nuovo nome
@@ -30,8 +33,6 @@ paths:
           schema:
             type: string
             description: Nuovo nome
-            example: Roberto
-          example: Roberto
         - name: nuovoCognome
           in: query
           description: Nuovo cognome
@@ -39,8 +40,6 @@ paths:
           schema:
             type: string
             description: Nuovo cognome
-            example: Benigni
-          example: Benigni
         - name: nuovoTurno
           in: query
           description: Nuovo turno
@@ -48,8 +47,6 @@ paths:
           schema:
             type: string
             description: Nuovo turno
-            example: Lun. 08:30-16:30
-          example: Lun. 08:30-16:30
         - name: nuovoProfilo
           in: query
           description: Nuovo profilo
@@ -57,8 +54,6 @@ paths:
           schema:
             type: integer
             description: Nuovo profilo
-            example: 1
-          example: 1
       responses:
         '200':
           description: Medico modificato
@@ -88,28 +83,32 @@ paths:
       parameters:
         - name: idRelazione
           in: query
+          description: Id relazione
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id relazione
         - name: nuovaVisitaMedica
           in: query
+          description: Id nuova visita medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuova visita medica
         - name: nuovaCartellaClinica
           in: query
+          description: Id nuova cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuova cartella clinica
         - name: nuovoMedico
           in: query
+          description: Id nuovo medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuovo medico
       responses:
         '200':
           description: Prescrizione medicinale aggiunta
@@ -184,22 +183,25 @@ paths:
       parameters:
         - name: visitaMedica
           in: query
+          description: Id della visita medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della visita medica
         - name: cartellaClinica
           in: query
+          description: Id della cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella clinica
         - name: medico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
       responses:
         '200':
           description: Prescrizione medicinale aggiunta
@@ -235,28 +237,32 @@ paths:
       parameters:
         - name: idRelazione
           in: query
+          description: Id del paziente
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del paziente
         - name: nuovaOperazioneMedica
           in: query
+          description: Id nuova operazione medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuova operazione medica
         - name: nuovaCartellaClinica
           in: query
+          description: Id nuova cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuova cartella clinica
         - name: nuovoMedico
           in: query
+          description: Id nuovo medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id nuovo medico
       responses:
         '200':
           description: Prescrizione operazione aggiunta
@@ -286,22 +292,25 @@ paths:
       parameters:
         - name: operazioneMedica
           in: query
+          description: Id dell'operazione medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id dell'operazione medica
         - name: cartellaClinica
           in: query
+          description: Id della cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella clinica
         - name: medico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
       responses:
         '200':
           description: Prescrizione operazione aggiunta
@@ -331,28 +340,32 @@ paths:
       parameters:
         - name: idRelazione
           in: query
+          description: Id della relazione
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della relazione
         - name: nuovoMedicinale
           in: query
+          description: Id del nuovo medicinale
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del nuovo medicinale
         - name: nuovaCartellaClinica
           in: query
+          description: Id della nuova cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della nuova cartella clinica
         - name: nuovoMedico
           in: query
+          description: Id del nuovo medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del nuovo medico
       responses:
         '200':
           description: Prescrizione medicinale aggiunta
@@ -388,22 +401,25 @@ paths:
       parameters:
         - name: idMedico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
         - name: idMedicinale
           in: query
+          description: Id del medicinale
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medicinale
         - name: idCartellaClinica
           in: query
+          description: Id della cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella clinica
       responses:
         '200':
           description: Prescrizione medicinale aggiunta
@@ -444,8 +460,6 @@ paths:
           schema:
             type: string
             description: Nome del medico da aggiungere
-            example: Roberto
-          example: Roberto
         - name: cognome
           in: query
           description: Cognome del medico da aggiungere
@@ -453,8 +467,6 @@ paths:
           schema:
             type: string
             description: Cognome del medico da aggiungere
-            example: Benigni
-          example: Benigni
         - name: turno
           in: query
           description: Turno del medico da aggiungere
@@ -462,8 +474,6 @@ paths:
           schema:
             type: string
             description: Turno del medico da aggiungere
-            example: Lun. 08:30-16:30
-          example: Lun. 08:30-16:30
         - name: profilo
           in: query
           description: Profilo del medico da aggiungere
@@ -471,8 +481,6 @@ paths:
           schema:
             type: integer
             description: Profilo del medico da aggiungere
-            example: 1
-          example: 1
       responses:
         '200':
           description: Medico aggiunto
@@ -716,59 +724,74 @@ paths:
       parameters:
         - name: idRelazione
           in: query
+          description: Id della relazione
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della relazione
         - name: idMedico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
         - name: idCartella
           in: query
+          description: Id della cartella medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella medica
         - name: idVisita
           in: query
+          description: Id della visita medica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della visita medica
         - name: idPaziente
           in: query
+          description: Id del paziente
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del paziente
         - name: nomeVisita
           in: query
+          description: Nome visita medica
           required: false
           schema:
             type: string
+            description: Nome visita medica
         - name: nomeMedico
           in: query
+          description: Nome medico
           required: false
           schema:
             type: string
+            description: Nome medico
         - name: cognomeMedico
           in: query
+          description: Cognome medico
           required: false
           schema:
             type: string
+            description: Cognome medico
         - name: nomePaziente
           in: query
+          description: Nome paziente
           required: false
           schema:
             type: string
+            description: Nome paziente
         - name: cognomePaziente
           in: query
+          description: Cognome paziente
           required: false
           schema:
             type: string
+            description: Cognome paziente
       responses:
         '200':
           description: Prescrizione medicinale aggiunta
@@ -804,53 +827,67 @@ paths:
       parameters:
         - name: idMedico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
         - name: idCartella
           in: query
+          description: Id della cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella clinica
         - name: idOperazione
           in: query
+          description: Id dell'operazione
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id dell'operazione
         - name: idPaziente
           in: query
+          description: Id del paziente
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del paziente
         - name: nomeOperazione
           in: query
+          description: Nome operazione
           required: false
           schema:
             type: string
+            description: Nome operazione
         - name: nomeMedico
           in: query
+          description: Nome medico
           required: false
           schema:
             type: string
+            description: Nome medico
         - name: cognomeMedico
           in: query
+          description: Cognome medico
           required: false
           schema:
             type: string
+            description: Cognome medico
         - name: nomePaziente
           in: query
+          description: Nome paziente
           required: false
           schema:
             type: string
+            description: Nome paziente
         - name: cognomePaziente
           in: query
+          description: Cognome paziente
           required: false
           schema:
             type: string
+            description: Cognome paziente
       responses:
         '200':
           description: Elenco di tutte le prescrizioni delle operazioni
@@ -880,59 +917,74 @@ paths:
       parameters:
         - name: idRelazione
           in: query
+          description: Id della relazione
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della relazione
         - name: idMedico
           in: query
+          description: Id del medico
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medico
         - name: idMedicinale
           in: query
+          description: Id del medicinale
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del medicinale
         - name: idCartellaClinica
           in: query
+          description: Id della cartella clinica
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id della cartella clinica
         - name: idPaziente
           in: query
+          description: Id del paziente
           required: false
           schema:
             type: integer
-            format: int32
+            description: Id del paziente
         - name: nomeMedico
           in: query
+          description: Nome del medico
           required: false
           schema:
             type: string
+            description: Nome del medico
         - name: cognomeMedico
           in: query
+          description: Cognome del medico
           required: false
           schema:
             type: string
+            description: Cognome del medico
         - name: nomePaziente
           in: query
+          description: Nome del paziente
           required: false
           schema:
             type: string
+            description: Nome del paziente
         - name: cognomePaziente
           in: query
+          description: Cognome del paziente
           required: false
           schema:
             type: string
+            description: Cognome del paziente
         - name: nomeMedicinale
           in: query
+          description: Nome del medicinale
           required: false
           schema:
             type: string
+            description: Nome del medicinale
       responses:
         '200':
           description: Prescrizione operazione aggiunta
@@ -952,96 +1004,146 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoListMedicinalePrescrizioneDto'
-  /ms-medico/messagistica/ricevi-infermiere:
+  /ms-medico/pazienti/trova-cartella:
     get:
       tags:
-        - medici-messaggistica-controller
-      summary: Ricevi messaggio dal robot infermiere
-      description: Ricevi messaggio dal robot infermiere
-      operationId: msMedicoRiceviMessaggioInfermiere
+        - MsMedicoPazienteController
+      summary: Visualizza cartella clinica
+      description: Visualizza cartella clinica
+      operationId: msMedicoVisualizzaCartellaClinica
       parameters:
-        - name: messaggio
+        - name: idCartellaClinica
           in: query
-          description: Messaggio da inviare
+          description: Id cartella clinica
           required: false
           schema:
-            type: string
-            description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
-        - name: livelloUrgenza
+            type: integer
+            description: Id cartella clinica
+        - name: idPaziente
           in: query
-          description: Livello di urgenza del messaggio da inviare
+          description: Id paziente
           required: false
           schema:
-            type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+            type: integer
+            description: Id paziente
       responses:
         '200':
-          description: Messaggio inviato
+          description: Cartella clinica trovata
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
         '400':
           description: Errore elaborazione
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '404':
+          description: Cartella clinica non trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
-  /ms-medico/messagistica/invio-infermiere:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+  /ms-medico/pazienti/lista-pazienti:
     get:
       tags:
-        - medici-messaggistica-controller
-      summary: Invio messaggio al robot infermiere
-      description: Invio messaggio al robot infermiere
-      operationId: msMedicoInvioMessaggioInfermiere
-      parameters:
-        - name: messaggio
-          in: query
-          description: Messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
-        - name: livelloUrgenza
-          in: query
-          description: Livello di urgenza del messaggio da inviare
-          required: false
-          schema:
-            type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+        - MsMedicoPazienteController
+      summary: Lista pazienti
+      description: Lista pazienti
+      operationId: msMedicoListaPazienti
       responses:
         '200':
-          description: Messaggio inviato
+          description: Lista trovata
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
         '400':
           description: Errore elaborazione
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /ms-medico/pazienti/info-paziente:
+    get:
+      tags:
+        - MsMedicoPazienteController
+      summary: Lista pazienti filtrata
+      description: Lista pazienti filtrata
+      operationId: msMedicoInfoPazienti
+      parameters:
+        - name: idPaziente
+          in: query
+          description: Id del paziente
+          required: false
+          schema:
+            type: integer
+            description: Id del paziente
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
+        - name: dataNascita
+          in: query
+          description: Data di nascita
+          required: false
+          schema:
+            type: string
+            description: Data di nascita
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
   /ms-medico/messagistica/ricevi-paziente:
     get:
       tags:
@@ -1057,17 +1159,54 @@ paths:
           schema:
             type: string
             description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
         - name: livelloUrgenza
           in: query
-          description: Livello di urgenza del messaggio da inviare
+          description: Livello di urgenza del messaggio
           required: false
           schema:
             type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+            description: Livello di urgenza del messaggio
+      responses:
+        '200':
+          description: Messaggio inviato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-medico/messagistica/ricevi-infermiere:
+    get:
+      tags:
+        - medici-messaggistica-controller
+      summary: Ricevi messaggio dal robot infermiere
+      description: Ricevi messaggio dal robot infermiere
+      operationId: msMedicoRiceviMessaggioInfermiere
+      parameters:
+        - name: messaggio
+          in: query
+          description: Messaggio da inviare
+          required: false
+          schema:
+            type: string
+            description: Messaggio da inviare
+        - name: livelloUrgenza
+          in: query
+          description: Livello di urgenza del messaggio
+          required: false
+          schema:
+            type: string
+            description: Livello di urgenza del messaggio
       responses:
         '200':
           description: Messaggio inviato
@@ -1102,17 +1241,54 @@ paths:
           schema:
             type: string
             description: Messaggio da inviare
-            example: Ciao
-          example: Ciao
         - name: livelloUrgenza
           in: query
-          description: Livello di urgenza del messaggio da inviare
+          description: Livello di urgenza del messaggio
           required: false
           schema:
             type: string
-            description: Livello di urgenza del messaggio da inviare
-            example: LOW
-          example: LOW
+            description: Livello di urgenza del messaggio
+      responses:
+        '200':
+          description: Messaggio inviato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-medico/messagistica/invio-infermiere:
+    get:
+      tags:
+        - medici-messaggistica-controller
+      summary: Invio messaggio al robot infermiere
+      description: Invio messaggio al robot infermiere
+      operationId: msMedicoInvioMessaggioInfermiere
+      parameters:
+        - name: messaggio
+          in: query
+          description: Messaggio da inviare
+          required: false
+          schema:
+            type: string
+            description: Messaggio da inviare
+        - name: livelloUrgenza
+          in: query
+          description: Livello di urgenza del messaggio
+          required: false
+          schema:
+            type: string
+            description: Livello di urgenza del messaggio
       responses:
         '200':
           description: Messaggio inviato
@@ -1147,8 +1323,6 @@ paths:
           schema:
             type: integer
             description: Id del medico da trovare
-            example: 1
-          example: 1
         - name: nome
           in: query
           description: Nome del medico da trovare
@@ -1156,8 +1330,6 @@ paths:
           schema:
             type: string
             description: Nome del medico da trovare
-            example: Roberto
-          example: Roberto
         - name: cognome
           in: query
           description: Cognome del medico da trovare
@@ -1165,8 +1337,6 @@ paths:
           schema:
             type: string
             description: Cognome del medico da trovare
-            example: Benigni
-          example: Benigni
       responses:
         '200':
           description: Elenco di tutti i medici
@@ -1390,8 +1560,6 @@ components:
           format: int32
         gruppoSanguigno:
           type: string
-        paziente:
-          $ref: '#/components/schemas/PazienteDto'
         diagnosi:
           uniqueItems: true
           type: array
@@ -1426,7 +1594,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+            $ref: '#/components/schemas/VisitaEffettuataMedicoDto'
         medicinaleCartella:
           uniqueItems: true
           type: array
@@ -1437,18 +1605,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OperazionePrescrizioneDto'
-    ContattoRiferimentoDto:
-      type: object
-      properties:
-        idContatto:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        cognome:
-          type: string
-        numeroCellulare:
-          type: string
     DiagnosiDto:
       type: object
       properties:
@@ -1532,8 +1688,6 @@ components:
           $ref: '#/components/schemas/CartellaClinicaDto'
         medico:
           $ref: '#/components/schemas/MedicoDto'
-        refertoOperazione:
-          $ref: '#/components/schemas/RefertoOperazioneDto'
     OperazioneMedicaDto:
       type: object
       properties:
@@ -1558,42 +1712,6 @@ components:
           $ref: '#/components/schemas/CartellaClinicaDto'
         medico:
           $ref: '#/components/schemas/MedicoDto'
-    PazienteDto:
-      type: object
-      properties:
-        idPaziente:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        cognome:
-          type: string
-        dataNascita:
-          type: string
-        luogoNascita:
-          type: string
-        provinciaNascita:
-          type: string
-        contattoRiferimento:
-          $ref: '#/components/schemas/ContattoRiferimentoDto'
-        reparto:
-          $ref: '#/components/schemas/RepartoDto'
-        profilo:
-          $ref: '#/components/schemas/ProfiloDto'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinicaDto'
-    RefertoOperazioneDto:
-      type: object
-      properties:
-        idReferto:
-          type: integer
-          format: int32
-        tipologia:
-          type: string
-        descrizione:
-          type: string
-        dataReferto:
-          type: string
     RefertoVisitaMedicaDto:
       type: object
       properties:
@@ -1606,20 +1724,18 @@ components:
           type: string
         dataReferto:
           type: string
-    RepartoDto:
+    VisitaEffettuataMedicoDto:
       type: object
       properties:
-        idReparto:
+        idRelazione:
           type: integer
           format: int32
-        nomeReparto:
-          type: string
-        descrizione:
-          type: string
-        alaReparto:
-          type: string
-        capoReparto:
+        medico:
           $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
     VisitaMedicaCartellaDto:
       type: object
       properties:
@@ -1645,18 +1761,6 @@ components:
         descrizione:
           type: string
     VisitaPrescrizioneDto:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/MedicoDto'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedicaDto'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneMedicoDto:
       type: object
       properties:
         idRelazione:
@@ -1743,6 +1847,125 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+    CartellaClinicaOutputDto:
+      type: object
+      properties:
+        diagnosi:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosiDto'
+        malattie:
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartellaDto'
+        medicinali:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartellaDto'
+        medicinaliPrescritti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+        medicinaliSottoministrti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+        operazioni:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartellaDto'
+    GenericResponseDtoCartellaClinicaOutputDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartellaClinicaOutputDto'
+    InfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    MedicinaleSottoministrazioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    ContattoRiferimentoDto:
+      type: object
+      properties:
+        idContatto:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
+    GenericResponseDtoListPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PazienteDto'
+    PazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    RepartoDto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizione:
+          type: string
+        alaReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/MedicoDto'
     GenericResponseDtoListMedicoDto:
       type: object
       properties:

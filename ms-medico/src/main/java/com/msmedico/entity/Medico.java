@@ -46,5 +46,5 @@ public class Medico {
     private Set<VisitaPrescrizione> visitaPrescrizione;
 
     @OneToMany(mappedBy = "medico")
-    private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
+    private Set<VisitaEffettuataMedico> visitaSottoministrazioneMedico;
 }

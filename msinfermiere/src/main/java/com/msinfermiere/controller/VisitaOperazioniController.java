@@ -1,14 +1,11 @@
 package com.msinfermiere.controller;
 
 import com.msinfermiere.constants.WebConstants;
-import com.msinfermiere.dto.params.medicinaleoperazioni.SomministraMedicinaleParams;
 import com.msinfermiere.dto.params.visiteoperazioni.FiltraVisitePrescrizioniParams;
 import com.msinfermiere.dto.params.visiteoperazioni.FiltraVisiteSottoministrateInfermieriParams;
 import com.msinfermiere.dto.params.visiteoperazioni.SomministraVisitaParams;
-import com.msinfermiere.dto.relationentities.MedicinaleSottoministrazioneDto;
+import com.msinfermiere.dto.relationentities.VisitaEffettuataInfermiereDto;
 import com.msinfermiere.dto.relationentities.VisitaPrescrizioneDto;
-import com.msinfermiere.dto.relationentities.VisitaSottoministrazioneInfermiereDto;
-import com.msinfermiere.entity.relationentites.VisitaSottoministrazioneInfermiere;
 import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfermiere.esito.GenericResponseDto;
 import com.msinfermiere.service.VisitaOperazioniService;
@@ -41,7 +38,7 @@ public class VisitaOperazioniController {
             description = "Lista prescrizioni visite",
             operationId = "msInfermiereListaPrescrizioniVisite")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Lista prescrizioni visite"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -51,11 +48,11 @@ public class VisitaOperazioniController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisitePrescrizioni()));
     }
 
-    @Operation(summary = "Lista prescrizioni visite",
-            description = "Lista prescrizioni visite",
+    @Operation(summary = "Lista prescrizioni visite filtrata",
+            description = "Lista prescrizioni visite filtrata",
             operationId = "msInfermiereListaPrescrizioniVisiteFiltrata")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Lista prescrizioni visite filtrate"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -65,44 +62,44 @@ public class VisitaOperazioniController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getVisitePrescrizioniFiltrata(params)));
     }
 
-    @Operation(summary = "Lista prescrizioni visite",
-            description = "Lista prescrizioni visite",
-            operationId = "msInfermiereListaVisiteSottoministrateInfermierie")
+    @Operation(summary = "Lista visite effettuate",
+            description = "Lista visite effettuate",
+            operationId = "msInfermiereListaVisiteEffettuateInfermierie")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Lista visite effettuate"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-visite-sottoministrate",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieri (){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteSottoministrateInfermieri()));
+    @GetMapping(value ="/lista-visite-effettuate",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<VisitaEffettuataInfermiereDto>>> getAllVisiteEffettuateInfermieri (){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteEffettuateInfermieri()));
     }
 
-    @Operation(summary = "Lista prescrizioni visite filtrate",
-            description = "Lista prescrizioni visite filtrate",
-            operationId = "msInfermiereListaVisiteSottoministrateInfermierieFiltrate")
+    @Operation(summary = "Lista visite effettuate filtrata",
+            description = "Lista visite effettuate filtrata",
+            operationId = "msInfermiereListaVisiteEffettuateInfermierieFiltrata")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Lista visite effettuate filtrata"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-visite-sottoministrate-filtrate",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>>> getAllVisiteSottoministrateInfermieriFiltrate (@ParameterObject FiltraVisiteSottoministrateInfermieriParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteSottoministrateInfermieriFiltrate(params)));
+    @GetMapping(value ="/lista-visite-effettuate-filtrate",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<VisitaEffettuataInfermiereDto>>> getAllVisiteEffettuateInfermieriFiltrate (@ParameterObject FiltraVisiteSottoministrateInfermieriParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.getAllVisiteEffettuateInfermieriFiltrate(params)));
     }
 
-    @Operation(summary = "Somministra visita da parte di un infermiere",
-            description = "Somministra medicinale da parte di un infermiere",
-            operationId = "msInfermiereSomministraVisitaInfermiere")
+    @Operation(summary = "Effettua visita da parte di un infermiere",
+            description = "Effettua visita da parte di un infermiere",
+            operationId = "msInfermiereEffettuaVisitaInfermiere")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Aggiunta sottoministrazione vista da infermiere "),
+            @ApiResponse(responseCode = "200", description = "Aggiunta vista effettuata da parte di un infermiere "),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value ="/somministrazione-visita-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<VisitaSottoministrazioneInfermiereDto>> somministraVisita (@ParameterObject SomministraVisitaParams params){
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.somministraVisita(params)));
+    @PostMapping(value ="/effettua-visita-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<VisitaEffettuataInfermiereDto>> effettuaVisita (@ParameterObject SomministraVisitaParams params){
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(visitaOperazioniService.effettuaVisita(params)));
     }
 }

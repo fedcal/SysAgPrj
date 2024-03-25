@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(WebConstants.REST_CONTEX_STRING + "/messagistica")
-@Tag(name ="MsInfermieriInfermieriMessaggisticaController")
+@Tag(name ="MsInfermieriMessaggisticaController")
 public class InfermieriMessaggisticaController {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -51,8 +51,8 @@ public class InfermieriMessaggisticaController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.riceviMessaggioMedico(messaggioParamsDto)));
     }
 
-    @Operation(summary = "Invio messaggio al robot medico",
-            description = "Invio messaggio al robot medico",
+    @Operation(summary = "Invio messaggio al robot paziente",
+            description = "Invio messaggio al robot paziente",
             operationId = "msInfermiereInvioMessaggioPaziente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),
@@ -64,8 +64,8 @@ public class InfermieriMessaggisticaController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(messaggisticaService.invioMessaggioPaziente(messaggioParamsDto)));
     }
 
-    @Operation(summary = "Ricevi messaggio dal robot medico",
-            description = "Ricevi messaggio dal robot medico",
+    @Operation(summary = "Ricevi messaggio dal robot paziente",
+            description = "Ricevi messaggio dal robot paziente",
             operationId = "msInfermiereRiceviMessaggioPaziente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Messaggio inviato"),

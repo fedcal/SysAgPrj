@@ -14,7 +14,7 @@ public class CartellaClinicaDto {
     private Set<OperazioneCartellaDto> operazioneCartella;
     private Set<MedicinalePrescrizioneDto> medicinalePrescrizione;
     private Set<VisitaPrescrizioneDto> visitaPrescrizione;
-    private Set<VisitaSottoministrazioneMedicoDto> visitaSottoministrazioneMedico;
+    private Set<VisitaEffettuataMedicoDto> visitaSottoministrazioneMedico;
     private Set<MedicinaleCartellaDto> medicinaleCartella;
     private Set<OperazionePrescrizioneDto> operazionePrescrizione;
 }

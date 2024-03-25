@@ -4,7 +4,7 @@ import com.bff.dto.msinfermiere.params.MessaggioParamsDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
-import com.bff.msinfermiere.api.MsInfermieriInfermieriMessaggisticaControllerApi;
+import com.bff.msinfermiere.api.MsInfermieriMessaggisticaControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class MessaggisticaInfermiereService {
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
     @Autowired
-    private MsInfermieriInfermieriMessaggisticaControllerApi infermieriMessaggisticaControllerApi;
+    private MsInfermieriMessaggisticaControllerApi infermieriMessaggisticaControllerApi;
 
     public String invioMessaggioMedico(MessaggioParamsDto messaggioDto) {
         GenericResponseDto<String> messaggioMedico = genericResponseConverter.convertGenericResponse(

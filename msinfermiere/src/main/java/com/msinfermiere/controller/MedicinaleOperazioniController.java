@@ -48,11 +48,11 @@ public class MedicinaleOperazioniController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getAllMedicinalePrescrizioni()));
     }
 
-    @Operation(summary = "Lista prescrizioni medicinali",
-            description = "Lista prescrizioni medicinali",
+    @Operation(summary = "Lista prescrizioni medicinali filtrata",
+            description = "Lista prescrizioni medicinali filtrata",
             operationId = "msInfermiereListaPrescrizioniMedicinaliFiltrati")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali"),
+            @ApiResponse(responseCode = "200", description = "Lista prescrizioni medicinali filtrata"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -71,7 +71,7 @@ public class MedicinaleOperazioniController {
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-sottoministrazioni-medicinali-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/lista-somministrazione-medicinali-infermiere",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicinaleSottoministrazioneDto>>> getAllMedicinaleSottoministrazioni (){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getAllMedicinaleSottoministrazioni()));
     }
@@ -85,8 +85,8 @@ public class MedicinaleOperazioniController {
             @ApiResponse(responseCode = "404", description = "Lista non trovata"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/lista-sottoministrazioni-medicinali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<MedicinaleSottoministrazioneDto>>> getAllMedicinaleSottoministrazioniFiltrata (@ParameterObject FiltraMedicinaliSottoministrazioneParams params){
+    @GetMapping(value ="/lista-somministrazione-medicinali-filtrati",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<MedicinaleSottoministrazioneDto>>> getAllMedicinalesomministraziFiltrata (@ParameterObject FiltraMedicinaliSottoministrazioneParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(medicinaleOperazioniService.getAllMedicinaleSottoministrazioniFiltrata(params)));
     }
 

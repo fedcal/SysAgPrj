@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: 'Applicativo robot medici: Ms-medico'
+  description: Strato applicativo tramite il quale si espongono al bff tutti quei path e controller dedicati al recupero di informazioni di medici. Inoltre attraverso questo microservizio i medici possono scambiare messaggi con i pazienti e gli infermieri, oltre a prescrivere medicinali e a visitare i pazienti.
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8081
-    description: Generated server url
+    description: Ambiente locale
 paths:
   /ms-medico/gestione-medici/modify:
     put:
@@ -999,6 +1004,146 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoListMedicinalePrescrizioneDto'
+  /ms-medico/pazienti/trova-cartella:
+    get:
+      tags:
+        - MsMedicoPazienteController
+      summary: Visualizza cartella clinica
+      description: Visualizza cartella clinica
+      operationId: msMedicoVisualizzaCartellaClinica
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          description: Id cartella clinica
+          required: false
+          schema:
+            type: integer
+            description: Id cartella clinica
+        - name: idPaziente
+          in: query
+          description: Id paziente
+          required: false
+          schema:
+            type: integer
+            description: Id paziente
+      responses:
+        '200':
+          description: Cartella clinica trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '404':
+          description: Cartella clinica non trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaOutputDto'
+  /ms-medico/pazienti/lista-pazienti:
+    get:
+      tags:
+        - MsMedicoPazienteController
+      summary: Lista pazienti
+      description: Lista pazienti
+      operationId: msMedicoListaPazienti
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /ms-medico/pazienti/info-paziente:
+    get:
+      tags:
+        - MsMedicoPazienteController
+      summary: Lista pazienti filtrata
+      description: Lista pazienti filtrata
+      operationId: msMedicoInfoPazienti
+      parameters:
+        - name: idPaziente
+          in: query
+          description: Id del paziente
+          required: false
+          schema:
+            type: integer
+            description: Id del paziente
+        - name: nome
+          in: query
+          description: Nome del paziente
+          required: false
+          schema:
+            type: string
+            description: Nome del paziente
+        - name: cognome
+          in: query
+          description: Cognome del paziente
+          required: false
+          schema:
+            type: string
+            description: Cognome del paziente
+        - name: dataNascita
+          in: query
+          description: Data di nascita
+          required: false
+          schema:
+            type: string
+            description: Data di nascita
+      responses:
+        '200':
+          description: Lista trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '400':
+          description: Errore elaborazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '404':
+          description: Lista non trovata trovata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
   /ms-medico/messagistica/ricevi-paziente:
     get:
       tags:
@@ -1449,7 +1594,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+            $ref: '#/components/schemas/VisitaEffettuataMedicoDto'
         medicinaleCartella:
           uniqueItems: true
           type: array
@@ -1579,6 +1724,18 @@ components:
           type: string
         dataReferto:
           type: string
+    VisitaEffettuataMedicoDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
     VisitaMedicaCartellaDto:
       type: object
       properties:
@@ -1604,18 +1761,6 @@ components:
         descrizione:
           type: string
     VisitaPrescrizioneDto:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/MedicoDto'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedicaDto'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneMedicoDto:
       type: object
       properties:
         idRelazione:
@@ -1702,6 +1847,125 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+    CartellaClinicaOutputDto:
+      type: object
+      properties:
+        diagnosi:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosiDto'
+        malattie:
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartellaDto'
+        medicinali:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartellaDto'
+        medicinaliPrescritti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+        medicinaliSottoministrti:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+        operazioni:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartellaDto'
+    GenericResponseDtoCartellaClinicaOutputDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartellaClinicaOutputDto'
+    InfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        turno:
+          type: string
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+    MedicinaleSottoministrazioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    ContattoRiferimentoDto:
+      type: object
+      properties:
+        idContatto:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
+    GenericResponseDtoListPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PazienteDto'
+    PazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        profilo:
+          $ref: '#/components/schemas/ProfiloDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    RepartoDto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizione:
+          type: string
+        alaReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/MedicoDto'
     GenericResponseDtoListMedicoDto:
       type: object
       properties:

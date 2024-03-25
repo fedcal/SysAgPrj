@@ -1,11 +1,10 @@
 package com.bff.service.msinfermiere;
 
-import com.bff.controller.msinfermiere.VisitaOperazioniController;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisitePrescrizioniParams;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.FiltraVisiteSottoministrateInfermieriParams;
 import com.bff.dto.msinfermiere.params.visiteoperazioni.SomministraVisitaParams;
 import com.bff.dto.msinfermiere.relationentities.VisitaPrescrizioneDto;
-import com.bff.dto.msinfermiere.relationentities.VisitaSottoministrazioneInfermiereDto;
+import com.bff.dto.msinfermiere.relationentities.VisitaEffettuataInfermiereDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
@@ -41,26 +40,26 @@ public class MsInfermiereVisitaOperazioniService {
         return visitePrescrizioniFiltrata.getPayload();
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteSottoministrateInfermieri() {
-        GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>> allVisiteSottoministrateInfermieri = genericResponseConverter.convertGenericResponseList(
-                visitaOperazioniControllerApi.msInfermiereListaPrescrizioniVisite(), VisitaSottoministrazioneInfermiereDto.class);
+    public List<VisitaEffettuataInfermiereDto> getAllVisiteSottoministrateInfermieri() {
+        GenericResponseDto<List<VisitaEffettuataInfermiereDto>> allVisiteSottoministrateInfermieri = genericResponseConverter.convertGenericResponseList(
+                visitaOperazioniControllerApi.msInfermiereListaPrescrizioniVisite(), VisitaEffettuataInfermiereDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(allVisiteSottoministrateInfermieri.getEsito().getMessaggi());
         return allVisiteSottoministrateInfermieri.getPayload();
     }
 
-    public List<VisitaSottoministrazioneInfermiereDto> getAllVisiteSottoministrateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
-        GenericResponseDto<List<VisitaSottoministrazioneInfermiereDto>> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponseList(
-                visitaOperazioniControllerApi.msInfermiereListaVisiteSottoministrateInfermierieFiltrate(params.getIdSottoministrazione(),
+    public List<VisitaEffettuataInfermiereDto> getAllVisiteSottoministrateInfermieriFiltrate(FiltraVisiteSottoministrateInfermieriParams params) {
+        GenericResponseDto<List<VisitaEffettuataInfermiereDto>> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponseList(
+                visitaOperazioniControllerApi.msInfermiereListaVisiteEffettuateInfermierieFiltrata(params.getIdSottoministrazione(),
                         params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica(), params.getNomeInfermiere(),
                         params.getCognomeInfermiere(), params.getNomeVisita(), params.getNomePaziente(), params.getCognomePaziente()),
-                VisitaSottoministrazioneInfermiereDto.class);
+                VisitaEffettuataInfermiereDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(allVisiteSottoministrateInfermieriFiltrate.getEsito().getMessaggi());
         return allVisiteSottoministrateInfermieriFiltrate.getPayload();
     }
 
-    public VisitaSottoministrazioneInfermiereDto somministraMedicinale(SomministraVisitaParams params) {
-        GenericResponseDto<VisitaSottoministrazioneInfermiereDto> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponse(
-                visitaOperazioniControllerApi.msInfermiereSomministraVisitaInfermiere(params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica()), VisitaSottoministrazioneInfermiereDto.class);
+    public VisitaEffettuataInfermiereDto somministraMedicinale(SomministraVisitaParams params) {
+        GenericResponseDto<VisitaEffettuataInfermiereDto> allVisiteSottoministrateInfermieriFiltrate = genericResponseConverter.convertGenericResponse(
+                visitaOperazioniControllerApi.msInfermiereEffettuaVisitaInfermiere(params.getIdInfermiere(), params.getIdVisita(), params.getIdCartellaClinica()), VisitaEffettuataInfermiereDto.class);
         esitoMessaggiRequestContextHolder.getMessaggi().addAll(allVisiteSottoministrateInfermieriFiltrate.getEsito().getMessaggi());
         return allVisiteSottoministrateInfermieriFiltrate.getPayload();
     }

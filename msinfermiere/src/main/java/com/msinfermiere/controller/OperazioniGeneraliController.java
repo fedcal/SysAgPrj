@@ -107,7 +107,7 @@ public class OperazioniGeneraliController {
             @ApiResponse(responseCode = "404", description = "Infermiere non trovato"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/modifica",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/ricerca-tramite-turni",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<InfermiereDto>>> ricercaInfermiereTramiteTurno (@ParameterObject InfermieriTurniParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(operazioniGeneraliService.ricercaInfermiereTramiteTurno(params)));
     }

@@ -8,7 +8,7 @@ import com.msmedico.esito.Messaggio;
 import com.msmedico.esito.constants.EsitoOperazioneEnum;
 import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import com.msmedico.exception.EsitoRuntimeException;
-import com.msmedico.msinfermiere.api.InfermieriMessaggisticaControllerApi;
+import com.msmedico.msinfermiere.api.MsInfermieriMessaggisticaControllerApi;
 import com.msmedico.mspaziente.api.MsPazientiMessaggisticaControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class MessaggisticaService {
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     @Autowired
-    private InfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
+    private MsInfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;
     @Autowired
     private MsPazientiMessaggisticaControllerApi pazientiMessaggisticaControllerApi;
     public String invioMessaggioInfermiere(MessaggioParamsDto messaggioDto) {

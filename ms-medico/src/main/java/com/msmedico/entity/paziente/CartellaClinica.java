@@ -37,7 +37,7 @@ public class CartellaClinica {
     private Set<VisitaPrescrizione> visitaPrescrizione;
 
     @OneToMany(mappedBy = "cartellaClinica")
-    private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
+    private Set<VisitaEffettuataMedico> visitaSottoministrazioneMedico;
 
     @OneToMany(mappedBy = "cartellaClinica")
     private Set<MedicinaleCartella> medicinaleCartella;

@@ -1,7 +1,7 @@
 package com.bff.dto.msinfermiere.visitamedica;
 
 import com.bff.dto.msinfermiere.relationentities.VisitaPrescrizioneDto;
-import com.bff.dto.msinfermiere.relationentities.VisitaSottoministrazioneMedicoDto;
+import com.bff.dto.msinfermiere.relationentities.VisitaEffettuataMedicoDto;
 import lombok.Data;
 
 import java.util.Set;
@@ -12,5 +12,5 @@ public class VisitaMedicaDto {
     private String tipologia;
     private String descrizione;
     private Set<VisitaPrescrizioneDto> visitaPrescrizione;
-    private Set<VisitaSottoministrazioneMedicoDto> visitaSottoministrazioneMedico;
+    private Set<VisitaEffettuataMedicoDto> visitaSottoministrazioneMedico;
 }

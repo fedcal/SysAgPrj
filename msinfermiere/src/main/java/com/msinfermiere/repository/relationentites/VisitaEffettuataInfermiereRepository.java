@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VisitaSottoministrazioneInfermiereRepository extends JpaRepository<VisitaEffettuataInfermiere,Integer> {
+public interface VisitaEffettuataInfermiereRepository extends JpaRepository<VisitaEffettuataInfermiere,Integer> {
     @Query("SELECT medSott FROM VisitaEffettuataInfermiere medSott WHERE " +
             "medSott.visitaMedica.idVisitaMedica = :idMedicinale")
     List<VisitaEffettuataInfermiere> findByIdVisita(@Param("idMedicinale") Integer idMedicinale);

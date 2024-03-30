@@ -20,7 +20,7 @@ import com.msinfermiere.mapper.relationentities.visitaeffettuatainfermiere.Visit
 import com.msinfermiere.repository.InfermiereRepository;
 import com.msinfermiere.repository.paziente.CartellaClinicaRepository;
 import com.msinfermiere.repository.relationentites.VisitaPrescrizioneRepository;
-import com.msinfermiere.repository.relationentites.VisitaSottoministrazioneInfermiereRepository;
+import com.msinfermiere.repository.relationentites.VisitaEffettuataInfermiereRepository;
 import com.msinfermiere.repository.visitamedica.VisitaMedicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,7 @@ public class VisitaOperazioniService {
     private VisitaPrescrizioneRepository visitaPrescrizioneRepository;
 
     @Autowired
-    private VisitaSottoministrazioneInfermiereRepository visitaSottoministrazioneInfermiereRepository;
+    private VisitaEffettuataInfermiereRepository visitaEffettuataInfermiereRepository;
 
     @Autowired
     private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
@@ -139,7 +139,7 @@ public class VisitaOperazioniService {
 
     public List<VisitaEffettuataInfermiereDto> getAllVisiteEffettuateInfermieri() {
 
-        List<VisitaEffettuataInfermiere> visitaEffettuataInfermiere = visitaSottoministrazioneInfermiereRepository.findAll();
+        List<VisitaEffettuataInfermiere> visitaEffettuataInfermiere = visitaEffettuataInfermiereRepository.findAll();
         if(visitaEffettuataInfermiere.isEmpty()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
@@ -180,17 +180,17 @@ public class VisitaOperazioniService {
 
 
         if(StringUtils.hasLength(params.getNomeInfermiere())&& StringUtils.hasLength(params.getCognomeInfermiere())){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeAndCognomeInfermiere(params.getNomeInfermiere(),params.getCognomeInfermiere());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByNomeAndCognomeInfermiere(params.getNomeInfermiere(),params.getCognomeInfermiere());
         }
 
         if(StringUtils.hasLength(params.getNomeInfermiere())){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeInfermiere(params.getNomeInfermiere());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByNomeInfermiere(params.getNomeInfermiere());
         }
         if(StringUtils.hasLength(params.getCognomeInfermiere())){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByCognomeInfermiere(params.getCognomeInfermiere());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByCognomeInfermiere(params.getCognomeInfermiere());
         }
         if(StringUtils.hasLength(params.getNomeVisita())){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByNomeVisita(params.getNomeInfermiere());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByNomeVisita(params.getNomeInfermiere());
         }
 
         return visitaEffettuataInfermiereList;
@@ -199,16 +199,16 @@ public class VisitaOperazioniService {
     private List<VisitaEffettuataInfermiere> findMedicinaleSottoministrazioneById(FiltraVisiteSottoministrateInfermieriParams params) {
         List<VisitaEffettuataInfermiere> visitaEffettuataInfermiereList = new ArrayList<>();
         if(params.getIdVisita()!=null){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdVisita(params.getIdVisita());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByIdVisita(params.getIdVisita());
         }
         if(params.getIdSottoministrazione()!=null){
-            visitaEffettuataInfermiereList = Arrays.asList(visitaSottoministrazioneInfermiereRepository.findById(params.getIdSottoministrazione()).get());
+            visitaEffettuataInfermiereList = Arrays.asList(visitaEffettuataInfermiereRepository.findById(params.getIdSottoministrazione()).get());
         }
         if(params.getIdInfermiere()!=null){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdInfemiere(params.getIdInfermiere());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByIdInfemiere(params.getIdInfermiere());
         }
         if(params.getIdCartellaClinica()!=null){
-            visitaEffettuataInfermiereList = visitaSottoministrazioneInfermiereRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
+            visitaEffettuataInfermiereList = visitaEffettuataInfermiereRepository.findByIdCartellaClinica(params.getIdCartellaClinica());
         }
         return visitaEffettuataInfermiereList;
     }
@@ -254,7 +254,7 @@ public class VisitaOperazioniService {
         visitaEffettuataInfermiere.setInfermiere(findInfermiere.get());
         visitaEffettuataInfermiere.setCartellaClinica(findCartellaClinica.get());
 
-        return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(visitaSottoministrazioneInfermiereRepository.save(visitaEffettuataInfermiere));
+        return VisitaEffettuataInfermiereDtoMapper.INSTANCE.toDto(visitaEffettuataInfermiereRepository.save(visitaEffettuataInfermiere));
     }
 
     private void checkParams(SomministraVisitaParams params) {

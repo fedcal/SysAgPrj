@@ -3,11 +3,12 @@ package com.msmedico.mapper.paziente.paziente;
 import com.msmedico.dto.paziente.PazienteDto;
 import com.msmedico.entity.paziente.Paziente;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PazienteDtoMapper {
     PazienteDtoMapper INSTANCE = Mappers.getMapper(PazienteDtoMapper.class);
 

@@ -33,11 +33,11 @@ public class Paziente {
     @JoinColumn(name = "contatto_riferimento", referencedColumnName = "id_contatto")
     private ContattoRiferimento contattoRiferimento;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_reparto", referencedColumnName = "id_reparto")
     private Reparto reparto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 

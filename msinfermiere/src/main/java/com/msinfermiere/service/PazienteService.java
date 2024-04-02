@@ -24,6 +24,7 @@ import com.msinfermiere.mapper.relationentities.operazionecartella.OperazioneCar
 import com.msinfermiere.repository.paziente.DiagnosiRepository;
 import com.msinfermiere.repository.paziente.PazienteRepository;
 import com.msinfermiere.repository.relationentites.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class PazienteService {
     private MedicinaleSottoministrazioneRepository medicinaleSottoministrazioneRepository;
     @Autowired
     private OperazioneCartellaRepository operazioneCartellaRepository;
-
+    @Transactional
     public List<PazienteDto> getAllPazienti() {
         List<Paziente> findAll = pazienteRepository.findAll();
         if(findAll.isEmpty()){

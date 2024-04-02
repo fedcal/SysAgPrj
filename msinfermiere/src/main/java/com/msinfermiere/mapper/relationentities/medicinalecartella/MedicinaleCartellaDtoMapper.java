@@ -5,10 +5,11 @@ import com.msinfermiere.dto.relationentities.MedicinaleCartellaDto;
 import com.msinfermiere.entity.Medicinale;
 import com.msinfermiere.entity.relationentites.MedicinaleCartella;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MedicinaleCartellaDtoMapper {
     MedicinaleCartellaDtoMapper INSTANCE = Mappers.getMapper(MedicinaleCartellaDtoMapper.class);
 

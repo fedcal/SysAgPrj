@@ -21,6 +21,6 @@ public class OperazioneAccount {
     @Column(name = "descrizione")
     private String descrizione;
 
-    @OneToMany(mappedBy = "operazioneAccount")
+    @OneToMany(mappedBy = "operazioneAccount", fetch = FetchType.EAGER)
     private Set<OperazioneConsentita> operazioneConsentitaSet;
 }

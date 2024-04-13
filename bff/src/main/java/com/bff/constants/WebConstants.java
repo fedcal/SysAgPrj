@@ -7,4 +7,5 @@ public class WebConstants {
     public static final String REST_CONTEX_INFO = "/info";
     public static final String REST_CONTEX_MEDICI = "/medici";
     public static final String REST_CONTEX_INFERMIERI = "/infermieri";
+    public static final String REST_CONTEX_PAZIENTI = "/pazienti";
 }

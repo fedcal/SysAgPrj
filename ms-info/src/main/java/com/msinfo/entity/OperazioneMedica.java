@@ -24,9 +24,9 @@ public class OperazioneMedica {
     @Column(name = "tipologia")
     private String tipologia;
 
-    @OneToMany(mappedBy = "operazioneMedica")
+    @OneToMany(mappedBy = "operazioneMedica", fetch = FetchType.EAGER)
     private Set<OperazioneCartella> operazioneCartella;
 
-    @OneToMany(mappedBy = "operazioneMedica")
+    @OneToMany(mappedBy = "operazioneMedica", fetch = FetchType.EAGER)
     private Set<OperazionePrescrizione> operazionePrescrizione;
 }

@@ -22,7 +22,7 @@ public class Infermiere {
     @Column(name = "turno")
     private String turno;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 }

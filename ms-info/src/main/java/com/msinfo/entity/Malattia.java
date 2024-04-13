@@ -20,6 +20,6 @@ public class Malattia {
     @Column(name="descrizione")
     private String descrizione;
 
-    @OneToMany(mappedBy = "malattia")
+    @OneToMany(mappedBy = "malattia", fetch = FetchType.EAGER)
     private Set<MalattiaCartella> cartelle;
 }

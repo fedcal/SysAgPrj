@@ -3,11 +3,12 @@ package com.msinfo.mapper.relationentities.repartoinfermiere;
 import com.msinfo.dto.RepartoInfermiereDto;
 import com.msinfo.entity.relantionentities.RepartoInfermiere;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RepartoInfermiereEntityMapper {
     RepartoInfermiereEntityMapper INSTANCE = Mappers.getMapper(RepartoInfermiereEntityMapper.class);
 

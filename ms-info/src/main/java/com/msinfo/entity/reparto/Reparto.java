@@ -30,9 +30,9 @@ public class Reparto {
     @JoinColumn(name = "capo_reparto", referencedColumnName = "id_medico")
     private Medico capoReparto;
 
-    @OneToMany(mappedBy = "reparto")
+    @OneToMany(mappedBy = "reparto", fetch = FetchType.EAGER)
     private Set<RepartoMedico> repartoMedicoSet;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="reparto")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="reparto")
     private Set<Paziente> repartoPazienteSet;
 }

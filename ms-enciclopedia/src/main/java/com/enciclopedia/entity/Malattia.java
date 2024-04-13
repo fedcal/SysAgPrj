@@ -27,6 +27,6 @@ public class Malattia {
     @Column(name="descrizione")
     private String descrizione;
 
-    @OneToMany(mappedBy = "idMalattia")
+    @OneToMany(mappedBy = "idMalattia",fetch = FetchType.EAGER)
     Set<SintomoMalattia> sintomoMalattia;
 }

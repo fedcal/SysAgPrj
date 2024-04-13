@@ -14,11 +14,11 @@ public class OperazioneConsentita {
     @Column(name = "id_operazione_consentita")
     private Integer idOperazioneConentita;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account")
     private Profilo profilo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "operazione")
     private OperazioneAccount operazioneAccount;
 }

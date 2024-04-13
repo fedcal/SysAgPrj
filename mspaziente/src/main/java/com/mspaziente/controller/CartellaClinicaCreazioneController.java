@@ -121,7 +121,7 @@ public class CartellaClinicaCreazioneController {
     //aggiunta medicinale sottoministrazione
     @Operation(summary = "Aggiungi prescrizione medicinale a una cartella clinica",
             description = "Aggiungi prescrizione medicinale a una cartella clinica",
-            operationId = "msPazienteAggiungiPrescrizioneMedicinaleCartellaClinca")
+            operationId = "msPazienteAggiungiPrescrizioneMedicinalePrescrizione")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Prescrizione medicinale aggiunto"),
             @ApiResponse(responseCode = "400", description = "Errore elaborazione"),

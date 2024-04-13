@@ -678,7 +678,7 @@ paths:
         - MsPazienteCartellaClinicaCreazioneController
       summary: Aggiungi prescrizione medicinale a una cartella clinica
       description: Aggiungi prescrizione medicinale a una cartella clinica
-      operationId: msPazienteAggiungiPrescrizioneMedicinaleCartellaClinca_1
+      operationId: msPazienteAggiungiPrescrizioneMedicinalePrescrizione
       parameters:
         - name: idInfermiere
           in: query

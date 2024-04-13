@@ -16,19 +16,19 @@ public class OperazioneCartella {
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_operazione",referencedColumnName = "id_operazione_medica")
     private OperazioneMedica operazioneMedica;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cartella",referencedColumnName = "id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_medico",referencedColumnName = "id_medico")
     private Medico medico;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_referto", referencedColumnName = "id_referto")
     private RefertoOperazione refertoOperazione;
 }

@@ -14,11 +14,11 @@ public class SintomoMalattia {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idRelazione;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_malattia",referencedColumnName="id_malattia")
     private Malattia idMalattia;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_sintomo",referencedColumnName="id_sintomo")
     private Sintomo idSintomo;
 

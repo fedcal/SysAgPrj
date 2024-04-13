@@ -26,11 +26,11 @@ public class Medico {
     private String turno;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
 
-    @OneToMany(mappedBy = "medico")
+    @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
     private Set<RepartoMedico> repartoMedicoSet;
 
 }

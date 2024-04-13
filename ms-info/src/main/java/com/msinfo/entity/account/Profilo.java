@@ -24,15 +24,15 @@ public class Profilo {
     @Column(name = "descrizione")
     private String descrizione;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "profilo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "profilo")
     private Set<OperazioneConsentita> operazioneConsentitaSet;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Medico> medico;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Infermiere> infermieri;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="profilo")
     private Set<Paziente> pazienti;
 }

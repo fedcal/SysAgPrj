@@ -14,11 +14,11 @@ public class RepartoMedico {
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_medico")
     private Medico medico;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_reparto")
     private Reparto reparto;
 }

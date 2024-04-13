@@ -15,15 +15,15 @@ public class VisitaPrescrizione {
     @Column(name = "id_relazione")
     private Integer idRelazione;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_medico",referencedColumnName="id_medico")
     private Medico medico;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_visita",referencedColumnName="id_visita_medica")
     private VisitaMedica visitaMedica;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cartella_clinica",referencedColumnName="id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 }

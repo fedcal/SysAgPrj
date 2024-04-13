@@ -18,7 +18,7 @@ public class Diagnosi {
     @Column(name = "descrizione")
     private String descrizione;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cartella_clinica")
     private CartellaClinica cartellaClinica;
 }

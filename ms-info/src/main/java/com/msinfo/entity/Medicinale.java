@@ -26,9 +26,9 @@ public class Medicinale {
     @Column(name = "dosaggio")
     private String dosaggio;
 
-    @OneToMany(mappedBy = "medicinale")
+    @OneToMany(mappedBy = "medicinale", fetch = FetchType.EAGER)
     private Set<MedicinaleCartella> medicinaleCartella;
 
-    @OneToMany(mappedBy = "medicinale")
+    @OneToMany(mappedBy = "medicinale", fetch = FetchType.EAGER)
     private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
 }

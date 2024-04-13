@@ -27,12 +27,12 @@ public class VisitaMedica {
     @Column(name = "descrizione")
     private String descrizione;
 
-    @OneToMany(mappedBy = "visitaMedica")
+    @OneToMany(mappedBy = "visitaMedica", fetch = FetchType.EAGER)
     private Set<VisitaPrescrizione> visitaPrescrizione;
 
-    @OneToMany(mappedBy = "visitaMedica")
+    @OneToMany(mappedBy = "visitaMedica", fetch = FetchType.EAGER)
     private Set<VisitaSottoministrazioneMedico> visitaSottoministrazioneMedico;
 
-    @OneToMany(mappedBy = "visitaMedica")
+    @OneToMany(mappedBy = "visitaMedica", fetch = FetchType.EAGER)
     private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazioneInfermiere;
 }

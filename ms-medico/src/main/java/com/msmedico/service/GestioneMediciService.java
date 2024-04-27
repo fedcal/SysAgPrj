@@ -187,7 +187,7 @@ public class GestioneMediciService {
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
                     .codMsg("Nessun profilo trovato.").build());
-            esitoMessaggiRequestContextHolder.setOperationId("modifyMedico");
+            esitoMessaggiRequestContextHolder.setOperationId("addMedico");
             throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
         }
 

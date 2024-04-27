@@ -328,4 +328,25 @@ public class GestioneMediciControllerTest {
         }
         Assertions.assertTrue(exception);
     }
+    @Test
+    @Sql("/sql/gestioneMediciController.sql")
+    void addMedicoProfilo() {
+        boolean exception = false;
+        GenericResponseDto<MedicoDto> responseDto= null;
+
+        try {
+            MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(URL+"/add")
+                    .param("nome","Piergiorgio")
+                    .param("profilo","2")
+            ).andReturn().getResponse();
+            responseDto = objectMapper.readValue(response.getContentAsByteArray(), new TypeReference<>() {
+            });
+
+        }catch (Exception e){
+            exception = true;
+        }
+        assertThat(responseDto.getEsito().getOperationId()).isEqualTo("addMedico");
+        assertThat(responseDto.getEsito().getMessaggi().get(0).getSeverita()).isEqualTo(SeveritaMessaggioEnum.ERROR);
+        assertThat(responseDto.getEsito().getMessaggi().get(0).getCodMsg()).isEqualTo("Nessun profilo trovato.");
+    }
 }

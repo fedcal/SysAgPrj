@@ -25,10 +25,4 @@ public class Profilo {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "profilo")
     private Set<OperazioneConsentita> operazioneConsentitaSet;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
-    private Set<Medico> medico;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="profilo")
-    private Set<Paziente> pazienti;
 }

@@ -52,9 +52,9 @@ public class GestioneMediciService {
     }
 
     public List<MedicoDto> findMedico(FindMedicoParams params) {
-        List<MedicoDto> listaMedico = new ArrayList<>();
+        checkParams(params);
 
-        Optional<Medico> findMedico =Optional.empty();
+        Optional<Medico> findMedico = Optional.empty();
         List<Medico> listFindMedico = new ArrayList<>();
 
 
@@ -84,6 +84,18 @@ public class GestioneMediciService {
             return Arrays.asList(MedicoDtoMapper.INSTANCE.toDto(findMedico.get()));
         }
         return new ArrayList<>();
+    }
+
+    private void checkParams(FindMedicoParams params) {
+        if((params.getNome()==null || params.getNome().trim().isEmpty())
+                && (params.getCognome()==null || params.getCognome().trim().isEmpty())
+                && params.getIdMedico() == null){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
+                    .codMsg("Inserire almeno un parametro di ricerca.").build());
+            esitoMessaggiRequestContextHolder.setOperationId("findMedico");
+            throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public String deleteMedico(Integer id) {

@@ -49,7 +49,7 @@ public class GestioneMediciController {
             @ApiResponse(responseCode = "404", description = "Nessun elenco disponibile"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value ="/find",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/find-medico",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<MedicoDto>>> findMedico(@ParameterObject FindMedicoParams params){
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestioneMediciService.findMedico(params)));
     }

@@ -27,6 +27,4 @@ public class Infermiere {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
-    @OneToMany(mappedBy = "infermiere")
-    private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
 }

@@ -16,6 +16,7 @@ import com.msmedico.mapper.medico.MedicoDtoMapper;
 import com.msmedico.mapper.medico.MedicoEntityMapper;
 import com.msmedico.repository.MedicoRepository;
 import com.msmedico.repository.account.ProfiloRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,15 +28,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class GestioneMediciService {
-    @Autowired
-    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
-    @Autowired
-    private MedicoRepository medicoRepository;
+    private final EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
 
-    @Autowired
-    private ProfiloRepository profiloRepository;
+    private final MedicoRepository medicoRepository;
+
+    private final ProfiloRepository profiloRepository;
 
     public List<MedicoDto> findAll() {
         List<Medico> medici = medicoRepository.findAll();
@@ -192,7 +192,8 @@ public class GestioneMediciService {
         }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        medicoRepository.save(MedicoEntityMapper.INSTANCE.toEntity(medicoSave));
+        Medico medico = MedicoEntityMapper.INSTANCE.toEntity(medicoSave);
+        medicoSave = MedicoDtoMapper.INSTANCE.toDto(medicoRepository.save(medico));
 
         return medicoSave;
     }

@@ -2,9 +2,7 @@ package com.msmedico;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msmedico.controller.GestioneMediciController;
 import com.msmedico.dto.MedicoDto;
-import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
 import com.msmedico.esito.GenericResponseDto;
 import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import org.junit.jupiter.api.Assertions;
@@ -28,10 +26,7 @@ import static com.msmedico.constants.WebConstants.REST_CONTEX_STRING;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class GestioneMediciControllerTest {
     private final String URL = REST_CONTEX_STRING +"/gestione-medici";
-    @Autowired
-    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
-    @Autowired
-    private GestioneMediciController gestioneMediciController;
+
     @Autowired
     private MockMvc mockMvc;
 

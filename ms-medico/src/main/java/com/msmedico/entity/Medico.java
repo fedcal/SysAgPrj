@@ -29,22 +29,4 @@ public class Medico {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_account", referencedColumnName = "id_profilo")
     private Profilo profilo;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<RepartoMedico> repartoMedicoSet;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<OperazioneCartella> operazioneCartella;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<OperazionePrescrizione> operazionePrescrizione;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<MedicinalePrescrizione> medicinalePrescrizione;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<VisitaPrescrizione> visitaPrescrizione;
-
-    @OneToMany(mappedBy = "medico")
-    private Set<VisitaEffettuataMedico> visitaSottoministrazioneMedico;
 }

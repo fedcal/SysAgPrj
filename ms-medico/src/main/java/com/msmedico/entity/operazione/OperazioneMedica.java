@@ -24,10 +24,4 @@ public class OperazioneMedica {
 
     @Column(name = "tipologia")
     private String tipologia;
-
-    @OneToMany(mappedBy = "operazioneMedica")
-    private Set<OperazioneCartella> operazioneCartella;
-
-    @OneToMany(mappedBy = "operazioneMedica")
-    private Set<OperazionePrescrizione> operazionePrescrizione;
 }

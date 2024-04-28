@@ -17,31 +17,4 @@ public class CartellaClinica {
 
     @Column(name = "gruppo_sanguigno")
     private String gruppoSanguigno;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="cartellaClinica")
-    private Set<Diagnosi> diagnosi;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<MalattiaCartella> malattiaCartella;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<VisitaMedicaCartella> visitaMedicaCartella;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<OperazioneCartella> operazioneCartella;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<MedicinalePrescrizione> medicinalePrescrizione;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<VisitaPrescrizione> visitaPrescrizione;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<VisitaEffettuataMedico> visitaSottoministrazioneMedico;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<MedicinaleCartella> medicinaleCartella;
-
-    @OneToMany(mappedBy = "cartellaClinica")
-    private Set<OperazionePrescrizione> operazionePrescrizione;
 }

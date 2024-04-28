@@ -26,7 +26,4 @@ public class Malattia {
 
     @Column(name="descrizione")
     private String descrizione;
-
-    @OneToMany(mappedBy = "malattia")
-    private Set<MalattiaCartella> cartelle;
 }

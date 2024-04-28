@@ -23,10 +23,10 @@ public class Paziente {
     @Column(name = "data_nascita")
     private String dataNascita;
 
-    @Column(name = "luogoNascita")
+    @Column(name = "luogo_nascita")
     private String luogoNascita;
 
-    @Column(name = "provinciaNascita")
+    @Column(name = "provincia_nascita")
     private String provinciaNascita;
 
     @OneToOne

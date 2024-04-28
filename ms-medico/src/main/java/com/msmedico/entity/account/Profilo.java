@@ -22,7 +22,4 @@ public class Profilo {
 
     @Column(name = "descrizione")
     private String descrizione;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "profilo")
-    private Set<OperazioneConsentita> operazioneConsentitaSet;
 }

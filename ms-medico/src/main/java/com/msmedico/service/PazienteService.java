@@ -106,7 +106,7 @@ public class PazienteService {
             findPaziente.addAll(pazienteRepository.findByDataNascita(params.getDataNascita()));
         }
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        esitoMessaggiRequestContextHolder.setOperationId("getAllPazienti");
+        esitoMessaggiRequestContextHolder.setOperationId("findInfoPazienti");
         return PazienteDtoMapper.INSTANCE.toDto(findPaziente);
     }
     private void checkParams(FindPazienteParams params) {
@@ -226,7 +226,7 @@ public class PazienteService {
         if(params.getIdCartellaClinica() == null && params.getIdPaziente()==null){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)
-                    .codMsg("Inserire almeno unn parametro di ricerca.").build());
+                    .codMsg("Inserire almeno un parametro di ricerca.").build());
             esitoMessaggiRequestContextHolder.setOperationId("findCartellaClinica");
             throw  new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }

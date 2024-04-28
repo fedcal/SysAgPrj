@@ -2,11 +2,7 @@ package com.msmedico;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msmedico.controller.MediciMessaggisticaController;
-import com.msmedico.dto.MedicoDto;
-import com.msmedico.esito.EsitoMessaggiRequestContextHolder;
 import com.msmedico.esito.GenericResponseDto;
-import com.msmedico.esito.constants.SeveritaMessaggioEnum;
 import com.msmedico.msinfermiere.api.MsInfermieriMessaggisticaControllerApi;
 import com.msmedico.msinfermiere.model.Esito;
 import com.msmedico.msinfermiere.model.GenericResponseDtoString;
@@ -19,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -38,16 +33,10 @@ public class MediciMessaggisticaControllerTest {
     private final String URL = REST_CONTEX_STRING +"/messagistica";
 
     @Autowired
-    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private MediciMessaggisticaController mediciMessaggisticaController;
 
     @MockBean
     private MsInfermieriMessaggisticaControllerApi messaggisticaControllerApiInfermiere;

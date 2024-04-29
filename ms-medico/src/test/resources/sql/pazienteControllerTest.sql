@@ -17,6 +17,9 @@ INSERT INTO cartella_clinica(id_cartella_clinica,gruppo_sanguigno) VALUES
 (1,'A+'),
 (2,'A+');
 
+INSERT INTO malattia(id_malattia,nome,descrizione) VALUES
+(1,'Ciao','descrizione');
+
 INSERT INTO paziente(id_paziente,nome,cognome,data_nascita,luogo_nascita,provincia_nascita,contatto_riferimento,id_reparto
 ,tipo_account,id_cartella_clinica) VALUES
 (1,'Giuseppe','Garibaldi','07-05-2005','Galatina','LE',1,1,1,1),
@@ -24,3 +27,9 @@ INSERT INTO paziente(id_paziente,nome,cognome,data_nascita,luogo_nascita,provinc
 
 INSERT INTO diagnosi(id_diagnosi,tipo_diagnosi,descrizione,id_cartella_clinica) VALUES
 (1,'Diagnosi 1','Descrizione',2);
+
+INSERT INTO malattia_cartella (id_relazione,id_malattia,id_cartella)
+VALUES (1,1,2);
+
+INSERT INTO medicinale(id_medicinale,nome,descrizione,dosaggio) VALUES
+    (1,'Ciao','descrizione','dosaggio');

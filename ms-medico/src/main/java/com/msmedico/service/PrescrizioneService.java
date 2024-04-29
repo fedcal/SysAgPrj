@@ -130,9 +130,9 @@ public class PrescrizioneService {
     private void checkParams(PrescrizioneOperazioneInfoParams params) {
         boolean checkId = params.getIdCartella()==null && params.getIdMedico()==null && params.getIdOperazione()==null &&
                 params.getIdPaziente()==null;
-        boolean checkString = StringUtils.hasLength(params.getNomeMedico()) && StringUtils.hasLength(params.getCognomeMedico())
-                && StringUtils.hasLength(params.getNomePaziente()) && StringUtils.hasLength(params.getCognomePaziente())
-                && StringUtils.hasLength(params.getNomeOperazione());
+        boolean checkString = !StringUtils.hasLength(params.getNomeMedico()) && !StringUtils.hasLength(params.getCognomeMedico())
+                && !StringUtils.hasLength(params.getNomePaziente()) && !StringUtils.hasLength(params.getCognomePaziente())
+                && !StringUtils.hasLength(params.getNomeOperazione());
         if(checkId && checkString){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.getMessaggi().add(Messaggio.builder().severita(SeveritaMessaggioEnum.ERROR)

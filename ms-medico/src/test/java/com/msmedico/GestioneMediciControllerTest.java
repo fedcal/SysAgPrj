@@ -305,7 +305,7 @@ public class GestioneMediciControllerTest {
     }
 
     @Test
-    @Sql("/sql/gestioneMediciController.sql")
+    @Sql("/sql/gestioneMediciController2.sql")
     void addMedico() {
         boolean exception = false;
         GenericResponseDto<MedicoDto> responseDto= null;
@@ -321,7 +321,7 @@ public class GestioneMediciControllerTest {
         }catch (Exception e){
             exception = true;
         }
-        Assertions.assertTrue(exception);
+        assertThat(responseDto.getPayload().getIdMedico()).isEqualTo(1);
     }
     @Test
     @Sql("/sql/gestioneMediciController.sql")
